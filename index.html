@@ -1,0 +1,2134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>系统集成项目管理工程师 · 备考助手</title>
+<style>
+:root{--primary:#2563eb;--primary-light:#3b82f6;--primary-dark:#1d4ed8;--success:#10b981;--warning:#f59e0b;--danger:#ef4444;--bg:#f0f4f8;--card:#fff;--text:#1e293b;--text-s:#64748b;--border:#e2e8f0;--shadow:0 1px 3px rgba(0,0,0,.08);--radius:12px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans SC",sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+.app{max-width:900px;margin:0 auto;padding:16px}
+.header{text-align:center;padding:20px 0 12px}
+.header h1{font-size:1.4rem;font-weight:700;color:var(--primary-dark)}
+.header p{color:var(--text-s);font-size:.82rem;margin-top:4px}
+.nav{display:flex;gap:4px;padding:6px;background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);overflow-x:auto;-webkit-overflow-scrolling:touch;position:sticky;top:0;z-index:100;margin-bottom:14px}
+.nav-btn{flex:none;padding:7px 12px;border:none;border-radius:8px;background:transparent;color:var(--text-s);font-size:.8rem;font-weight:500;cursor:pointer;transition:all .2s;white-space:nowrap}
+.nav-btn:hover{background:var(--bg);color:var(--text)}
+.nav-btn.active{background:var(--primary);color:#fff;box-shadow:0 2px 8px rgba(37,99,235,.3)}
+.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;margin-bottom:12px}
+.card-title{font-size:.95rem;font-weight:600;margin-bottom:10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-bottom:14px}
+.stat-card{background:var(--card);border-radius:var(--radius);padding:14px;box-shadow:var(--shadow);text-align:center}
+.stat-num{font-size:1.4rem;font-weight:700}
+.stat-label{font-size:.72rem;color:var(--text-s);margin-top:2px}
+.progress-bar{height:5px;background:#e2e8f0;border-radius:3px;overflow:hidden;margin-top:6px}
+.progress-bar .fill{height:100%;border-radius:3px;transition:width .5s ease}
+.tag{display:inline-block;padding:2px 8px;border-radius:10px;font-size:.7rem;margin:2px}
+.tag-blue{background:#dbeafe;color:#1d4ed8}.tag-green{background:#dcfce7;color:#166534}
+.tag-yellow{background:#fef3c7;color:#92400e}.tag-red{background:#fee2e2;color:#991b1b}.tag-purple{background:#f3e8ff;color:#6b21a8}
+.knowledge-category .cat-header{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;background:var(--bg);border-radius:8px;cursor:pointer;transition:all .2s}
+.knowledge-category .cat-header:hover{background:#dbeafe}
+.knowledge-category .cat-header h3{font-size:.88rem;font-weight:600}
+.knowledge-category .cat-header .arrow{transition:transform .3s;font-size:.75rem;color:var(--text-s)}
+.knowledge-category.open .cat-header .arrow{transform:rotate(90deg)}
+.knowledge-category .cat-body{display:none;padding:10px 0}
+.knowledge-category.open .cat-body{display:block}
+.topic-item{padding:8px 14px;border-left:3px solid var(--border);margin:3px 0;cursor:pointer;transition:all .2s;font-size:.84rem}
+.topic-item:hover{border-left-color:var(--primary);background:#f8fafc}
+.topic-item.learned{border-left-color:var(--success)}
+.topic-item .topic-title{display:flex;justify-content:space-between;align-items:center}
+.topic-item .mark-btn{font-size:.7rem;padding:2px 8px;border:1px solid var(--border);border-radius:4px;background:transparent;cursor:pointer;transition:all .2s}
+.topic-item .mark-btn:hover{border-color:var(--primary);color:var(--primary)}
+.topic-item .mark-btn.marked{background:var(--success);color:#fff;border-color:var(--success)}
+.topic-detail{margin-top:6px;padding:10px;background:#f8fafc;border-radius:8px;font-size:.8rem;line-height:1.8;display:none}
+.topic-detail h4{font-size:.84rem;color:var(--primary-dark);margin-bottom:4px}
+.topic-detail ul{padding-left:16px}.topic-detail li{margin:2px 0}
+.topic-detail .formula{background:#fef3c7;padding:1px 6px;border-radius:3px;font-family:monospace;font-size:.78rem}
+.topic-detail .key-point{background:#dbeafe;padding:1px 6px;border-radius:3px}
+.quiz-options{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.quiz-option{padding:11px 14px;border:2px solid var(--border);border-radius:8px;cursor:pointer;transition:all .2s;font-size:.84rem}
+.quiz-option:hover{border-color:var(--primary-light);background:#f0f7ff}
+.quiz-option.selected{border-color:var(--primary);background:#eff6ff}
+.quiz-option.correct{border-color:var(--success);background:#ecfdf5}
+.quiz-option.wrong{border-color:var(--danger);background:#fef2f2}
+.quiz-option .opt-label{font-weight:600;margin-right:6px;color:var(--primary)}
+.quiz-explanation{margin-top:10px;padding:10px;background:#f0fdf4;border-left:3px solid var(--success);border-radius:0 8px 8px 0;font-size:.8rem;line-height:1.7;display:none}
+.quiz-explanation.show{display:block}
+.quiz-explanation.wrong-exp{background:#fef2f2;border-left-color:var(--danger)}
+.quiz-nav{display:flex;gap:8px;margin-top:14px}
+.quiz-nav button{flex:1;padding:10px;border:none;border-radius:8px;font-size:.84rem;font-weight:500;cursor:pointer;transition:all .2s}
+.btn-primary{background:var(--primary);color:#fff}.btn-primary:hover{background:var(--primary-dark)}
+.btn-secondary{background:var(--bg);color:var(--text)}.btn-secondary:hover{background:var(--border)}
+.btn-success{background:var(--success);color:#fff}.btn-warning{background:var(--warning);color:#fff}
+.btn-danger{background:var(--danger);color:#fff}
+.quiz-config{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.quiz-config select,.quiz-config button{padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-size:.82rem;background:var(--card);cursor:pointer}
+.quiz-progress{display:flex;gap:2px;margin-bottom:10px;flex-wrap:wrap}
+.quiz-dot{width:7px;height:7px;border-radius:50%;background:var(--border)}
+.quiz-dot.correct{background:var(--success)}.quiz-dot.wrong{background:var(--danger)}
+.quiz-dot.current{background:var(--primary);box-shadow:0 0 4px rgba(37,99,235,.4)}
+.case-scenario{background:#f8fafc;border-radius:8px;padding:14px;margin-bottom:10px;border-left:3px solid var(--primary)}
+.case-scenario p{font-size:.84rem;line-height:1.8;white-space:pre-line}
+.case-question{font-size:.86rem;font-weight:600;margin:10px 0 6px}
+.case-answer-area{display:none;margin-top:10px}
+.case-answer-area.show{display:block}
+.case-reference{background:#ecfdf5;border:1px solid #a7f3d0;border-radius:8px;padding:12px;font-size:.8rem;line-height:1.8}
+.case-reference h4{color:var(--success);margin-bottom:4px;font-size:.84rem}
+.case-reference p{white-space:pre-line}
+.calc-section{margin-bottom:14px}
+.calc-form{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.calc-form label{font-size:.78rem;color:var(--text-s)}
+.calc-form input{padding:8px 10px;border:1px solid var(--border);border-radius:6px;font-size:.84rem}
+.calc-form input:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 2px rgba(37,99,235,.15)}
+.calc-result{margin-top:10px;padding:12px;background:#f0f9ff;border:1px solid #bae6fd;border-radius:8px}
+.calc-result .result-item{display:flex;justify-content:space-between;padding:5px 0;font-size:.84rem;border-bottom:1px solid #e0f2fe}
+.calc-result .result-item:last-child{border-bottom:none}
+.calc-result .result-label{color:var(--text-s)}
+.calc-result .result-value{font-weight:600}
+.calc-result .result-value.good{color:var(--success)}.calc-result .result-value.bad{color:var(--danger)}
+.calc-result .result-value.warn{color:var(--warning)}
+.formula-ref{background:#fef3c7;border:1px solid #fde68a;border-radius:8px;padding:12px;margin-top:10px;font-size:.78rem;line-height:1.9}
+.formula-ref h4{color:#92400e;margin-bottom:4px}
+.cpm-network{background:#f8fafc;border:1px solid var(--border);border-radius:8px;padding:14px;margin-top:10px;min-height:60px;overflow-x:auto}
+.cpm-add-row{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap;align-items:center}
+.cpm-add-row input{padding:6px 8px;border:1px solid var(--border);border-radius:6px;font-size:.8rem}
+.wrong-item{padding:10px;border:1px solid var(--border);border-radius:8px;margin-bottom:6px}
+.wrong-item .wrong-q{font-size:.84rem;font-weight:500;margin-bottom:4px}
+.wrong-item .wrong-info{font-size:.73rem;color:var(--text-s);display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.wrong-item .wrong-actions{display:flex;gap:6px;margin-top:6px}
+.wrong-item .wrong-actions button{padding:4px 10px;border:1px solid var(--border);border-radius:4px;font-size:.73rem;background:transparent;cursor:pointer}
+.plan-today{background:linear-gradient(135deg,#2563eb,#7c3aed);color:#fff;border-radius:var(--radius);padding:18px;margin-bottom:14px}
+.plan-today h3{font-size:.95rem;margin-bottom:6px}
+.plan-today .plan-date{font-size:.78rem;opacity:.8}
+.plan-checklist .check-item{display:flex;align-items:center;gap:8px;padding:6px 0;font-size:.84rem}
+.plan-checklist .check-item input[type=checkbox]{width:16px;height:16px;accent-color:var(--primary)}
+.page{display:none}.page.active{display:block}
+.timer-display{font-size:2rem;font-weight:700;text-align:center;font-family:monospace;color:var(--primary);padding:14px}
+.timer-controls{display:flex;gap:8px;justify-content:center;margin-top:8px}
+.process-table{width:100%;font-size:.72rem;border-collapse:collapse;margin-top:6px}
+.process-table th,.process-table td{padding:5px 7px;border:1px solid var(--border);text-align:left}
+.process-table th{background:var(--primary);color:#fff;font-weight:500}
+.process-table td{background:var(--card)}
+.process-table tr:hover td{background:#f0f7ff}
+.search-box{width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:8px;font-size:.84rem;margin-bottom:10px}
+.search-box:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 2px rgba(37,99,235,.15)}
+.tabs{display:flex;gap:4px;margin-bottom:10px;border-bottom:2px solid var(--border)}
+.tab-btn{padding:7px 14px;border:none;background:transparent;color:var(--text-s);font-size:.82rem;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .2s}
+.tab-btn.active{color:var(--primary);border-bottom-color:var(--primary);font-weight:600}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);padding:10px 22px;background:#1e293b;color:#fff;border-radius:8px;font-size:.84rem;opacity:0;transition:opacity .3s;z-index:9999;pointer-events:none}
+.toast.show{opacity:1}
+@media(max-width:600px){.app{padding:10px}.header h1{font-size:1.15rem}.calc-form{grid-template-columns:1fr}.stats-row{grid-template-columns:repeat(2,1fr)}}
+.exam-analysis{margin-bottom:8px}.exam-analysis .tag{margin-right:4px}
+.memory-tip{background:#fef3c7;padding:6px 10px;border-radius:6px;border-left:3px solid #f59e0b;font-size:.8rem;margin:4px 0}
+.example-q{background:#f0f9ff;border:1px solid #bae6fd;border-radius:8px;padding:10px;margin:6px 0;font-size:.8rem;line-height:1.8}
+.example-q p{margin:2px 0}
+.example-ans{color:#166534;font-weight:500;margin-top:4px;padding-top:4px;border-top:1px solid #bae6fd}
+.key-concept{background:#dbeafe;padding:2px 6px;border-radius:4px;font-weight:500}
+.mock-config{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.mock-config select,.mock-config button{padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-size:.82rem;background:var(--card);cursor:pointer}
+.mock-header{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:2px solid var(--border);margin-bottom:10px}
+.mock-timer{font-size:1.3rem;font-weight:700;font-family:monospace;color:var(--primary)}
+.mock-question-num{font-size:.85rem;color:var(--text-s)}
+.mock-result{padding:20px;text-align:center}
+.mock-result .score{font-size:3rem;font-weight:700;margin:10px 0}
+.mock-result .pass{color:var(--success)}.mock-result .fail{color:var(--danger)}
+.mock-analysis-bar{display:flex;height:20px;border-radius:10px;overflow:hidden;margin:8px 0}
+.mock-analysis-bar div{transition:width .5s}
+.mock-review-item{padding:10px;border:1px solid var(--border);border-radius:8px;margin-bottom:8px;font-size:.84rem}
+.mock-review-item.wrong-item{border-left:3px solid var(--danger)}
+.mock-review-item.correct-item{border-left:3px solid var(--success)}
+.mock-review-q{font-weight:500;margin-bottom:4px}
+.mock-review-answer{font-size:.8rem;color:var(--text-s);margin-top:4px}
+.mock-sheet{display:grid;grid-template-columns:repeat(15,1fr);gap:4px;margin:10px 0}
+.mock-sheet-dot{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:500;border:1px solid var(--border);cursor:pointer;transition:all .2s}
+.mock-sheet-dot.answered{background:var(--bg);border-color:var(--primary-light)}
+.mock-sheet-dot.current{background:var(--primary);color:#fff;border-color:var(--primary)}
+.mock-sheet-dot.correct-dot{background:var(--success);color:#fff}
+.mock-sheet-dot.wrong-dot{background:var(--danger);color:#fff}
+.section-divider{padding:10px;background:var(--primary);color:#fff;border-radius:8px;margin:14px 0;font-size:.85rem;font-weight:600}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="header">
+    <h1>系统集成项目管理工程师 · 备考助手</h1>
+    <p>中级 | 2025/2026 考纲 | 本地存储</p>
+  </div>
+  <div class="nav" id="mainNav">
+    <button class="nav-btn active" onclick="nav('home')">首页</button>
+    <button class="nav-btn" onclick="nav('knowledge')">知识点</button>
+    <button class="nav-btn" onclick="nav('quiz')">刷题</button>
+    <button class="nav-btn" onclick="nav('case')">案例</button>
+    <button class="nav-btn" onclick="nav('calc')">计算器</button>
+    <button class="nav-btn" onclick="nav('wrong')">错题本</button>
+    <button class="nav-btn" onclick="nav('plan')">备考</button>
+    <button class="nav-btn" onclick="nav('mock')">模拟</button>
+    <button class="nav-btn" onclick="nav('analysis')">分析</button>
+  </div>
+  <div class="page active" id="page-home"></div>
+  <div class="page" id="page-knowledge"></div>
+  <div class="page" id="page-quiz"></div>
+  <div class="page" id="page-case"></div>
+  <div class="page" id="page-calc"></div>
+  <div class="page" id="page-wrong"></div>
+  <div class="page" id="page-plan"></div>
+  <div class="page" id="page-mock"></div>
+  <div class="page" id="page-analysis"></div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+const DB_KEY='si_pm_study_v3';
+const getDB=()=>{try{return JSON.parse(localStorage.getItem(DB_KEY))||{}}catch(e){return{}}};
+const saveDB=db=>localStorage.setItem(DB_KEY,JSON.stringify(db));
+const $=id=>document.getElementById(id);
+const toast=msg=>{const t=$('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2000)};
+
+// ===== KNOWLEDGE DATA =====
+const KB=[
+{id:'信息化基础',title:'信息化基础知识',topics:[
+{title:'国家信息化体系六要素',detail:'<div class="exam-analysis"><span class="tag tag-red">高频考点</span> <span class="tag tag-yellow">★★☆☆</span> 选择题</div><h4>六要素</h4><ul><li><span class="key-point">信息技术应用</span> — 主轴，龙头</li><li><span class="key-point">信息资源</span> — 核心任务和核心内容</li><li><span class="key-point">信息网络</span> — 基础设施</li><li><span class="key-point">信息技术和产业</span> — 建设基础</li><li><span class="key-point">信息化人才</span> — 成功之本</li><li><span class="key-point">信息化政策法规和标准规范</span> — 保障</li></ul><h4>记忆技巧</h4><p class="memory-tip">口诀：\"应用龙、资源核、网络基、技术撑、人才本、法规保\" — 六字口诀对应六要素</p><h4>例题</h4><div class="example-q"><p>在国家信息化体系中，起到\"龙头\"和\"主轴\"作用的要素是()。</p><p>A.信息资源 B.信息技术应用 C.信息网络 D.信息化人才</p><p class="example-ans">答案：B。信息技术应用是龙头和主轴，信息资源是核心内容，信息网络是基础设施。</p></div>'},
+{title:'电子政务',detail:'<div class="exam-analysis"><span class="tag tag-yellow">中频考点</span> <span class="tag tag-yellow">★★☆☆</span> 选择题</div><h4>电子政务模型</h4><ul><li><span class="key-point">G2G</span>（政府对政府）：办公自动化、公文流转</li><li><span class="key-point">G2B</span>（政府对企业）：电子税务、电子采购</li><li><span class="key-point">G2C</span>（政府对公民）：在线教育、社保</li><li><span class="key-point">G2E</span>（政府对公务员）：内部办公系统</li></ul><h4>记忆技巧</h4><p class="memory-tip">口诀：\"政政办、政企税、政民教、政公元\" — G2G办公、G2B税务、G2C教育、G2E公务员</p><h4>例题</h4><div class="example-q"><p>下列哪项属于G2B模式的典型应用？()</p><p>A.在线教育 B.电子税务 C.公文流转 D.内部办公</p><p class="example-ans">答案：B。G2B（政府对企业）包括电子税务和电子采购。在线教育是G2C，公文流转是G2G，内部办公是G2E。</p></div>'},
+{title:'企业信息化',detail:'<div class="exam-analysis"><span class="tag tag-yellow">中频考点</span> <span class="tag tag-yellow">★☆☆☆</span> 选择题</div><h4>企业信息化体系</h4><ul><li><strong>ERP</strong>：核心是MRP\u2161，整合企业资源</li><li><strong>CRM</strong>：客户关系管理</li><li><strong>SCM</strong>：供应链管理</li><li><strong>BPM</strong>：业务流程管理</li></ul><h4>记忆技巧</h4><p class="memory-tip">口诀：\"E企整、C客管、S供链、B流程\" — ERP=企业资源计划(整合)、CRM=客户关系、SCM=供应链、BPM=业务流程</p><h4>例题</h4><div class="example-q"><p>企业资源计划(ERP)的核心是()。</p><p>A.CRM B.MRP\u2161 C.BPM D.SCM</p><p class="example-ans">答案：B。ERP的核心是MRP\u2161（制造资源计划），ERP在MRP\u2161基础上扩展了财务、人力资源等功能。</p></div>'},
+{title:'信息系统生命周期',detail:'<div class="exam-analysis"><span class="tag tag-yellow">中频考点</span> <span class="tag tag-yellow">★★☆☆</span> 选择题/案例分析</div><h4>五个阶段</h4><ul><li><span class="key-point">规划</span>：战略规划、可行性研究</li><li><span class="key-point">分析</span>：需求分析、功能分析</li><li><span class="key-point">设计</span>：概要设计、详细设计</li><li><span class="key-point">实施</span>：编码、测试、部署</li><li><span class="key-point">运维</span>：运行维护、变更管理</li></ul><h4>记忆技巧</h4><p class="memory-tip">口诀：\"规分设实运\" — 规划、分析、设计、实施、运维，五步走。注意：分析阶段产出需求规格说明书，设计阶段产出系统设计文档。</p><h4>例题</h4><div class="example-q"><p>在信息系统生命周期中，需求分析属于哪个阶段？()</p><p>A.规划阶段 B.分析阶段 C.设计阶段 D.实施阶段</p><p class="example-ans">答案：B。需求分析属于分析阶段，该阶段产出需求规格说明书。规划阶段进行可行性研究，设计阶段进行系统设计。</p></div>'},
+]},
+{id:'信息系统集成',title:'信息系统集成及服务管理',topics:[
+{title:'信息系统集成资质',detail:'<div class="exam-analysis"><span class="tag tag-green">低频考点</span> <span class="tag tag-yellow">★☆☆☆</span> 选择题</div><h4>资质等级（传统分级）</h4><ul><li>一级：国家级项目</li><li>二级：省级项目</li><li>三级：市级项目</li><li>四级：区县级项目</li></ul><p>2025年调整为信息化服务能力评价</p><h4>记忆技巧</h4><p class="memory-tip">口诀：\"一国二省三市四区\" — 数字对应项目级别，从上到下递减</p><h4>例题</h4><div class="example-q"><p>信息系统集成资质中，承担省级项目的企业至少需要()级资质。</p><p>A.一级 B.二级 C.三级 D.四级</p><p class="example-ans">答案：B。一级对应国家级、二级对应省级、三级对应市级、四级对应区县级项目。</p></div>'},
+{title:'ITIL服务管理',detail:'<div class="exam-analysis"><span class="tag tag-yellow">中频考点</span> <span class="tag tag-yellow">★★☆☆</span> 选择题</div><h4>ITIL五阶段</h4><ul><li>战略阶段：服务战略</li><li>设计阶段：服务设计</li><li>转换阶段：服务转换（变更管理核心）</li><li>运营阶段：事件管理、问题管理</li><li>改进阶段：持续服务改进</li></ul><h4>记忆技巧</h4><p class="memory-tip">口诀：\"战设转运改\" — ITIL生命周期五阶段。重点是转换阶段包含变更管理，运营阶段区分事件管理(恢复服务)和问题管理(找根因)。</p><h4>例题</h4><div class="example-q"><p>在ITIL服务生命周期中，变更管理属于哪个阶段？()</p><p>A.服务战略 B.服务设计 C.服务转换 D.服务运营</p><p class="example-ans">答案：C。变更管理是服务转换阶段的核心流程。服务运营阶段关注事件管理和问题管理。</p></div>'},
+{title:'ITSS标准',detail:'<div class="exam-analysis"><span class="tag tag-yellow">中频考点</span> <span class="tag tag-yellow">★☆☆☆</span> 选择题</div><h4>ITSS四级能力模型</h4><ul><li>一级（定量改进级）</li><li>二级（协同改进级）</li><li>三级（规范级）</li><li>四级（基本级）</li></ul><p>四要素：<strong>PPTR</strong>（人员、流程、技术、资源）</p><h4>记忆技巧</h4><p class="memory-tip">口诀：\"ITSS四要素PPTR\" — Personnel人员、Process流程、Technology技术、Resource资源。等级从一级(最高)到四级(最低)，与等保相反。</p><h4>例题</h4><div class="example-q"><p>ITSS信息技术服务标准的核心四要素不包括()。</p><p>A.人员 B.流程 C.资金 D.技术</p><p class="example-ans">答案：C。ITSS四要素PPTR：人员(Personnel)、流程(Process)、技术(Technology)、资源(Resource)，不包括资金。</p></div>'},
+]},
+{id:'法律法规',title:'法律法规与标准规范',topics:[
+{title:'招标投标法',detail:'<div class="exam-analysis"><span class="tag tag-red">高频考点</span> <span class="tag tag-yellow">★★★☆</span> 选择题/案例分析</div><h4>核心考点</h4><ul><li><span class="key-point">必须招标</span>：大型基础设施、国有资金项目等</li><li>招标方式：<span class="key-point">公开招标</span>（主要）和邀请招标</li><li>招标文件发售 \u2265 <span class="formula">5个工作日</span></li><li>投标准备时间 \u2265 <span class="formula">20日</span></li><li>评标委员会：<span class="formula">5人以上单数</span>，专家 \u2265 <span class="formula">2/3</span></li><li>中标后 <span class="formula">30日内</span>签订书面合同</li></ul><h4>记忆技巧</h4><p class="memory-tip">数字口诀：\"5天发售、20天投标、5人评标(2/3专家)、30天签合同\" — 520530，时间节点牢记</p><h4>例题</h4><div class="example-q"><p>根据《招标投标法》，依法必须进行招标的项目，自招标文件发出之日起至投标人提交投标文件截止之日止，最短不得少于()。</p><p>A.10日 B.15日 C.20日 D.30日</p><p class="example-ans">答案：C。投标准备时间最短不得少于20日。招标文件发售不少于5个工作日，中标后30日内签订合同。</p></div>'},
+{title:'政府采购法',detail:'<div class="exam-analysis"><span class="tag tag-yellow">中频考点</span> <span class="tag tag-yellow">★★☆☆</span> 选择题</div><h4>采购方式</h4><ul><li><span class="key-point">公开招标</span> — 主要方式</li><li>邀请招标</li><li>竞争性谈判（\u22653家供应商）</li><li>竞争性磋商</li><li>单一来源采购</li><li>询价（\u22653家）</li></ul><h4>记忆技巧</h4><p class="memory-tip">口诀：\"公开为主、邀请为辅、谈判磋商需三家、单一询价特殊用\" — 六种方式，公开招标是政府采购的主要方式</p><h4>例题</h4><div class="example-q"><p>根据《政府采购法》，政府采购的主要方式是()。</p><p>A.邀请招标 B.竞争性谈判 C.公开招标 D.单一来源采购</p><p class="example-ans">答案：C。公开招标是政府采购的主要方式。竞争性谈判和询价均要求不少于3家供应商参与。</p></div>'},
+{title:'合同法核心',detail:'<div class="exam-analysis"><span class="tag tag-red">高频考点</span> <span class="tag tag-yellow">★★★☆</span> 选择题/案例分析</div><h4>合同类型</h4><ul><li><span class="key-point">固定总价(FFP)</span>：买方风险最小</li><li>总价加激励费用(FPIF)</li><li>成本补偿(CPFF/CPIF)：<span class="formula">CPFF</span>卖方风险最小</li><li>工料合同(T&amp;M)</li></ul><p><span class="key-point">索赔程序</span>：28天通知\u219228天报告\u219228天批复\u2192仲裁/诉讼</p><h4>记忆技巧</h4><p class="memory-tip">索赔口诀：\"28天通知、28天报告、28天批复\" — 三个28天，逾期视为放弃或认可。合同风险：买方FFP最小，卖方CPFF最小。</p><h4>例题</h4><div class="example-q"><p>在项目合同中，对于买方来说风险最小的合同类型是()。</p><p>A.成本加固定费用(CPFF) B.工料合同(T&amp;M) C.固定总价合同(FFP) D.成本加激励费用(CPIF)</p><p class="example-ans">答案：C。固定总价合同(FFP)买方风险最小，价格固定；CPFF卖方风险最小，所有成本由买方承担。</p></div>'},
+{title:'网络安全法',detail:'<div class="exam-analysis"><span class="tag tag-yellow">中频考点</span> <span class="tag tag-yellow">★★☆☆</span> 选择题</div><h4>等级保护</h4><ul><li>等保1-5级（5级最高）</li><li>关键信息基础设施：通信、能源、交通、金融、电子政务等</li></ul><h4>记忆技巧</h4><p class="memory-tip">口诀：\"等保五级5最高，关键基建通能交金政\" — 1级自主到5级专控，级别越高保护越严。关键信息基础设施包括通信/能源/交通/金融/电子政务。</p><h4>例题</h4><div class="example-q"><p>根据网络安全等级保护制度，最高保护等级是()。</p><p>A.1级 B.3级 C.4级 D.5级</p><p class="example-ans">答案：D。等级保护共5级，5级最高(专控保护级)，1级最低(自主保护级)。注意与ITSS等级相反。</p></div>'},
+{title:'软件知识产权',detail:'<div class="exam-analysis"><span class="tag tag-yellow">中频考点</span> <span class="tag tag-yellow">★★☆☆</span> 选择题</div><h4>著作权</h4><ul><li>自<span class="key-point">开发完成之日</span>自动产生</li><li>登记非前提，诉讼中起证明作用</li><li>保护期：自然人作者<span class="formula">终生+50年</span></li><li>职务开发默认属单位</li></ul><h4>记忆技巧</h4><p class="memory-tip">口诀：\"完成即保护、登记非必要、终生加五十、职务归单位\" — 软件著作权自动获得、非强制登记</p><h4>例题</h4><div class="example-q"><p>某程序员在公司任职期间开发的软件，若无特别约定，著作权属于()。</p><p>A.程序员个人 B.所在单位 C.程序员与单位共有 D.国家</p><p class="example-ans">答案：B。职务开发作品的著作权默认属于单位，除非合同另有约定。注意区分：自然人作者保护期为终生+50年。</p></div>'},
+]},
+{id:'项目整体管理',title:'项目整体管理',topics:[
+{title:'项目章程',detail:'<div class="exam-analysis"><span class="tag tag-red">高频考点</span> <span class="tag tag-yellow">★★★☆</span> 选择题/案例分析</div><h4>项目章程核心内容</h4><ul><li>项目目的和论证理由</li><li>可衡量的目标和成功标准</li><li>高层级需求、边界、可交付成果</li><li>整体项目风险</li><li>里程碑进度计划</li><li>预审财务资源</li><li>关键干系人名单</li><li>项目经理及其权责</li></ul><p><span class="key-point">由项目发起人签发，赋予项目经理调动资源的权力</span></p><h4>记忆技巧</h4><p class="memory-tip">口诀：\"目的目标需成果，风险里程碑资金，干系名单经理权\" — 章程8要素。关键区分：章程是启动输出、由发起人签发；项目管理计划是规划输出。</p><h4>例题</h4><div class="example-q"><p>关于项目章程，以下说法正确的是()。</p><p>A.由项目经理编写 B.由项目发起人签发 C.包含详细WBS D.属于规划过程组输出</p><p class="example-ans">答案：B。项目章程由项目发起人（或授权人）签发，是启动过程组的输出。WBS是规划阶段产物。</p></div>'},
+{title:'项目管理计划',detail:'<div class="exam-analysis"><span class="tag tag-red">高频考点</span> <span class="tag tag-yellow">★★☆☆</span> 选择题/案例分析</div><h4>项目管理计划</h4><ul><li>包含所有子管理计划：<span class="key-point">范围、进度、成本、质量、资源、沟通、风险、采购、干系人、变更、配置</span>管理计划</li><li><span class="key-point">三大基准</span>：范围基准、进度基准、成本基准</li></ul><h4>记忆技巧</h4><p class="memory-tip">口诀：\"十子计划+三大基准=项目管理计划\" — 十大知识领域+变更和配置=11个子计划，加上范围/进度/成本三大基准。注意：无\"质量基准\"！</p><h4>例题</h4><div class="example-q"><p>项目管理计划包含三大基准，不包括()。</p><p>A.范围基准 B.进度基准 C.质量基准 D.成本基准</p><p class="example-ans">答案：C。三大基准是范围基准、进度基准和成本基准，没有\"质量基准\"。这是一个常见迷惑项。</p></div>'},
+{title:'变更控制流程',detail:'<div class="exam-analysis"><span class="tag tag-red">高频考点</span> <span class="tag tag-yellow">★★★★</span> 选择题/案例分析</div><h4>\u2b50 高频必考：变更控制完整流程</h4><ol><li><span class="key-point">提出变更申请</span>（变更申请人）</li><li><span class="key-point">变更影响分析</span>（项目经理组织评估）</li><li><span class="key-point">CCB审查批准/否决</span></li><li><span class="key-point">实施变更</span>（变更实施人）</li><li><span class="key-point">变更验证</span>（验证人确认）</li><li><span class="key-point">更新配置项/文档</span>（配置管理员）</li><li><span class="key-point">结束变更</span>（归档）</li></ol><p>\u26a0\ufe0f CCB只批准或否决，不提出变更、不实施、不验证</p><h4>记忆技巧</h4><p class="memory-tip">七字口诀：\"申(申请)\u2192析(分析)\u2192批(审批)\u2192施(实施)\u2192验(验证)\u2192更(更新)\u2192结(结束)\" — 记住CCB核心职责：只审批不执行</p><h4>例题</h4><div class="example-q"><p>关于整体变更控制，以下说法错误的是()。</p><p>A.任何干系人都可以提出变更申请 B.CCB负责实施变更 C.变更前需要做影响分析 D.变更后需要更新配置项</p><p class="example-ans">答案：B。CCB只负责批准或否决变更，不负责实施。实施变更由变更实施人负责。变更申请可以由任何干系人提出。</p></div>'},
+{title:'整体管理7个过程',detail:'<div class="exam-analysis"><span class="tag tag-red">高频考点</span> <span class="tag tag-yellow">★★★☆</span> 选择题/案例分析</div><ul><li>制定项目章程 — <span class="key-point">启动</span></li><li>制定项目管理计划 — 规划</li><li>指导与管理项目工作 — 执行</li><li>管理项目知识 — 执行</li><li>监控项目工作 — 监控</li><li>实施整体变更控制 — 监控</li><li>结束项目或阶段 — <span class="key-point">收尾</span></li></ul><h4>记忆技巧</h4><p class="memory-tip">分布口诀：\"启1规1执2监2尾1\" — 7个过程覆盖所有5个过程组。注意：整体管理是唯一覆盖全部5个过程组的知识领域。</p><h4>例题</h4><div class="example-q"><p>项目整体管理中，管理项目知识属于()过程组。</p><p>A.启动 B.规划 C.执行 D.监控</p><p class="example-ans">答案：C。管理项目知识与指导与管理项目工作同属于执行过程组。整体管理7过程分布：启动1+规划1+执行2+监控2+收尾1。</p></div>'},
+]},
+{id:'项目范围管理',title:'项目范围管理',topics:[
+{title:'WBS工作分解结构',detail:'<div class="exam-analysis"><span class="tag tag-red">高频考点</span> <span class="tag tag-yellow">★★★☆</span> 选择题/案例分析</div><h4>WBS核心要点</h4><ul><li>遵循<span class="key-point">100%原则</span>（每层100%覆盖上层范围）</li><li>最底层是<span class="key-point">工作包</span>（非活动）</li><li>WBS+WBS词典 = 范围基准组成部分</li></ul><p>\u26a0\ufe0f WBS分解到工作包即可，不需到活动级别</p><h4>记忆技巧</h4><p class="memory-tip">口诀：\"100%全覆盖、工作包到底、不分解到活动\" — WBS三要点。WBS词典描述每个工作包的详细内容/验收标准/负责人</p><h4>例题</h4><div class="example-q"><p>关于WBS分解，以下说法正确的是()。</p><p>A.最底层是活动 B.WBS只需覆盖80%范围 C.WBS+WBS词典构成范围基准组成部分 D.WBS由项目经理独立编制</p><p class="example-ans">答案：C。WBS+WBS词典是范围基准的组成部分。WBS最底层是工作包(非活动)，必须遵循100%原则，应由项目团队共同编制。</p></div>'},
+{title:'范围管理6个过程',detail:'<div class="exam-analysis"><span class="tag tag-red">高频考点</span> <span class="tag tag-yellow">★★★☆</span> 选择题/案例分析</div><ul><li>规划范围管理 — 规划</li><li>收集需求 — 规划</li><li>定义范围 — 规划</li><li>创建WBS — 规划</li><li>确认范围 — <span class="key-point">监控</span>（客户验收）</li><li>控制范围 — 监控</li></ul><p>\u26a0\ufe0f 确认范围\u2260质量控制。确认范围关注可交付成果验收，由客户/发起人进行</p><h4>记忆技巧</h4><p class="memory-tip">分布口诀：\"规4监2\" — 6个过程中4个属于规划过程组，2个(确认范围+控制范围)属于监控过程组。注意：确认范围先于质量控制？错！质量控制在前，确认范围在后。</p><h4>例题</h4><div class="example-q"><p>以下哪个过程属于范围管理的监控过程组？()</p><p>A.收集需求 B.创建WBS C.定义范围 D.确认范围</p><p class="example-ans">答案：D。确认范围和控制范围属于监控过程组。其余4个(规划范围管理/收集需求/定义范围/创建WBS)属于规划过程组。</p></div>'},
+{title:'确认范围vs控制范围',detail:'<div class="exam-analysis"><span class="tag tag-red">高频考点</span> <span class="tag tag-yellow">★★★☆</span> 选择题/案例分析</div><ul><li><span class="key-point">确认范围</span>：正式验收已完成可交付成果（客户/发起人审查）</li><li><span class="key-point">控制范围</span>：监督范围基准变更（应对范围蔓延）</li></ul><h4>记忆技巧</h4><p class="memory-tip">区分口诀：\"确认=客户验、控制=防蔓延\" — 确认范围是客户验收(重在认可)，控制范围是防止范围蔓延(重在监督)。确认范围vs质量控制：QC在前(内部检查)、确认范围在后(外部验收)</p><h4>例题</h4><div class="example-q"><p>以下关于确认范围和控制范围区别，正确的是()。</p><p>A.确认范围由项目团队内部完成 B.控制范围由客户完成 C.确认范围是正式验收可交付成果 D.两者没有区别</p><p class="example-ans">答案：C。确认范围是由客户/发起人正式验收可交付成果。控制范围是监督范围基准、防止范围蔓延。两者都属于监控过程组。</p></div>'},
+]},
+{id:'项目进度管理',title:'项目进度管理',topics:[
+{title:'关键路径法(CPM)',detail:'<div class="exam-analysis"><span class="tag tag-red">高频考点</span> <span class="tag tag-yellow">★★★★</span> 选择题/案例分析/计算</div><h4>\u2b50 必考计算</h4><ul><li><span class="formula">ES = max(前置EF)</span></li><li><span class="formula">EF = ES + 工期</span></li><li><span class="formula">LF = min(后置LS)</span></li><li><span class="formula">LS = LF - 工期</span></li><li><span class="formula">总浮动TF = LS-ES = LF-EF</span></li><li><span class="formula">自由浮动FF = ES(后置) - EF(当前)</span></li></ul><p><span class="key-point">关键路径：TF=0的路径，项目最短工期</span></p><h4>记忆技巧</h4><p class="memory-tip">CPM三步走：\"正推ES/EF(取最大)、逆推LF/LS(取最小)、浮动TF=LS-ES\"。关键路径=TF=0的活动序列，总工期=关键路径上活动工期之和。</p><h4>例题</h4><div class="example-q"><p>某活动A的ES=5，EF=10，后置活动B的ES=12，则活动A的自由浮动时间FF为()。</p><p>A.0 B.2 C.5 D.7</p><p class="example-ans">答案：B。FF=ES(B)-EF(A)=12-10=2。注意区分FF(自由浮动)和TF(总浮动)：TF=LS-ES=LF-EF。</p></div>'},
+{title:'进度压缩',detail:'<div class="exam-analysis"><span class="tag tag-red">高频考点</span> <span class="tag tag-yellow">★★☆☆</span> 选择题</div><h4>两种技术</h4><ul><li><span class="key-point">赶工(Crashing)</span>：增加资源，成本增、工期缩</li><li><span class="key-point">快速跟进(Fast-tracking)</span>：并行执行，风险增</li></ul><h4>记忆技巧</h4><p class="memory-tip">对比口诀：\"赶工加钱、快速加险\" — 赶工=加资源(花钱)缩工期；快速跟进=并行(冒险)缩工期。赶工只对关键路径上的活动有效。</p><h4>例题</h4><div class="example-q"><p>项目经理发现项目进度滞后，决定将原本串行执行的活动改为并行执行，这属于()。</p><p>A.赶工 B.快速跟进 C.资源平衡 D.关键链法</p><p class="example-ans">答案：B。快速跟进是将顺序活动改为并行或部分并行执行，可能增加返工风险。赶工是通过增加资源缩短工期。</p></div>'},
+{title:'三点估算(PERT)',detail:'<div class="exam-analysis"><span class="tag tag-red">高频考点</span> <span class="tag tag-yellow">★★★☆</span> 选择题/计算</div><ul><li><span class="formula">tE = (O + 4M + P) / 6</span></li><li><span class="formula">\u03c3 = (P - O) / 6</span></li><li>\u00b11\u03c3: 68% | \u00b12\u03c3: 95% | \u00b13\u03c3: 99.7%</li></ul><h4>记忆技巧</h4><p class="memory-tip">口诀：\"(O+4M+P)/6求期望，(P-O)/6求标准差，\u00b11\u03c368%、\u00b12\u03c395%、\u00b13\u03c399.7%\" — 公式牢记。tE是加权平均，最可能值M权重最大(4倍)。</p><h4>例题</h4><div class="example-q"><p>某活动乐观时间8天，最可能时间11天，悲观时间20天，则期望工期和标准差为()。</p><p>A.tE=11,\u03c3=2 B.tE=12,\u03c3=2 C.tE=12,\u03c3=3 D.tE=11,\u03c3=3</p><p class="example-ans">答案：B。tE=(8+4\u00d711+20)/6=(8+44+20)/6=72/6=12天；\u03c3=(20-8)/6=12/6=2天。</p></div>'},
+{title:'进度管理7个过程',detail:'<div class="exam-analysis"><span class="tag tag-yellow">中频考点</span> <span class="tag tag-yellow">★★☆☆</span> 选择题</div><ul><li>规划进度管理、定义活动、排列活动顺序、估算持续时间、制定进度计划 — 规划</li><li>控制进度 — <span class="key-point">监控</span></li></ul><h4>记忆技巧</h4><p class="memory-tip">分布口诀：\"规5监1\" — 注意进度管理实际上是6个过程（非7个）：规划进度管理+定义活动+排列活动顺序+估算活动持续时间+制定进度计划(5个规划)+控制进度(1个监控)=6个。</p><h4>例题</h4><div class="example-q"><p>项目进度管理共有()个过程。</p><p>A.4 B.5 C.6 D.7</p><p class="example-ans">答案：C。进度管理共6个过程：5个规划(规划进度/定义活动/排列顺序/估算时间/制定进度)+1个监控(控制进度)。</p></div>'},
+]},
+{id:'项目成本管理',title:'项目成本管理',topics:[
+{title:'挣值管理三大参数',detail:'<div class="exam-analysis"><span class="tag tag-red">高频考点</span> <span class="tag tag-yellow">★★★★</span> 选择题/计算</div><ul><li><span class="formula">PV(计划值)</span>：计划应完成工作的预算</li><li><span class="formula">EV(挣值) = BAC \u00d7 完成百分比</span></li><li><span class="formula">AC(实际成本)</span>：实际花费</li></ul><h4>记忆技巧</h4><p class="memory-tip">口诀：\"PV计划做、EV实际做、AC实际花\" — PV是应按计划完成的工作值，EV是实际完成工作按预算计价，AC是实际花出去的钱</p><h4>例题</h4><div class="example-q"><p>某项目总预算BAC=100万，当前完成了40%的工作，实际花费50万，则EV为()。</p><p>A.40万 B.50万 C.100万 D.60万</p><p class="example-ans">答案：A。EV=BAC\u00d7完成百分比=100\u00d740%=40万。AC=50万(实际花费)。EV\u2260AC。</p></div>'},
+{title:'偏差与指数',detail:'<div class="exam-analysis"><span class="tag tag-red">高频考点</span> <span class="tag tag-yellow">★★★★</span> 选择题/计算</div><ul><li><span class="formula">CV = EV - AC</span> 正=节约 负=超支</li><li><span class="formula">SV = EV - PV</span> 正=超前 负=滞后</li><li><span class="formula">CPI = EV/AC</span> &gt;1节约 &lt;1超支</li><li><span class="formula">SPI = EV/PV</span> &gt;1超前 &lt;1落后</li></ul><p><span class="key-point">口诀：偏差看正负，指数看1。正/大于1是好事</span></p><h4>记忆技巧</h4><p class="memory-tip">一句话记全部：\"C成本S进度、V偏差I指数、EV总是被减数/分子\" — 所有公式中EV都在前面/上面。偏差>0好，指数>1好。</p><h4>例题</h4><div class="example-q"><p>某项目EV=80万，AC=100万，PV=90万，则CV和SV分别为()。</p><p>A.CV=-20,SV=10 B.CV=20,SV=-10 C.CV=-20,SV=-10 D.CV=10,SV=-20</p><p class="example-ans">答案：C。CV=EV-AC=80-100=-20万(超支)；SV=EV-PV=80-90=-10万(滞后)。项目成本超支且进度滞后。</p></div>'},
+{title:'完工预测',detail:'<div class="exam-analysis"><span class="tag tag-red">高频考点</span> <span class="tag tag-yellow">★★★★</span> 选择题/计算</div><h4>非典型（纠偏）</h4><ul><li><span class="formula">ETC = BAC - EV</span></li><li><span class="formula">EAC = AC + BAC - EV</span></li></ul><h4>典型（不纠偏，默认）</h4><ul><li><span class="formula">ETC = (BAC-EV) / CPI</span></li><li><span class="formula">EAC = BAC / CPI</span></li></ul><p><span class="key-point">默认按典型算，除非题目说纠偏</span></p><h4>记忆技巧</h4><p class="memory-tip">区分口诀：纠偏=EAC=AC+(BAC-EV)；不纠偏=EAC=BAC/CPI。典型偏差基于当前CPI持续、非典型假设后续按计划执行。TCPI=(BAC-EV)/(BAC-AC)用于判断剩余工作绩效要求。</p><h4>例题</h4><div class="example-q"><p>项目BAC=200万，EV=120万，AC=150万，CPI=0.8。按典型偏差，完工估算EAC为()。</p><p>A.200万 B.230万 C.250万 D.270万</p><p class="example-ans">答案：C。典型EAC=BAC/CPI=200/0.8=250万。非典型EAC=AC+BAC-EV=150+200-120=230万。</p></div>'},
+{title:'储备分析',detail:'<div class="exam-analysis"><span class="tag tag-red">高频考点</span> <span class="tag tag-yellow">★★★☆</span> 选择题/案例分析</div><ul><li><span class="key-point">应急储备</span>：纳入成本基准，PM可支配</li><li><span class="key-point">管理储备</span>：不纳入成本基准，管理层控制</li></ul><h4>记忆技巧</h4><p class="memory-tip">区分口诀：\"应急在基准PM控、管理在基准外高层批\" — 应急=已知-未知(PM可直接使用)，管理=未知-未知(需管理层批准，纳入基准后才能用)</p><h4>例题</h4><div class="example-q"><p>关于管理储备的正确说法是()。</p><p>A.纳入成本基准 B.PM可自由支配 C.使用需要变更成本基准 D.用于应对已知-未知风险</p><p class="example-ans">答案：C。管理储备不纳入成本基准，使用时需管理层批准并通过变更将其纳入成本基准。应急储备用于已知-未知风险，PM可支配。</p></div>'},
+]},
+{id:'项目质量管理',title:'项目质量管理',topics:[
+{title:'七大基本质量工具',detail:'<div class="exam-analysis"><span class="tag tag-red">高频考点</span> <span class="tag tag-yellow">★★★☆</span> 选择题/案例分析</div><ul><li><span class="key-point">因果图(鱼骨图)</span>：分析根本原因</li><li><span class="key-point">流程图</span>：过程分析</li><li><span class="key-point">核查表</span>：收集数据</li><li><span class="key-point">直方图</span>：数据分布</li><li><span class="key-point">帕累托图</span>：二八定律</li><li><span class="key-point">散点图</span>：变量关系</li><li><span class="key-point">控制图</span>：过程稳定性</li></ul><h4>记忆技巧</h4><p class="memory-tip">七字口诀：\"因(因果)流(流程)核(核查)直(直方)帕(帕累托)散(散点)控(控制)\"。类别记忆：查因(因果/散点/帕累托)、看过程(流程图/控制图)、收数据(核查表/直方图)</p><h4>例题</h4><div class="example-q"><p>在质量管理中，按发生频率排序以识别少数关键问题原因的工具是()。</p><p>A.鱼骨图 B.控制图 C.帕累托图 D.散点图</p><p class="example-ans">答案：C。帕累托图基于二八定律，80%问题由20%原因引起。鱼骨图分析根本原因，控制图判断过程是否稳定。</p></div>'},
+{title:'质量成本',detail:'<div class="exam-analysis"><span class="tag tag-yellow">中频考点</span> <span class="tag tag-yellow">★★☆☆</span> 选择题</div><ul><li><span class="key-point">一致性成本</span>：预防（培训）+ 评估（测试）</li><li><span class="key-point">非一致性成本</span>：内部失败（返工）+ 外部失败（保修）</li></ul><h4>记忆技巧</h4><p class="memory-tip">区分口诀：\"一致=主动花钱保质量(预防+评估)，非一致=被动花钱补漏洞(返工+保修)\" — 一致性成本投入越多，非一致性成本就越少</p><h4>例题</h4><div class="example-q"><p>以下属于非一致性成本的是()。</p><p>A.质量培训 B.测试设备 C.产品返工 D.过程审计</p><p class="example-ans">答案：C。返工属于内部失败成本，是非一致性成本。培训属于预防成本，测试/审计属于评估成本，都是(一致性成本)。</p></div>'},
+{title:'PDCA循环',detail:'<div class="exam-analysis"><span class="tag tag-yellow">中频考点</span> <span class="tag tag-yellow">★☆☆☆</span> 选择题</div><ul><li><span class="key-point">P</span>(Plan)规划质量管理</li><li><span class="key-point">D</span>(Do)实施质量保证</li><li><span class="key-point">C</span>(Check)质量控制</li><li><span class="key-point">A</span>(Act)过程改进</li></ul><h4>记忆技巧</h4><p class="memory-tip">口诀：\"P规划D保证C控制A改进\" — PDCA与质量管理三过程对应：P=规划质量管理、D=管理质量(质量保证)、C=控制质量、A=持续改进</p><h4>例题</h4><div class="example-q"><p>在PDCA循环中，质量控制对应的是()阶段。</p><p>A.Plan B.Do C.Check D.Act</p><p class="example-ans">答案：C。C(Check)=控制质量，检查可交付成果是否符合标准。D(Do)=管理质量/质量保证，A(Act)=过程改进。</p></div>'},
+]},
+{id:'项目资源管理',title:'项目资源管理',topics:[
+{title:'塔克曼团队发展阶段',detail:'<div class="exam-analysis"><span class="tag tag-red">高频考点</span> <span class="tag tag-yellow">★★☆☆</span> 选择题</div><ul><li><span class="key-point">形成期</span>(Forming)：组建</li><li><span class="key-point">震荡期</span>(Storming)：冲突</li><li><span class="key-point">规范期</span>(Norming)：协作</li><li><span class="key-point">成熟期</span>(Performing)：高效</li><li><span class="key-point">解散期</span>(Adjourning)</li></ul><h4>记忆技巧</h4><p class="memory-tip">口诀：\"形震规范成解\" — 形成(见面相识)、震荡(发生冲突)、规范(建立规则)、成熟(高效协作)、解散(任务完成)。五阶段不可跳过但可快速通过</p><h4>例题</h4><div class="example-q"><p>塔克曼模型中，团队成员因工作方式不同产生意见冲突主要发生在()。</p><p>A.形成期 B.震荡期 C.规范期 D.成熟期</p><p class="example-ans">答案：B。震荡期(Storming)是团队冲突集中爆发的阶段，项目经理需要通过介入和引导帮助团队度过该阶段。</p></div>'},
+{title:'激励理论',detail:'<div class="exam-analysis"><span class="tag tag-yellow">中频考点</span> <span class="tag tag-yellow">★★★☆</span> 选择题</div><ul><li><span class="key-point">马斯洛</span>：生理\u2192安全\u2192社交\u2192尊重\u2192自我实现</li><li><span class="key-point">赫茨伯格双因素</span>：保健因素（不满原因）+ 激励因素（满意原因）</li><li><span class="key-point">期望理论</span>：激励力 = 期望值 \u00d7 效价</li><li><span class="key-point">X/Y理论</span>：X=人性本懒（监督）；Y=人性本勤（放权）</li></ul><h4>记忆技巧</h4><p class="memory-tip">四理论口诀：\"马(马斯洛)需五层从低高、赫(赫茨伯格)保不满激满意、弗(弗鲁姆)激励等于期望乘效价、麦(麦格雷戈)X懒需管Y勤可放\"。关键区分：保健因素(薪酬/条件)不满足会不满但满足不激励；激励因素(认可/成长)满足才会激发动力。</p><h4>例题</h4><div class="example-q"><p>根据赫茨伯格双因素理论，以下属于激励因素的是()。</p><p>A.工资 B.工作条件 C.成就感 D.公司政策</p><p class="example-ans">答案：C。成就感属于激励因素(内在满足)，工资/工作条件/公司政策属于保健因素(外在条件)。</p></div>'},
+]},
+{id:'项目沟通管理',title:'项目沟通管理',topics:[
+{title:'沟通渠道计算',detail:'<div class="exam-analysis"><span class="tag tag-red">高频考点</span> <span class="tag tag-yellow">★★☆☆</span> 选择题/计算</div><span class="formula">沟通渠道数 = n(n-1)/2</span><p>\u26a0\ufe0f PM也算一个干系人！"10个项目成员"可能是11人（含PM）</p><h4>记忆技巧</h4><p class="memory-tip">公式口诀：n人沟通渠道=n(n-1)/2，类似握手问题。注意审题：含不含PM？新增人员后渠道增量 = 新渠道数 - 旧渠道数</p><h4>例题</h4><div class="example-q"><p>某项目团队原有8人(含PM)，新加入2人，沟通渠道增加了()条。</p><p>A.15 B.17 C.19 D.21</p><p class="example-ans">答案：B。原渠道=8x7/2=28条；新人后10人=10x9/2=45条；增加=45-28=17条。注意：务必确认总人数是否含PM。</p></div>'},
+{title:'沟通方式',detail:'<div class="exam-analysis"><span class="tag tag-yellow">中频考点</span> <span class="tag tag-yellow">★★☆☆</span> 选择题</div><ul><li><span class="key-point">交互式</span>（会议/电话）— 最有效</li><li><span class="key-point">推式</span>（邮件/报告）— 确保发送不确保接收</li><li><span class="key-point">拉式</span>（知识库/公告栏）— 大量信息</li></ul><h4>记忆技巧</h4><p class="memory-tip">口诀："交互最有效、推送单方向、拉取自己看" — 交互式=双向(最有效)、推式=发送方主动(不管看不看)、拉式=接收方主动(大量信息自行查阅)</p><h4>例题</h4><div class="example-q"><p>项目经理向全公司发布项目月报，这属于()沟通方式。</p><p>A.交互式 B.推式 C.拉式 D.正式</p><p class="example-ans">答案：B。推送邮件/报告是推式沟通的特征。交互式需要双向交流(如会议)，拉式是信息存储在知识库供人查阅。</p></div>'},
+]},
+{id:'项目风险管理',title:'项目风险管理',topics:[
+{title:'风险应对策略',detail:'<div class="exam-analysis"><span class="tag tag-red">高频考点</span> <span class="tag tag-yellow">★★★☆</span> 选择题/案例分析</div><h4>威胁应对</h4><ul><li><span class="key-point">规避</span>：改变计划消除威胁</li><li><span class="key-point">转移</span>：保险/外包/保函</li><li><span class="key-point">减轻</span>：降低概率和影响</li><li><span class="key-point">接受</span>：主动（应急储备）或被动</li></ul><h4>机会应对</h4><ul><li><span class="key-point">开拓</span>：确保发生</li><li><span class="key-point">分享</span>：分配给第三方</li><li><span class="key-point">提高</span>：增加概率</li><li><span class="key-point">接受</span>：利用时再行动</li></ul><h4>记忆技巧</h4><p class="memory-tip">威胁口诀："规避移减接"，机会口诀："开拓分享高接"。区分：转移=外包/保险(第三方承担)、减轻=降低概率和影响(不转移给第三方)</p><h4>例题</h4><div class="example-q"><p>项目团队发现技术方案存在重大风险，决定改用成熟的技术方案，这属于()策略。</p><p>A.转移 B.减轻 C.规避 D.接受</p><p class="example-ans">答案：C。规避是改变计划完全消除威胁。减轻是降低概率或影响但不消除，转移是交给第三方(如买保险)。</p></div>'},
+{title:'风险管理7个过程',detail:'<div class="exam-analysis"><span class="tag tag-red">高频考点</span> <span class="tag tag-yellow">★★★☆</span> 选择题</div><ul><li>规划风险管理、识别风险、定性分析、定量分析、规划应对 — <span class="key-point">规划</span></li><li>实施风险应对 — 执行</li><li>监督风险 — 监控</li></ul><h4>记忆技巧</h4><p class="memory-tip">分布口诀："规5执1监1" — 风险7过程是规划过程组最多的知识领域之一。注意：定性分析=主观评估概率/影响排序，定量分析=数值化评估(EMV/决策树/蒙特卡洛)</p><h4>例题</h4><div class="example-q"><p>风险管理中，唯一属于执行过程组的过程是()。</p><p>A.识别风险 B.定性风险分析 C.实施风险应对 D.监督风险</p><p class="example-ans">答案：C。实施风险应对是执行过程组唯一的风险过程。识别/定性/定量/规划应对都属于规划过程组，监督风险属于监控过程组。</p></div>'},
+]},
+{id:'项目采购管理',title:'项目采购管理',topics:[
+{title:'合同类型选择',detail:'<div class="exam-analysis"><span class="tag tag-red">高频考点</span> <span class="tag tag-yellow">★★☆☆</span> 选择题/案例分析</div><ul><li><span class="key-point">FFP(固定总价)</span>：买方风险最小</li><li>FPIF(总价+激励)</li><li><span class="key-point">CPFF(成本+固定费)</span>：卖方风险最小</li><li>CPIF(成本+激励)</li><li>T&amp;M(工料合同)</li></ul><h4>记忆技巧</h4><p class="memory-tip">风险口诀："买方怕风险选FFP、卖方怕风险选CPFF" — FFP固定价格买方风险最小，CPFF实报实销加固定费卖方风险最小。工料合同T&M适合范围不确定的小项目。</p><h4>例题</h4><div class="example-q"><p>项目范围非常明确且不易变更时，最适合的合同类型是()。</p><p>A.CPFF B.工料合同 C.FFP D.CPIF</p><p class="example-ans">答案：C。范围明确时选择固定总价合同(FFP)最合适。范围不确定时应选成本补偿(CP)或工料合同。</p></div>'},
+{title:'采购文件',detail:'<div class="exam-analysis"><span class="tag tag-yellow">中频考点</span> <span class="tag tag-yellow">★☆☆☆</span> 选择题</div><ul><li><span class="key-point">RFP</span>(建议书邀请)：复杂采购</li><li><span class="key-point">RFQ</span>(报价邀请)：标准商品</li><li>IFB(投标邀请)：正式招标</li></ul><h4>记忆技巧</h4><p class="memory-tip">口诀："RFP复杂要方案、RFQ标准报个价、IFB正式招标用" — RFP=Request for Proposal(要有方案)、RFQ=Request for Quotation(只要报价)、IFB=Invitation for Bid(投标邀请)</p><h4>例题</h4><div class="example-q"><p>采购计算机标准设备，最合适的采购文件是()。</p><p>A.RFP B.RFQ C.IFB D.SOW</p><p class="example-ans">答案：B。RFQ适用于标准商品采购，只需报价不需方案。RFP适用于需要方案说明的复杂采购。</p></div>'},
+]},
+{id:'项目干系人管理',title:'项目干系人管理',topics:[
+{title:'权力/利益方格',detail:'<div class="exam-analysis"><span class="tag tag-red">高频考点</span> <span class="tag tag-yellow">★★☆☆</span> 选择题/案例分析</div><ul><li><span class="key-point">权力高/利益高</span>：重点管理</li><li><span class="key-point">权力高/利益低</span>：令其满意</li><li><span class="key-point">权力低/利益高</span>：随时告知</li><li><span class="key-point">权力低/利益低</span>：监督</li></ul><h4>记忆技巧</h4><p class="memory-tip">四象限口诀："高权高利重点管、高权低利令满意、低权高利常告知、低权低利监督之" — 注意区分："令其满意"是被动满足(高权低利)，"随时告知"是主动沟通(低权高利)</p><h4>例题</h4><div class="example-q"><p>某政府部门对项目成果高度关注但不直接参与，按权力/利益方格应采用的策略是()。</p><p>A.重点管理 B.令其满意 C.随时告知 D.监督</p><p class="example-ans">答案：C。该部门利益高但权力相对较低，应采用随时告知策略。高权高利才是重点管理。</p></div>'},
+{title:'识别干系人',detail:'<div class="exam-analysis"><span class="tag tag-red">高频考点</span> <span class="tag tag-yellow">★★☆☆</span> 选择题</div><h4>核心考点</h4><p><span class="key-point">唯一属于启动过程组的干系人管理过程</span></p><p>干系人管理4过程分布：识别干系人(启动)、规划干系人参与(规划)、管理干系人参与(执行)、监督干系人参与(监控)</p><h4>记忆技巧</h4><p class="memory-tip">口诀："启1规1执1监1" — 与整合管理并列，干系人管理是唯一另一个有启动过程的知识领域。记住：除整合管理(启动+收尾)外，其他领域都无启动/收尾过程。</p><h4>例题</h4><div class="example-q"><p>识别干系人属于()过程组。</p><p>A.启动 B.规划 C.执行 D.监控</p><p class="example-ans">答案：A。识别干系人是唯一属于启动过程组的干系人管理过程，与制定项目章程一起构成启动过程组的2个过程。</p></div>'},
+]},
+{id:'技术基础',title:'信息系统技术基础',topics:[
+{title:'OSI七层模型',detail:'<div class="exam-analysis"><span class="tag tag-red">高频考点</span> <span class="tag tag-yellow">★★☆☆</span> 选择题</div><ul><li>7. <span class="key-point">应用层</span>：HTTP/FTP/SMTP/DNS</li><li>6. 表示层：格式转换/加密</li><li>5. 会话层</li><li>4. <span class="key-point">传输层</span>：TCP/UDP</li><li>3. <span class="key-point">网络层</span>：IP/路由器</li><li>2. 数据链路层：交换机/MAC</li><li>1. 物理层：比特流/集线器</li></ul><p>口诀："应表会传网数物"</p><h4>记忆技巧</h4><p class="memory-tip">七字口诀："应表会传网数物"（从7到1）。关键层次设备：应用层=HTTP/网关、传输层=TCP/UDP(端到端)、网络层=IP/路由器、数据链路层=MAC/交换机、物理层=比特流/集线器。</p><h4>例题</h4><div class="example-q"><p>TCP协议工作在OSI模型的()层。</p><p>A.应用层 B.网络层 C.传输层 D.数据链路层</p><p class="example-ans">答案：C。TCP/UDP是传输层协议，IP是网络层协议，HTTP是应用层协议。口诀：传输有TCP，网络有IP。</p></div>'},
+{title:'软件开发模型',detail:'<div class="exam-analysis"><span class="tag tag-yellow">中频考点</span> <span class="tag tag-yellow">★★☆☆</span> 选择题</div><ul><li><strong>瀑布</strong>：线性，需求明确</li><li><strong>增量</strong>：分批交付</li><li><strong>迭代</strong>：每轮全流程</li><li><strong>螺旋</strong>：迭代+风险分析</li><li><strong>V模型</strong>：开发测试对应</li><li><strong>敏捷</strong>：Scrum/XP/Kanban</li></ul><h4>记忆技巧</h4><p class="memory-tip">口诀："瀑布=需求明确一条线、增量=分批交付逐步加、迭代=每轮全流程、螺旋=迭代+风险、V=测试对应开发、敏捷=拥抱变化快速交付"。螺旋模型核心特征是"风险分析"。</p><h4>例题</h4><div class="example-q"><p>螺旋模型相比其他模型最大的特点是()。</p><p>A.快速交付 B.风险分析 C.分批交付 D.拥抱变化</p><p class="example-ans">答案：B。螺旋模型最大的特点是将风险分析纳入每个迭代周期。快速交付是增量/敏捷的特点。</p></div>'},
+{title:'软件测试',detail:'<div class="exam-analysis"><span class="tag tag-yellow">中频考点</span> <span class="tag tag-yellow">★★☆☆</span> 选择题</div><ul><li>单元\u2192集成\u2192系统\u2192验收</li><li><span class="key-point">\u03b1测试</span>：开发环境；<span class="key-point">\u03b2测试</span>：用户环境</li><li>黑盒：等价类/边界值/状态转换</li><li>白盒：语句/分支/条件/路径覆盖</li></ul><h4>记忆技巧</h4><p class="memory-tip">口诀："单集系验四段走，内黑外白两方法" — 黑盒=不看内部(等价类/边界值)、白盒=看代码逻辑(语句/分支/条件/路径)。V模型对应：单元测试\u2192集成测试\u2192系统测试\u2192验收测试</p><h4>例题</h4><div class="example-q"><p>等价类划分和边界值分析属于()测试方法。</p><p>A.白盒测试 B.黑盒测试 C.单元测试 D.集成测试</p><p class="example-ans">答案：B。等价类划分和边界值分析是典型的黑盒测试方法。语句覆盖/分支覆盖是白盒测试方法。</p></div>'},
+{title:'数据库基础',detail:'<div class="exam-analysis"><span class="tag tag-yellow">中频考点</span> <span class="tag tag-yellow">★★☆☆</span> 选择题</div><ul><li><span class="key-point">三大范式</span>：1NF不可再分、2NF消除部分依赖、3NF消除传递依赖</li><li><span class="key-point">ACID</span>：原子性、一致性、隔离性、持久性</li><li>SQL：DDL/DML/DCL/DQL</li></ul><h4>记忆技巧</h4><p class="memory-tip">范式口诀："1NF拆原子、2NF拆部分依赖、3NF拆传递依赖" — 范式越高冗余越低。ACID口诀："原子的A、一致的C、隔离的I、持久的D"，注意CIA(机密/完整/可用)与ACID(原子/一致/隔离/持久)不要混淆。</p><h4>例题</h4><div class="example-q"><p>数据库事务的ACID特性中，要求事务执行前后数据保持一致状态的是()。</p><p>A.原子性 B.一致性 C.隔离性 D.持久性</p><p class="example-ans">答案：B。一致性确保事务将数据库从一个一致状态转换到另一个一致状态。原子性=全做或全不做。</p></div>'},
+{title:'信息安全',detail:'<div class="exam-analysis"><span class="tag tag-yellow">中频考点</span> <span class="tag tag-yellow">★★★☆</span> 选择题</div><ul><li>三要素：<span class="key-point">机密性、完整性、可用性</span>(CIA)</li><li>对称加密(AES/DES)、非对称(RSA)</li><li>防火墙、IDS、IPS</li></ul><h4>记忆技巧</h4><p class="memory-tip">口诀："CIA不能忘、对称AES快非对称RSA安全、防火墙挡IDS检测IPS阻断" — 注意CIA不要与ACID混淆。IDS=检测告警，IPS=检测+阻断。</p><h4>例题</h4><div class="example-q"><p>信息安全三要素CIA不包括()。</p><p>A.机密性 B.完整性 C.隔离性 D.可用性</p><p class="example-ans">答案：C。CIA=Confidentiality(机密)、Integrity(完整)、Availability(可用)。隔离性(Isolation)是ACID中的I。</p></div>'},
+{title:'新型技术',detail:'<div class="exam-analysis"><span class="tag tag-yellow">中频考点</span> <span class="tag tag-yellow">★☆☆☆</span> 选择题</div><ul><li><strong>云计算</strong>：IaaS/PaaS/SaaS</li><li><strong>大数据</strong>：5V特征</li><li><strong>物联网</strong>：感知/网络/应用</li><li><strong>区块链</strong>：去中心化、不可篡改</li><li><strong>SOA</strong>：面向服务架构</li></ul><h4>记忆技巧</h4><p class="memory-tip">口诀："IaaS基础设施、PaaS开发平台、SaaS软件应用" — 三层递进：从下到上封装越来越多。大数据5V=Volume(大量)/Velocity(高速)/Variety(多样)/Value(价值)/Veracity(真实)。</p><h4>例题</h4><div class="example-q"><p>云计算服务模型中，提供操作系统、数据库和中间件的是()。</p><p>A.IaaS B.PaaS C.SaaS D.DaaS</p><p class="example-ans">答案：B。PaaS提供开发平台(含OS/数据库/中间件)。IaaS仅提供虚拟机/存储/网络，SaaS直接提供软件应用。</p></div>'},
+{title:'敏捷开发方法',detail:'<div class="exam-analysis"><span class="tag tag-yellow">中频考点</span> <span class="tag tag-yellow">★★☆☆</span> 选择题</div><h4>Scrum框架</h4><ul><li><span class="key-point">三大角色</span>：Product Owner(产品负责人)、Scrum Master(敏捷教练)、Development Team(开发团队)</li><li>核心工作单元：<span class="key-point">Sprint/迭代</span>，通常1-4周</li><li>四个会议：Sprint Planning(计划会)、Sprint Review(评审会)、Sprint Retrospective(回顾会)、Daily Standup(每日站会)</li></ul><h4>XP极限编程</h4><ul><li><span class="key-point">结对编程</span>：两个人共享同一台计算机</li><li><span class="key-point">测试驱动开发(TDD)</span>：先写测试再写代码</li><li><span class="key-point">持续集成</span>：频繁将代码集成到主干</li><li><span class="key-point">重构</span>：在保持外部行为的前提下改进内部结构</li></ul><h4>Kanban看板</h4><ul><li><span class="key-point">可视化工作流</span>：用看板显示任务状态</li><li><span class="key-point">WIP限制</span>：限制进行中的工作数量</li><li><span class="key-point">拉动式</span>：下游任务完成后拉取上游任务</li></ul><h4>敏捷宣言4个核心价值观</h4><ul><li>个体和互动<span class="key-point">高于</span>流程和工具</li><li>可工作的软件<span class="key-point">高于</span>详尽的文档</li><li>客户合作<span class="key-point">高于</span>合同谈判</li><li>响应变化<span class="key-point">高于</span>遵循计划</li></ul><h4>记忆技巧</h4><p class="memory-tip">敏捷宣言口诀："个体高于流程、软件高于文档、合作高于谈判、变化高于计划" — 四点记住：人>流程、产品>文档、客户>合同、适应>计划。Scrum三角色：PO管需求、SM管过程、Team管开发。</p><h4>例题</h4><div class="example-q"><p>在Scrum框架中，负责管理Product Backlog并确定优先级的是()。</p><p>A.Scrum Master B.开发团队 C.Product Owner D.项目经理</p><p class="example-ans">答案：C。Product Owner(PO)负责产品待办列表的管理和优先级排序。Scrum Master负责团队遵守Scrum流程和移除障碍。</p></div>'},
+{title:'信息系统安全',detail:'<div class="exam-analysis"><span class="tag tag-yellow">中频考点</span> <span class="tag tag-yellow">★★★☆</span> 选择题</div><h4>安全等级保护(等保2.0)</h4><ul><li><span class="key-point">1级</span>：自主保护级</li><li><span class="key-point">2级</span>：指导保护级</li><li><span class="key-point">3级</span>：监督保护级</li><li><span class="key-point">4级</span>：强制保护级</li><li><span class="key-point">5级</span>：专控保护级</li></ul><h4>常见攻击</h4><ul><li><span class="key-point">DDoS</span>：分布式拒绝服务攻击</li><li><span class="key-point">SQL注入</span>：通过输入恶意SQL语句获取数据</li><li><span class="key-point">XSS</span>：跨站脚本攻击</li><li><span class="key-point">钓鱼</span>：通过伪装合法实体获取敏感信息</li></ul><h4>安全技术</h4><ul><li><span class="key-point">防火墙</span>：包过滤/状态检测/应用层防火墙</li><li><span class="key-point">IDS</span>：入侵检测系统（检测并告警）</li><li><span class="key-point">IPS</span>：入侵防御系统（检测并阻断）</li><li><span class="key-point">VPN</span>：虚拟专用网络</li></ul><h4>密码技术</h4><ul><li><span class="key-point">对称加密</span>：AES/DES/3DES（加密解密用同一密钥）</li><li><span class="key-point">非对称加密</span>：RSA（公钥加密，私钥解密）</li><li><span class="key-point">数字签名</span>：私钥签名，公钥验证（防否认）</li><li><span class="key-point">数字证书</span>：由CA颁发，绑定公钥和身份</li><li><span class="key-point">CA</span>：证书认证中心（Certificate Authority）</li></ul><h4>记忆技巧</h4><p class="memory-tip">安全口诀："防火墙挡、IDS检、IPS阻、VPN通道、对称快非对称安、数字签名防抵赖"。等保等级口诀："1自主2指导3监督4强制5专控" — 与ITSS等级方向相反。</p><h4>例题</h4><div class="example-q"><p>在网络安全中，既能检测入侵行为又能主动阻断攻击的设备是()。</p><p>A.防火墙 B.IDS C.IPS D.VPN</p><p class="example-ans">答案：C。IPS(入侵防御系统)兼具检测和阻断功能。IDS只能检测告警不能阻断，防火墙按规则过滤。</p></div>'},
+]},
+{id:'49个过程',title:'十大知识领域49个过程',topics:[
+{title:'十五至尊图',detail:'<div class="exam-analysis"><span class="tag tag-red">高频考点</span> <span class="tag tag-yellow">★★★★★</span> 选择题/案例分析</div><table class="process-table"><tr><th>知识领域</th><th>启动</th><th>规划</th><th>执行</th><th>监控</th><th>收尾</th></tr><tr><td>整合(7)</td><td>制定章程</td><td>制定计划</td><td>指导与管理<br>管理知识</td><td>监控工作<br>整体变更控制</td><td>结束项目</td></tr><tr><td>范围(6)</td><td>-</td><td>规划范围<br>收集需求<br>定义范围<br>创建WBS</td><td>-</td><td>确认范围<br>控制范围</td><td>-</td></tr><tr><td>进度(6)</td><td>-</td><td>规划进度<br>定义活动<br>排列顺序<br>估算时间<br>制定进度</td><td>-</td><td>控制进度</td><td>-</td></tr><tr><td>成本(4)</td><td>-</td><td>规划成本<br>估算成本<br>制定预算</td><td>-</td><td>控制成本</td><td>-</td></tr><tr><td>质量(3)</td><td>-</td><td>规划质量</td><td>管理质量</td><td>控制质量</td><td>-</td></tr><tr><td>资源(6)</td><td>-</td><td>规划资源<br>估算资源</td><td>获取资源<br>建设团队<br>管理团队</td><td>控制资源</td><td>-</td></tr><tr><td>沟通(3)</td><td>-</td><td>规划沟通</td><td>管理沟通</td><td>监督沟通</td><td>-</td></tr><tr><td>风险(7)</td><td>-</td><td>规划风险<br>识别风险<br>定性分析<br>定量分析<br>规划应对</td><td>实施应对</td><td>监督风险</td><td>-</td></tr><tr><td>采购(3)</td><td>-</td><td>规划采购</td><td>实施采购</td><td>控制采购</td><td>-</td></tr><tr><td>干系人(4)</td><td>识别干系人</td><td>规划参与</td><td>管理参与</td><td>监督参与</td><td>-</td></tr></table><p><span class="key-point">总计：7+6+6+4+3+6+3+7+3+4 = <strong>49个</strong></span></p><h4>记忆技巧</h4><p class="memory-tip">过程组分布口诀："启2规24执10监12尾1" — 整合唯一覆盖全部5组，干系人有启动过程。死记：整合7、范围6、进度6、成本4、质量3、资源6、沟通3、风险7、采购3、干系人4=49。</p><h4>例题</h4><div class="example-q"><p>项目管理的十大知识领域中，唯一有启动和收尾过程组的是()。</p><p>A.范围管理 B.干系人管理 C.风险管理 D.项目整体管理</p><p class="example-ans">答案：D。整体管理有制定章程(启动)和结束项目或阶段(收尾)。干系人管理有识别干系人(启动)但无收尾。</p></div>'},
+]},
+{id:'ITTO速记',title:'高频ITTO与过程速记',topics:[
+{title:'各过程组核心ITTO速记',detail:'<div class="exam-analysis"><span class="tag tag-red">高频考点</span> <span class="tag tag-yellow">★★★★</span> 选择题/案例分析</div><h4>通用输入</h4><ul><li>几乎所有规划过程都需要：项目章程、项目管理计划</li><li>几乎所有过程都需要：事业环境因素、组织过程资产</li></ul><h4>核心工具</h4><ul><li><span class="key-point">专家判断</span>：几乎所有过程</li><li><span class="key-point">会议</span>：多数过程</li><li><span class="key-point">数据分析</span>：备选方案分析、成本效益分析、挣值分析等</li></ul><h4>核心输出</h4><ul><li><span class="key-point">变更请求</span>：多数执行和监控过程</li><li><span class="key-point">项目文件更新</span>：几乎每个过程</li><li><span class="key-point">组织过程资产更新</span>：几乎每个过程</li></ul><h4>记忆技巧</h4><p class="memory-tip">ITTO万能口诀："输入EEF+OPA、工具专家判断+会议、输出变更+更新" — 记住三个万能：万能输入(EEF/OPA)、万能工具(专家判断+会议)、万能输出(变更请求+项目文件更新)</p><h4>例题</h4><div class="example-q"><p>几乎出现在所有过程输入中的两项是()。</p><p>A.项目章程和WBS B.EEF和OPA C.商业论证和协议 D.范围基准和成本基准</p><p class="example-ans">答案：B。事业环境因素(EEF)和组织过程资产(OPA)是几乎所有过程的通用输入。</p></div>'},
+{title:'过程组分布速记',detail:'<div class="exam-analysis"><span class="tag tag-red">高频考点</span> <span class="tag tag-yellow">★★★☆</span> 选择题</div><table class="process-table"><tr><th>过程组</th><th>过程数</th><th>记忆要点</th></tr><tr><td>启动(2)</td><td>2</td><td>制定章程+识别干系人</td></tr><tr><td>规划(24)</td><td>24</td><td>最多的过程组，每个领域至少1个</td></tr><tr><td>执行(10)</td><td>10</td><td>含"管理"类过程</td></tr><tr><td>监控(12)</td><td>12</td><td>含"控制/监督/确认"类</td></tr><tr><td>收尾(1)</td><td>1</td><td>结束项目或阶段</td></tr></table><p><span class="key-point">口诀：启2规24执10监12尾1=49</span></p><h4>记忆技巧</h4><p class="memory-tip">过程组口诀："启2规24执10监12尾1"—49=2+24+10+12+1。注意区分"规划过程组"(24个)和"规划知识领域过程"的用词差异。</p><h4>例题</h4><div class="example-q"><p>以下哪个过程组的数量最多？()</p><p>A.启动过程组 B.规划过程组 C.执行过程组 D.监控过程组</p><p class="example-ans">答案：B。规划过程组有24个过程，是数量最多的。执行10个、监控12个、启动2个、收尾1个。</p></div>'},
+{title:'必考ITTO记忆点',detail:'<div class="exam-analysis"><span class="tag tag-red">高频考点</span> <span class="tag tag-yellow">★★★★</span> 选择题/案例分析</div><ul><li><span class="key-point">制定项目章程</span>：输入-商业论证/协议/SOW/效益管理计划</li><li><span class="key-point">确认范围</span>：输入-核实的可交付成果；工具-检查/群体决策</li><li><span class="key-point">控制成本</span>：工具-挣值分析/TCPI/完工预测/偏差分析</li><li><span class="key-point">控制进度</span>：工具-进度网络分析/关键路径法/关键链法/资源优化/建模</li><li><span class="key-point">实施整体变更控制</span>：CCB审批；工具-专家判断/变更控制工具/会议</li><li><span class="key-point">管理团队</span>：输入-团队章程；工具-人际交往/团队建设活动/培训/认可与奖励</li><li><span class="key-point">实施风险应对</span>：是执行过程组的唯一风险过程</li></ul><h4>记忆技巧</h4><p class="memory-tip">一句话记关键ITTO："章程输入商论证+协议+SOW、确认范围输入核实结果、控制成本工具挣值TCPI、控制进度工具CPM关键链、变更控制CCB审批、管理团队靠团队建设、风险应对是执行组唯风险"</p><h4>例题</h4><div class="example-q"><p>制定项目章程的输入不包括()。</p><p>A.商业论证 B.项目工作说明书 C.项目管理计划 D.效益管理计划</p><p class="example-ans">答案：C。项目管理计划是章程制定之后的输出而非输入。章程输入：商业论证、效益管理计划、协议、SOW、EEF、OPA。</p></div>'},
+]},
+];
+
+
+// ===== QUIZ BANK (50+ questions) =====
+const QB=[
+{q:'国家信息化体系六要素中，作为龙头的是（）。',opts:['信息技术应用','信息资源','信息网络','信息技术和产业'],ans:0,cat:'信息化基础',exp:'信息技术应用是龙头，信息资源是核心内容。',freq:'低',diff:1},
+{q:'电子政务中G2B是指（）。',opts:['政府对政府','政府对企业','政府对公民','政府对公务员'],ans:1,cat:'信息化基础',exp:'G2B=Government to Business，如电子税务、电子采购。',freq:'低',diff:1},
+{q:'ERP的核心是（）。',opts:['CRM','MRP\u2161','SCM','MES'],ans:1,cat:'信息化基础',exp:'ERP企业资源计划的核心是MRP\u2161制造资源计划。',freq:'低',diff:1},
+{q:'评标委员会中专家应不少于成员总数的（）。',opts:['1/3','1/2','2/3','3/4'],ans:2,cat:'法律法规',exp:'5人以上单数，技术经济专家\u22652/3。',freq:'低',diff:1},
+{q:'招标文件发售不少于（）个工作日。',opts:['3','5','7','10'],ans:1,cat:'法律法规',exp:'招标文件发售不得少于5个工作日。',freq:'低',diff:1},
+{q:'政府采购主要方式是（）。',opts:['邀请招标','竞争性谈判','公开招标','单一来源'],ans:2,cat:'法律法规',exp:'公开招标是政府采购的主要方式。',freq:'低',diff:1},
+{q:'软件著作权自（）起自动产生。',opts:['登记之日','发表之日','开发完成之日','申请之日'],ans:2,cat:'法律法规',exp:'自开发完成之日起自动产生。',freq:'低',diff:1},
+{q:'中标通知书发出后（）日内签合同。',opts:['15','20','30','45'],ans:2,cat:'法律法规',exp:'30日内签订书面合同。',freq:'低',diff:1},
+{q:'项目章程由谁签发？',opts:['项目经理','项目发起人','CCB','客户'],ans:1,cat:'项目整体管理',exp:'由项目发起人签发。',freq:'高',diff:1},
+{q:'CCB的职责是（）。',opts:['提出变更','实施变更','批准或否决变更','验证变更'],ans:2,cat:'项目整体管理',exp:'CCB只审批，不提出、不实施、不验证。',freq:'高',diff:1},
+{q:'以下哪个不是项目管理基准？',opts:['范围基准','进度基准','成本基准','质量基准'],ans:3,cat:'项目整体管理',exp:'三大基准：范围、进度、成本。无"质量基准"。',freq:'高',diff:2},
+{q:'变更控制流程正确顺序：\u2460CCB \u2461申请 \u2462实施 \u2463分析 \u2464验证 \u2465更新配置',opts:['\u2461\u2463\u2460\u2462\u2464\u2465','\u2461\u2460\u2463\u2462\u2464\u2465','\u2460\u2461\u2463\u2462\u2464\u2465','\u2461\u2463\u2462\u2460\u2464\u2465'],ans:0,cat:'项目整体管理',exp:'申请\u2192分析\u2192CCB\u2192实施\u2192验证\u2192更新配置。',freq:'高',diff:1},
+{q:'WBS最底层是（）。',opts:['控制账户','工作包','活动','里程碑'],ans:1,cat:'项目范围管理',exp:'WBS最底层是工作包。',freq:'高',diff:1},
+{q:'WBS分解遵循（）原则。',opts:['80/20','100%','二八','SMART'],ans:1,cat:'项目范围管理',exp:'100%原则。',freq:'高',diff:1},
+{q:'确认范围的责任主体是（）。',opts:['项目经理','项目团队','客户或发起人','CCB'],ans:2,cat:'项目范围管理',exp:'由客户或发起人验收。',freq:'高',diff:1},
+{q:'关键路径上活动的总浮动时间为（）。',opts:['大于0','等于0','小于0','不确定'],ans:1,cat:'项目进度管理',exp:'TF=0是关键路径。',freq:'高',diff:2},
+{q:'tE=(tO+4tM+tP)/6 中tM是（）。',opts:['乐观时间','最可能时间','悲观时间','期望时间'],ans:1,cat:'项目进度管理',exp:'tO乐观，tM最可能，tP悲观。',freq:'高',diff:2},
+{q:'增加资源缩短工期的方法叫（）。',opts:['快速跟进','赶工','资源平衡','资源平滑'],ans:1,cat:'项目进度管理',exp:'赶工=增加资源；快速跟进=并行活动。',freq:'高',diff:1},
+{q:'FF=ES(\u540e\u7f6e)-EF(\u5f53\u524d)，计算的是（）。',opts:['总浮动','自由浮动','总工期','关键路径'],ans:1,cat:'项目进度管理',exp:'自由浮动时间。总浮动TF=LS-ES。',freq:'高',diff:2},
+{q:'CPI=0.8表示项目（）。',opts:['成本节约','成本超支','进度超前','进度滞后'],ans:1,cat:'项目成本管理',exp:'CPI<1成本超支。',freq:'高',diff:2},
+{q:'典型偏差EAC公式是（）。',opts:['AC+BAC-EV','BAC/CPI','BAC-EV','AC+(BAC-EV)/CPI'],ans:3,cat:'项目成本管理',exp:'典型EAC=AC+(BAC-EV)/CPI=BAC/CPI。注意AC+BAC-EV是非典型。',freq:'高',diff:3},
+{q:'应急储备vs管理储备的区别（）。',opts:['应急纳入成本基准，管理储备不纳入','都纳入','管理储备纳入，应急不纳入','都不纳入'],ans:0,cat:'项目成本管理',exp:'应急纳入成本基准(PM支配)，管理储备不纳入(管理层控制)。',freq:'高',diff:2},
+{q:'SV<0表示（）。',opts:['进度超前','进度滞后','成本节约','成本超支'],ans:1,cat:'项目成本管理',exp:'SV=EV-PV<0进度滞后。',freq:'高',diff:2},
+{q:'分析根本原因用（）。',opts:['直方图','控制图','鱼骨图','帕累托图'],ans:2,cat:'项目质量管理',exp:'鱼骨图(因果图)分析根本原因。',freq:'中',diff:1},
+{q:'80%问题由20%因素引起，这是（）。',opts:['鱼骨图','控制图','帕累托图','直方图'],ans:2,cat:'项目质量管理',exp:'帕累托图=二八定律。',freq:'中',diff:1},
+{q:'属于预防成本的是（）。',opts:['返工','培训','测试','废品处理'],ans:1,cat:'项目质量管理',exp:'培训=预防。返工/废品=内部失败，测试=评估。',freq:'中',diff:2},
+{q:'团队出现冲突的阶段是（）。',opts:['形成期','震荡期','规范期','成熟期'],ans:1,cat:'项目资源管理',exp:'震荡期(Storming)冲突。',freq:'中',diff:1},
+{q:'马斯洛最高层次是（）。',opts:['尊重','社交','安全','自我实现'],ans:3,cat:'项目资源管理',exp:'生理\u2192安全\u2192社交\u2192尊重\u2192自我实现。',freq:'中',diff:1},
+{q:'双因素理论由谁提出？',opts:['马斯洛','赫茨伯格','弗鲁姆','麦格雷戈'],ans:1,cat:'项目资源管理',exp:'赫茨伯格双因素理论。',freq:'中',diff:1},
+{q:'沟通渠道公式（）。',opts:['n(n+1)/2','n(n-1)/2','n\u00b2/2','2\u207f'],ans:1,cat:'项目沟通管理',exp:'n(n-1)/2。',freq:'中',diff:2},
+{q:'最有效的沟通方式是（）。',opts:['推式','拉式','交互式','正式'],ans:2,cat:'项目沟通管理',exp:'交互式(会议/电话)最有效。',freq:'中',diff:1},
+{q:'风险转移不包括（）。',opts:['保险','外包','减轻','履约保函'],ans:2,cat:'项目风险管理',exp:'减轻是威胁应对策略，不是转移。',freq:'高',diff:2},
+{q:'开拓是（）应对策略。',opts:['威胁','机会','风险','问题'],ans:1,cat:'项目风险管理',exp:'开拓是机会应对。规避/转移/减轻是威胁应对。',freq:'高',diff:1},
+{q:'买方风险最小的合同是（）。',opts:['固定总价','CPFF','工料合同','CPIF'],ans:0,cat:'项目采购管理',exp:'FFP固定总价，买方风险最小。',freq:'中',diff:1},
+{q:'需要详细方案的采购文件是（）。',opts:['RFQ','IFB','RFP','SOW'],ans:2,cat:'项目采购管理',exp:'RFP建议书邀请，复杂采购。',freq:'中',diff:1},
+{q:'权力高/利益低应（）。',opts:['重点管理','令其满意','随时告知','监督'],ans:1,cat:'项目干系人管理',exp:'高权低利=令其满意。',freq:'中',diff:1},
+{q:'识别干系人属于（）过程组。',opts:['启动','规划','执行','监控'],ans:0,cat:'项目干系人管理',exp:'唯一属于启动的干系人过程。',freq:'中',diff:2},
+{q:'HTTP属于OSI哪层？',opts:['传输层','网络层','应用层','会话层'],ans:2,cat:'技术基础',exp:'HTTP=应用层。',freq:'低',diff:2},
+{q:'ACID不包括（）。',opts:['原子性','一致性','可用性','持久性'],ans:2,cat:'技术基础',exp:'ACID=原子、一致、隔离、持久。可用性=信息安全三要素(CIA)。',freq:'低',diff:2},
+{q:'3NF消除（）。',opts:['部分依赖','传递依赖','多值依赖','完全依赖'],ans:1,cat:'技术基础',exp:'1NF消除非原子性，2NF消除部分依赖，3NF消除传递依赖。',freq:'低',diff:1},
+{q:'\u03b2测试在（）环境。',opts:['开发方','用户','实验室','虚拟'],ans:1,cat:'技术基础',exp:'\u03b1测试在开发环境，\u03b2测试在用户实际使用环境。',freq:'低',diff:1},
+{q:'螺旋模型特点是（）。',opts:['快速迭代','风险分析','需求明确','线性顺序'],ans:1,cat:'技术基础',exp:'螺旋模型最大特点是将风险分析纳入每个迭代周期。',freq:'低',diff:1},
+{q:'等价类划分属于（）测试。',opts:['白盒','黑盒','灰盒','单元'],ans:1,cat:'技术基础',exp:'等价类划分是黑盒测试方法。',freq:'低',diff:2},
+{q:'信息安全三要素不包括（）。',opts:['机密性','完整性','可控性','可用性'],ans:2,cat:'技术基础',exp:'CIA三要素：机密性(Confidentiality)、完整性(Integrity)、可用性(Availability)。可控性不是。',freq:'低',diff:2},
+{q:'PaaS提供（）。',opts:['基础设施','开发平台','软件应用','数据库'],ans:1,cat:'技术基础',exp:'IaaS基础设施，PaaS开发平台(含中间件/数据库/OS)，SaaS软件应用。',freq:'低',diff:1},
+{q:'十大知识领域共（）个过程。',opts:['42','45','47','49'],ans:3,cat:'信息化基础',exp:'7+6+6+4+3+6+3+7+3+4=49。',freq:'低',diff:1},
+{q:'属于启动过程组的是（）。',opts:['制定计划','识别干系人','定义活动','确认范围'],ans:1,cat:'项目整体管理',exp:'识别干系人和制定项目章程属于启动过程组。',freq:'高',diff:2},
+{q:'管理项目知识属于（）过程组。',opts:['规划','执行','监控','收尾'],ans:1,cat:'项目整体管理',exp:'管理项目知识属于执行过程组。',freq:'高',diff:2},
+{q:'规划过程组共（）个过程。',opts:['20','22','24','26'],ans:2,cat:'项目整体管理',exp:'规划过程组24个过程：规划5个+范围4个+进度5个+成本3个+质量1个+资源2个+沟通1个+风险5个+采购1个+干系人1个=24。',freq:'高',diff:1},
+{q:'TCP工作在OSI哪层？',opts:['网络层','数据链路层','传输层','应用层'],ans:2,cat:'技术基础',exp:'TCP传输层，IP网络层，HTTP应用层。',freq:'低',diff:1},
+{q:'ITSS的核心四要素不包括（）。',opts:['人员','流程','技术','设备'],ans:3,cat:'信息系统集成',exp:'ITSS四要素PPTR：人员、流程、技术、资源。',freq:'低',diff:2},
+{q:'控制图用于判断（）。',opts:['数据分布','趋势','过程是否稳定','因素相关性'],ans:2,cat:'项目质量管理',exp:'控制图判断过程是否稳定，区分随机偏差和系统偏差。',freq:'中',diff:1},
+{q:'X理论认为员工本质上是（）。',opts:['积极主动的','懒惰的','自我实现的','有创造力的'],ans:1,cat:'项目资源管理',exp:'X理论认为人性本懒，需要监督惩罚；Y理论认为人性本勤，可以自我驱动。',freq:'中',diff:1},
+{q:'制定项目章程的输入不包括（）。',opts:['商业论证','协议','项目工作说明书','项目管理计划'],ans:3,cat:'项目整体管理',exp:'项目管理计划是制定章程的输出而非输入。输入包括：商业论证、效益管理计划、协议、项目工作说明书。',freq:'高',diff:2},
+{q:'项目收尾时最后一步是（）。',opts:['释放资源','移交可交付成果','归档组织过程资产','总结经验教训'],ans:2,cat:'项目整体管理',exp:'最后一步是归档组织过程资产。',freq:'高',diff:1},
+{q:'V模型中，与系统设计对应的是（）。',opts:['单元测试','集成测试','系统测试','验收测试'],ans:1,cat:'技术基础',exp:'V模型：需求\u2192验收测试，概要设计\u2192系统测试，详细设计\u2192集成测试，编码\u2192单元测试。',freq:'低',diff:1},
+{q:'配置管理的核心活动是（）。',opts:['配置识别','配置控制','配置状态记录','配置审计'],ans:1,cat:'项目整体管理',exp:'配置控制（变更控制）是配置管理的核心活动。',freq:'高',diff:1},
+{q:'项目进度网络图中，虚活动的工期为（）。',opts:['0','1','不确定','-1'],ans:0,cat:'项目进度管理',exp:'虚活动（虚箭线）工期为0，仅表示逻辑依赖关系。',freq:'高',diff:1},
+// ===== Batch 1: 项目整体管理补充 (20 questions) =====
+{q:'项目管理办公室(PMO)的类型不包括（）。',opts:['支持型','控制型','指令型','监督型'],ans:3,cat:'项目整体管理',exp:'PMO三种类型：支持型(顾问/模板)、控制型(审查/合规)、指令型(直接管理)。监督型不是PMO类型。',freq:'高',diff:2},
+{q:'项目经理的权力来源中，基于专业知识的权力是（）。',opts:['职位权力','专家权力','参照权力','奖赏权力'],ans:1,cat:'项目整体管理',exp:'专家权力来源于专业知识和技能，是最有效的权力之一。职位权力来自正式职位。',freq:'高',diff:1},
+{q:'整体变更控制属于（）过程组。',opts:['启动','规划','执行','监控'],ans:3,cat:'项目整体管理',exp:'整体变更控制是监控过程组。记住：启动-制定章程，规划-制定计划，执行-指导管理/管理知识，监控-监控工作/整体变更控制，收尾-结束项目。',freq:'高',diff:2},
+{q:'配置管理活动不包括（）。',opts:['配置识别','配置控制','配置需求分析','配置审计'],ans:2,cat:'项目整体管理',exp:'配置管理四活动：配置识别、配置控制(变更控制)、配置状态记录、配置审计。配置需求分析不属于配置管理活动。',freq:'高',diff:2},
+{q:'以下哪项不是项目收尾阶段的工作？',opts:['确认工作已完成','移交可交付成果','释放资源','制定项目管理计划'],ans:3,cat:'项目整体管理',exp:'制定项目管理计划是规划阶段工作。收尾阶段工作：确认完成、移交成果、释放资源、归档、总结经验。',freq:'高',diff:1},
+{q:'项目工作说明书(SOW)的内容不包括（）。',opts:['业务需求','产品范围描述','战略计划','项目章程'],ans:3,cat:'项目整体管理',exp:'SOW内容包括：业务需求、产品范围描述、战略计划。项目章程是SOW的输出产物而非其内容。',freq:'高',diff:2},
+{q:'项目章程的关键内容不包括（）。',opts:['项目目的','可衡量目标和成功标准','详细WBS','项目经理及其权责'],ans:2,cat:'项目整体管理',exp:'WBS(工作分解结构)是规划阶段产物。章程包含：目的、目标标准、高层级需求/边界/成果、整体风险、里程碑、预估资源、干系人名单、项目经理权责。',freq:'高',diff:2},
+{q:'管理项目知识属于（）过程组。',opts:['规划','执行','监控','收尾'],ans:1,cat:'项目整体管理',exp:'管理项目知识属于执行过程组，与指导与管理项目工作同为执行过程组。',freq:'高',diff:2},
+{q:'纠正措施、预防措施和缺陷补救的区别，以下正确的是（）。',opts:['纠正措施-消除问题原因防止再发生','预防措施-消除实际偏差','缺陷补救-修改不符合项','以上都对'],ans:2,cat:'项目整体管理',exp:'纠正措施：消除实际偏差；预防措施：消除潜在偏差原因；缺陷补救：修改不合格产品/组件。',freq:'高',diff:2},
+{q:'工作绩效数据、信息、报告的区别，以下正确的是（）。',opts:['绩效数据是原始观察结果','绩效信息是经过分析的数据','绩效报告是有格式的汇报','以上都对'],ans:3,cat:'项目整体管理',exp:'三层级定义：数据(原始观察值)\u2192信息(分析后比较基准)\u2192报告(编制为决策依据的有格式文档)。',freq:'高',diff:2},
+{q:'项目选择方法中，决策树分析属于（）。',opts:['效益测量','比较法','数学模型','专家判断'],ans:1,cat:'项目整体管理',exp:'决策树分析属于比较法(Constrained Optimization)的一种。效益测量包括NPV(净现值)、IRR(内部收益率)、ROI(投资回报率)、BCR(收益成本比)、回收期。',freq:'高',diff:2},
+{q:'可行性研究内容不包括（）。',opts:['技术可行性','经济可行性','操作可行性','评审可行性'],ans:3,cat:'项目整体管理',exp:'可行性研究内容：技术可行性、经济可行性、运行/操作可行性、法律可行性、社会可行性、时间可行性。评审可行性不是标准内容。',freq:'高',diff:2},
+{q:'PMIS指（）。',opts:['项目管理信息系统','项目管理集成系统','项目监控信息系统','项目维护信息系统'],ans:0,cat:'项目整体管理',exp:'PMIS=Project Management Information System 项目管理信息系统，指导与管理项目工作的工具。',freq:'高',diff:1},
+{q:'监控项目工作的工具与技术不包括（）。',opts:['专家判断','数据分析','决策','风险登记册'],ans:3,cat:'项目整体管理',exp:'风险登记册是输入不是工具。监控项目工作工具：专家判断、数据分析(偏差分析/趋势分析/挣值分析)、决策、会议。',freq:'高',diff:2},
+{q:'指导与管理项目工作的输出不包括（）。',opts:['可交付成果','工作绩效数据','变更请求','项目章程'],ans:3,cat:'项目整体管理',exp:'项目章程是制定项目章程的输出。指导与管理项目工作输出：可交付成果、工作绩效数据、变更请求、项目管理计划更新、项目文件更新。',freq:'高',diff:2},
+{q:'商业论证和效益管理计划的关系正确的是（）。',opts:['商业论证包含效益管理计划','效益管理计划是商业论证的输入','两者无关','商业论证评估项目价值，效益管理计划跟踪效益实现'],ans:3,cat:'项目整体管理',exp:'商业论证评估项目是否值得投资，效益管理计划制定"如何/何时测量效益"，两者都是制定项目章程的输入但分工不同。',freq:'高',diff:1},
+{q:'项目经理的主要角色不包括（）。',opts:['整合者','沟通者','决策者','技术专家'],ans:3,cat:'项目整体管理',exp:'项目经理是整合者、沟通者、领导者，但不一定是技术专家。PM的核心能力是整合管理而非技术能力。',freq:'高',diff:2},
+{q:'项目启动条件判断的标准不包括（）。',opts:['商业论证通过','有项目章程','技术方案已确定','资金已落实'],ans:2,cat:'项目整体管理',exp:'技术方案确定是规划阶段的工作。启动条件：商业论证通过、发起人批准、资金到位、章程签署。',freq:'高',diff:2},
+{q:'PMO指令型的特点（）。',opts:['提供模板和最佳实践','对项目进行审查控制','直接管理项目，项目经理向其汇报','仅提供顾问咨询'],ans:2,cat:'项目整体管理',exp:'支持型=提供模板/培训/顾问(控制最低)；控制型=审查/合规/提供框架(控制中等)；指令型=直接管理项目(控制最高)，项目经理向PMO汇报。',freq:'高',diff:2},
+{q:'实施整体变更控制中，CCB的成员通常不包括（）。',opts:['项目经理','主要干系人','客户代表','全部项目团队成员'],ans:3,cat:'项目整体管理',exp:'CCB由主要干系人代表组成，包括发起人、PM、关键干系人、专家等，不需要全部团队成员参与。',freq:'高',diff:2},
+// ===== Batch 2: ITTO过程题 (30 questions) =====
+{q:'制定项目章程属于（）知识领域。',opts:['项目整体管理','项目范围管理','项目干系人管理','项目管理'],ans:0,cat:'ITTO速记',exp:'十大知识领域：整合/范围/进度/成本/质量/资源/沟通/风险/采购/干系人。制定章程属项目整体管理。',freq:'中',diff:2},
+{q:'确认范围属于（）过程组。',opts:['规划','执行','监控','收尾'],ans:2,cat:'ITTO速记',exp:'确认范围是范围管理6过程中唯一属于监控过程组的过程(由客户/发起人认可)。其余5个(规划范围管理/收集需求/定义范围/创建WBS/控制范围)也需记忆分布。',freq:'中',diff:2},
+{q:'以下哪个过程不属于规划过程组？',opts:['识别风险','实施风险应对','定性风险分析','规划风险应对'],ans:1,cat:'ITTO速记',exp:'实施风险应对属于执行过程组。风险7过程中，前5个(规划/识别/定性/定量/规划应对)属规划，实施应对属执行，监督风险属监控。',freq:'中',diff:2},
+{q:'控制进度属于（）知识领域的过程。',opts:['项目整体管理','项目进度管理','项目成本管理','项目质量管理'],ans:1,cat:'ITTO速记',exp:'控制进度是项目进度管理6过程中唯一属于监控过程组的过程。其他5个(规划进度/定义活动/排列顺序/估算时间/制定进度)均属规划过程组。',freq:'中',diff:2},
+{q:'事业环境因素(EEF)几乎出现在所有过程的（）。',opts:['输出','工具与技术','输入','不出现'],ans:2,cat:'ITTO速记',exp:'EEF(Enterprise Environmental Factors)和OPA(Organizational Process Assets)是几乎所有过程的通用输入。',freq:'中',diff:1},
+{q:'专家判断出现在哪个过程组最多？',opts:['启动','规划','执行','所有过程组'],ans:3,cat:'ITTO速记',exp:'专家判断是几乎所有过程都会使用的工具与技术，不限于特定过程组。',freq:'中',diff:1},
+{q:'变更请求通常出现在哪些过程的输出中？',opts:['仅监控过程组','仅执行过程组','多数执行和监控过程','所有过程'],ans:2,cat:'ITTO速记',exp:'变更请求主要出现在执行和监控过程的输出中，是项目执行过程中的常见输出物。',freq:'中',diff:1},
+{q:'人力资源管理6个过程有几个属于规划？',opts:['2','3','4','5'],ans:0,cat:'ITTO速记',exp:'资源管理6个过程：规划(规划资源管理/估算活动资源)、执行(获取资源/建设团队/管理团队)、监控(控制资源)。属于规划的是前2个。',freq:'中',diff:2},
+{q:'风险管理7个过程中有几个属于监控？',opts:['0','1','2','3'],ans:1,cat:'ITTO速记',exp:'只有"监督风险"属于监控过程组。风险过程分布：规划(5个)\u2192执行(1个=实施风险应对)\u2192监控(1个=监督风险)。',freq:'中',diff:2},
+{q:'采购管理3个过程的分布是（）。',opts:['启动-规划-监控','规划-执行-监控','规划-执行-收尾','启动-执行-监控'],ans:1,cat:'ITTO速记',exp:'采购3过程：规划采购管理(规划)、实施采购(执行)、控制采购(监控)。注意采购过程没有收尾过程组的过程。',freq:'中',diff:1},
+{q:'干系人管理4个过程的分布正确的是（）。',opts:['启动-规划-执行-监控','规划-执行-监控-收尾','启动-规划-监控-收尾','启动-规划-执行-收尾'],ans:0,cat:'ITTO速记',exp:'干系人4过程：识别干系人(启动)、规划干系人参与(规划)、管理干系人参与(执行)、监督干系人参与(监控)。',freq:'中',diff:1},
+{q:'执行过程组共有多少个过程？',opts:['8','10','12','14'],ans:1,cat:'ITTO速记',exp:'执行10个过程：指导与管理项目工作、管理项目知识、管理质量、获取资源、建设团队、管理团队、管理沟通、实施风险应对、实施采购、管理干系人参与。',freq:'中',diff:1},
+{q:'监控过程组共有多少个过程？',opts:['10','11','12','13'],ans:2,cat:'ITTO速记',exp:'监控12个过程：监控项目工作、整体变更控制、确认范围、控制范围、控制进度、控制成本、控制质量、控制资源、监督沟通、监督风险、控制采购、监督干系人参与。',freq:'中',diff:1},
+{q:'以下哪个过程属于启动过程组？',opts:['制定项目管理计划','制定项目章程','确认范围','控制进度'],ans:1,cat:'ITTO速记',exp:'启动过程组只有2个过程：制定项目章程(整合)和识别干系人(干系人)。',freq:'中',diff:2},
+{q:'项目管理计划更新最常出现在哪个过程组？',opts:['启动','规划','执行','所有过程组'],ans:3,cat:'ITTO速记',exp:'项目管理计划更新贯穿全生命周期，几乎所有过程组的输出都可能涉及项目管理计划更新。',freq:'中',diff:1},
+{q:'组织过程资产更新通常作为哪个类型的输出？',opts:['只有规划过程','只有收尾过程','大部分过程的输出','只有监控过程'],ans:2,cat:'ITTO速记',exp:'组织过程资产更新是几乎所有过程的通用输出，不局限于某一过程组。',freq:'中',diff:1},
+{q:'收尾过程组唯一的过程属于哪个知识领域？',opts:['项目整体管理','项目范围管理','项目采购管理','项目干系人管理'],ans:0,cat:'ITTO速记',exp:'收尾过程组只有1个过程："结束项目或阶段"，属于项目整体管理知识领域。',freq:'中',diff:2},
+{q:'实施风险应对属于（）过程组。',opts:['规划','执行','监控','收尾'],ans:1,cat:'ITTO速记',exp:'实施风险应对是执行过程组的唯一风险过程。规划有5个风险过程，监控只有1个(监督风险)。',freq:'中',diff:2},
+{q:'管理质量属于（）过程组。',opts:['规划','执行','监控','收尾'],ans:1,cat:'ITTO速记',exp:'质量3过程：规划质量管理(规划)、管理质量(执行)、控制质量(监控)。管理质量=质量保证，属于执行过程组。',freq:'中',diff:2},
+{q:'收集需求过程中的主要输出是（）。',opts:['需求文件','WBS','范围说明书','项目章程'],ans:0,cat:'ITTO速记',exp:'收集需求输出：需求文件和需求跟踪矩阵。WBS是创建WBS的输出，范围说明书是定义范围的输出。',freq:'中',diff:1},
+{q:'项目管理计划作为输入出现在哪个过程？',opts:['只出现在执行过程','只出现在监控过程','出现在规划之后的所有过程','只出现在收尾过程'],ans:2,cat:'ITTO速记',exp:'项目管理计划一旦制定，成为后续几乎所有过程的输入(执行/监控/收尾过程组)。',freq:'中',diff:1},
+{q:'哪种变更不需要CCB审批？',opts:['范围变更','成本变更','进度变更','紧急情况下的变更'],ans:3,cat:'ITTO速记',exp:'紧急变更可先实施后补审批流程。正常变更都必须通过CCB审批的完整变更流程。',freq:'中',diff:1},
+{q:'以下哪个输出不是所有过程通用的？',opts:['工作绩效数据','项目文件更新','变更请求','可交付成果'],ans:3,cat:'ITTO速记',exp:'可交付成果只出现在特定过程中(如指导与管理项目工作)。工作绩效数据/项目文件更新/变更请求是多数过程的通用输出。',freq:'中',diff:2},
+{q:'制定进度计划的工具不包括（）。',opts:['关键路径法','资源优化','进度压缩','鱼骨图'],ans:3,cat:'ITTO速记',exp:'鱼骨图属质量工具。制定进度计划的工具：关键路径法、资源优化、进度压缩(赶工/快速跟进)、进度网络分析、关键链法、建模技术等。',freq:'中',diff:2},
+{q:'实施采购的工具与技术不包括（）。',opts:['专家判断','广告','投标人会议','鱼骨图'],ans:3,cat:'ITTO速记',exp:'鱼骨图是质量工具。实施采购工具：专家判断、广告、投标人会议、数据收集、独立估算、谈判等。',freq:'中',diff:2},
+{q:'管理沟通的工具与技术包括（）。',opts:['沟通模型','沟通方法','沟通技术','以上都是'],ans:3,cat:'ITTO速记',exp:'管理沟通的工具：沟通模型、沟通方法(推/拉/交互)、沟通技术(面对面/邮寄/电话/IM等)、人际关系技能等。',freq:'中',diff:1},
+{q:'控制采购过程可能产生以下哪个输出？',opts:['采购文档更新','结束的采购','工作绩效信息','以上都是'],ans:3,cat:'ITTO速记',exp:'控制采购输出：采购文档更新、结束的采购、工作绩效信息、变更请求、项目管理计划更新等。',freq:'中',diff:1},
+{q:'识别干系人的主要工具不包括（）。',opts:['数据收集问卷','数据分析(权力/利益方格)','专家判断','挣值分析'],ans:3,cat:'ITTO速记',exp:'挣值分析属于成本管理工具。识别干系人工具：专家判断、数据收集(问卷/头脑风暴)、数据分析(权力/利益方格/方向格)、会议等。',freq:'中',diff:2},
+{q:'建设团队的工具不包括（）。',opts:['团队建设活动','培训','认可与奖励','关键路径法'],ans:3,cat:'ITTO速记',exp:'关键路径法属进度工具。建设团队工具：团队建设活动(塔克曼)、培训、认可与奖励、集中办公、个人和团队评估、沟通技术等。',freq:'中',diff:2},
+{q:'质量管理过程对应的PDCA循环中，规划质量管理对应（）。',opts:['Plan','Do','Check','Act'],ans:0,cat:'ITTO速记',exp:'质量+PDCA：规划质量管理(Plan)、管理质量(Do)、控制质量(Check)、过程改进(Act)。',freq:'中',diff:1},
+// ===== Batch 3: 计算题 (25 questions) =====
+{q:'某项目PV=100万，EV=80万，AC=90万，则CV为（）。',opts:['10万','-10万','20万','-20万'],ans:1,cat:'项目成本管理',exp:'CV=EV-AC=80-90=-10万元，成本超支10万元。',freq:'高',diff:2},
+{q:'某项目PV=100万，EV=80万，AC=90万，则SV为（）。',opts:['10万','-10万','20万','-20万'],ans:3,cat:'项目成本管理',exp:'SV=EV-PV=80-100=-20万元，进度滞后20万元。',freq:'高',diff:3},
+{q:'某项目PV=100万，EV=80万，AC=90万，CPI和SPI分别为（）。',opts:['CPI=0.89,SPI=0.80','CPI=0.80,SPI=0.89','CPI=1.25,SPI=1.11','CPI=0.89,SPI=1.25'],ans:0,cat:'项目成本管理',exp:'CPI=EV/AC=80/90\u22480.89(cost超支)；SPI=EV/PV=80/100=0.80(进度滞后)。',freq:'高',diff:3},
+{q:'项目BAC=200万，EV=120万，AC=150万，PV=130万。按典型偏差EAC为（）。',opts:['230万','250万','200万','270万'],ans:1,cat:'项目成本管理',exp:'CPI=120/150=0.8；EAC=BAC/CPI=200/0.8=250万元。',freq:'高',diff:3},
+{q:'项目BAC=200万，EV=120万，AC=150万。按非典型偏差EAC为（）。',opts:['200万','230万','250万','270万'],ans:1,cat:'项目成本管理',exp:'EAC=AC+(BAC-EV)=150+(200-120)=230万元。注意：非典型=纠偏=AC+BAC-EV。',freq:'高',diff:3},
+{q:'BAC=100万，EV=60万，AC=70万，CPI=0.86，则TCPI为（）。',opts:['1.33','0.75','1.16','0.86'],ans:0,cat:'项目成本管理',exp:'TCPI=(BAC-EV)/(BAC-AC)=(100-60)/(100-70)=40/30\u22481.33。TCPI\u22651表示难以完成目标。',freq:'高',diff:3},
+{q:'三点估算：O=10天，M=16天，P=28天，期望工期tE为（）。',opts:['16天','17天','18天','19天'],ans:1,cat:'项目进度管理',exp:'tE=(O+4M+P)/6=(10+4\u00d716+28)/6=(10+64+28)/6=102/6=17天。',freq:'高',diff:2},
+{q:'三点估算：O=10，P=28，标准差\u03c3为（）。',opts:['3','6','9','18'],ans:0,cat:'项目进度管理',exp:'\u03c3=(P-O)/6=(28-10)/6=18/6=3天。',freq:'高',diff:2},
+{q:'一个项目团队有8名成员(不含PM)，沟通渠道数为（）。',opts:['28','36','45','56'],ans:2,cat:'项目沟通管理',exp:'含PM共9人，渠道数=n(n-1)/2=9\u00d78/2=36。注意：需要含PM计算。',freq:'中',diff:2},
+{q:'项目原有6人(含PM)，新增2人(含PM)，沟通渠道增加（）条。',opts:['9','10','11','12'],ans:2,cat:'项目沟通管理',exp:'原来5\u00d74/2=10条(6人)；现在7\u00d76/2=21条(8人)；增加21-10=11条。',freq:'中',diff:2},
+{q:'关键路径上共有几个活动，浮动时间之和为（）。',opts:['0','大于0','取决于活动数','小于0'],ans:0,cat:'项目进度管理',exp:'关键路径上任何活动的浮动时间TF=0。',freq:'高',diff:2},
+{q:'活动A：(O=3,M=5,P=7)，活动落在5-7天范围内的概率约为（）。',opts:['34%','50%','68%','95%'],ans:0,cat:'项目进度管理',exp:'tE=5,\u03c3=0.67，5-7=0-3\u03c3范围，约50%的概率。5至7天是tE到tE+3\u03c3，面积约50%/2+34%=...。\u00b11\u03c3=68%,\u00b12\u03c3=95%,\u00b13\u03c3=99.7%。5-7为[tE,tE+3\u03c3]占比约50%。',freq:'高',diff:2},
+{q:'以下哪个活动持续时间估算方法不适用于资源有限的情况？',opts:['专家判断','类比估算','参数估算','自下而上估算'],ans:3,cat:'项目进度管理',exp:'自下而上估算是从活动级汇总，精度最高但最耗时。类比估算快速但不精确；参数估算使用统计关系。广义上都适用但自下而上成本最高。不过实际上应该是"自下而上"是最详细的。更准确的答案可能是自下而上估算依赖充足的资源和时间是前提。',freq:'高',diff:1},
+{q:'快速跟进的主要风险是（）。',opts:['成本增加','质量下降','返工风险增加','资源冲突'],ans:2,cat:'项目进度管理',exp:'快速跟进=并行执行原本顺序的活动，若前置活动未完成导致后置活动基于不完整信息开始，可能导致返工。',freq:'高',diff:1},
+{q:'赶工不可能增加（）。',opts:['成本','风险','工期','资源'],ans:2,cat:'项目进度管理',exp:'赶工是通过增加资源(成本)缩短工期的方法，不会增加工期，反而缩短工期。',freq:'高',diff:1},
+{q:'项目BAC=80万，计划完工6个月。第3个月末EV=35万，AC=40万，PV=30万。TCPI(按BAC)为（）。',opts:['1.0','1.13','0.88','1.5'],ans:1,cat:'项目成本管理',exp:'TCPI=(BAC-EV)/(BAC-AC)=(80-35)/(80-40)=45/40=1.125\u22481.13。',freq:'高',diff:3},
+{q:'某项目EV=50，PV=60，AC=55，BAC=200。ETC(非典型)为（）。',opts:['145','150','155','165'],ans:1,cat:'项目成本管理',exp:'非典型ETC=BAC-EV=200-50=150。',freq:'高',diff:2},
+{q:'项目BAC=500，当前EV=300，AC=350，PV=280。完工偏差VAC为（）。',opts:['83','-83','0','100'],ans:1,cat:'项目成本管理',exp:'CPI=300/350\u22480.857；EAC=BAC/CPI=500/0.857\u2248583.3；VAC=BAC-EAC=500-583.3=-83.3万。',freq:'高',diff:3},
+{q:'以下不属于储备分析范畴的是（）。',opts:['应急储备','管理储备','已知-未知风险','未知-未知风险定量分析'],ans:3,cat:'项目成本管理',exp:'储备分析：应急储备(已知-未知，PM支配，纳入成本基准)；管理储备(未知-未知，管理层控制，不纳入基准)。未知-未知风险的定量分析是管理储备的使用而非分析方法。',freq:'高',diff:2},
+{q:'以下关于管理储备的正确说法是（）。',opts:['管理储备纳入成本基准','PM可以自由支配管理储备','使用管理储备需要变更成本基准','管理储备用于已知-未知风险'],ans:2,cat:'项目成本管理',exp:'管理储备不纳入成本基准，使用时需管理层批准并通过变更成本基准纳入。',freq:'高',diff:2},
+{q:'以下哪个不是EVM的基本参数？',opts:['PV','EV','AC','VAC'],ans:3,cat:'项目成本管理',exp:'VAC(完工偏差)是EVM衍生指标。基本参数：PV(计划值)、EV(挣值)、AC(实际成本)。',freq:'高',diff:2},
+{q:'资源优化技术不包括（）。',opts:['资源平衡','资源平滑','资源分配','资源日历'],ans:2,cat:'项目进度管理',exp:'资源优化技术=资源平衡(可能改变关键路径)+资源平滑(不改变关键路径)。资源分配不属于资源优化技术。',freq:'高',diff:2},
+{q:'三点估算中\u00b11\u03c3范围内的概率约为（）。',opts:['50%','68%','95%','99.7%'],ans:1,cat:'项目进度管理',exp:'正态分布：\u00b11\u03c3=68.26%，\u00b12\u03c3=95.46%，\u00b13\u03c3=99.73%。',freq:'高',diff:2},
+{q:'某活动O=6，M=9，P=18，计算PERT期望值tE和标准差\u03c3（）。',opts:['tE=10,\u03c3=2','tE=9,\u03c3=2','tE=10,\u03c3=3','tE=11,\u03c3=2'],ans:0,cat:'项目进度管理',exp:'tE=(6+36+18)/6=60/6=10；\u03c3=(18-6)/6=12/6=2。',freq:'高',diff:3},
+// ===== Batch 4: 范围+质量+资源+沟通 (38 questions) =====
+{q:'范围基准由以下哪几项组成？',opts:['WBS','WBS+WBS词典','范围说明书+WBS+WBS词典','范围说明书+WBS'],ans:2,cat:'项目范围管理',exp:'范围基准=项目范围说明书+WBS+WBS词典。三大基准：范围、进度、成本。',freq:'高',diff:2},
+{q:'以下哪个不属于范围管理的过程？',opts:['收集需求','创建WBS','确认范围','制定项目章程'],ans:3,cat:'项目范围管理',exp:'制定项目章程属于整合/整体管理。范围6过程：规划范围管理、收集需求、定义范围、创建WBS、确认范围、控制范围。',freq:'高',diff:2},
+{q:'范围蔓延(Scope Creep)是指（）。',opts:['未经控制的范围变更','正式提出范围变更','CCB批准的范围变更','项目管理计划的变更'],ans:0,cat:'项目范围管理',exp:'范围蔓延=未经正式变更流程的、渐进的、未受控的范围扩展。',freq:'高',diff:1},
+{q:'WBS分解的最底层称为（）。',opts:['控制账户','规划包','工作包','活动'],ans:2,cat:'项目范围管理',exp:'WBS最底层是工作包。工作包可继续分解为活动(在定义活动过程中完成)，但WBS层面到工作包为止。',freq:'高',diff:1},
+{q:'确认范围与质量控制的关系正确的是（）。',opts:['两者完全独立','质量控制先于确认范围','确认范围先于质量控制','两者同步进行'],ans:1,cat:'项目范围管理',exp:'质量控制(QC)先于确认范围(Validate Scope)。QC检查可交付成果的正确性(内部)，确认范围由客户验收(外部)。',freq:'高',diff:1},
+{q:'需求跟踪矩阵的主要作用是（）。',opts:['追踪需求到可交付成果','记录需求变更历史','分析需求优先级','评估需求成本'],ans:0,cat:'项目范围管理',exp:'需求跟踪矩阵=从需求到可交付成果的跟踪表，确保每个需求都有对应产品/成果，每个产品都对应需求。',freq:'高',diff:2},
+{q:'以下哪项不是质量成本中的一致性成本？',opts:['培训','测试','检查','返工'],ans:3,cat:'项目质量管理',exp:'一致性成本=预防(培训)+评估(测试/检查)。非一致性成本=内部失败(返工/废品)+外部失败(保修/赔偿)。',freq:'中',diff:2},
+{q:'帕累托图的原理是（）。',opts:['80/20法则','PDCA循环','正态分布','控制上下限'],ans:0,cat:'项目质量管理',exp:'帕累托图=二八定律，80%的问题由20%的原因引起。按发生频率排序，找出主要问题的少数关键原因。',freq:'中',diff:1},
+{q:'质量审计属于（）的工具。',opts:['规划质量管理','管理质量','控制质量','质量改进'],ans:1,cat:'项目质量管理',exp:'质量审计是管理质量(执行过程组)的工具。管理质量=质量保证(QA)，关注过程改进和符合标准。',freq:'中',diff:2},
+{q:'控制质量的输出不包括（）。',opts:['核实的可交付成果','质量控制测量结果','确认的可交付成果','工作绩效数据'],ans:3,cat:'项目质量管理',exp:'工作绩效数据是输入。控制质量输出：质量控制测量结果、核实的可交付成果、变更请求、项目文件更新等。确认的可交付成果是确认范围的输出。',freq:'中',diff:2},
+{q:'因果图又称（）。',opts:['帕累托图','鱼骨图/石川图','控制图','散点图'],ans:1,cat:'项目质量管理',exp:'因果图=鱼骨图=石川图(Ishikawa)，用于分析问题的根本原因。',freq:'中',diff:1},
+{q:'控制图中的"七点规则"表示（）。',opts:['过程一定有缺陷','过程可能异常','过程运行正常','需要帕累托分析'],ans:1,cat:'项目质量管理',exp:'控制图规则："七点同侧"或"七点同趋势"=过程可能失控(非随机变异)，需调查。不一定有缺陷，但需注意异常。',freq:'中',diff:1},
+{q:'以下哪个不是质量七工具？',opts:['流程图','核查表','挣值分析','散点图'],ans:2,cat:'项目质量管理',exp:'挣值分析是成本/进度管理工具。质量七工具：因果图、流程图、核查表、帕累托图、直方图、控制图、散点图。',freq:'中',diff:2},
+{q:'PDCA中C阶段对应质量管理哪个过程？',opts:['规划质量管理','管理质量','控制质量','质量改进'],ans:2,cat:'项目质量管理',exp:'P=规划质量(Plan)，D=管理质量/质量保证(Do)，C=控制质量(Check)，A=过程改进(Act)。',freq:'中',diff:2},
+{q:'塔克曼团队发展模型中，在规范期之后是（）。',opts:['形成期','震荡期','成熟期','解散期'],ans:2,cat:'项目资源管理',exp:'顺序：形成\u2192震荡\u2192规范\u2192成熟\u2192解散。不能跳过任何阶段，但可快速通过。',freq:'中',diff:1},
+{q:'马斯洛需求层次理论从低到高正确顺序是（）。',opts:['社交\u2192安全\u2192生理\u2192尊重\u2192自我实现','生理\u2192安全\u2192社交\u2192尊重\u2192自我实现','生理\u2192社交\u2192安全\u2192自我实现\u2192尊重','安全\u2192生理\u2192尊重\u2192社交\u2192自我实现'],ans:1,cat:'项目资源管理',exp:'马斯洛五层：生理需求(底)\u2192安全\u2192社交(归属)\u2192尊重\u2192自我实现(顶)。低层满足后才会追求高层。',freq:'中',diff:1},
+{q:'根据赫茨伯格双因素理论，以下属于保健因素的是（）。',opts:['成就感','认可','工作条件','晋升'],ans:2,cat:'项目资源管理',exp:'保健因素(不满意因素)：工作条件、薪酬、公司政策、人际关系。激励因素(满意因素)：成就感、认可、晋升、成长。保健因素不满足会不满，满足了只消除不满而非激励。',freq:'中',diff:2},
+{q:'期望理论的公式是（）。',opts:['激励力=期望值+效价','激励力=期望值\u00d7效价','激励力=期望值/效价','激励力=效价-期望值'],ans:1,cat:'项目资源管理',exp:'期望理论(弗鲁姆)：M=\u2211(E\u00d7V)，激励力(Motivation)=期望值(Expectancy)\u00d7效价(Valence)。个人认为通过努力能达成目标且目标有价值时，激励最大。',freq:'中',diff:2},
+{q:'Y理论的管理风格强调（）。',opts:['严格监督惩罚','命令控制','参与式管理和授权','标准化流程'],ans:2,cat:'项目资源管理',exp:'Y理论(麦格雷戈)：人天生勤奋有创造力，自我驱动。管理应授权、参与、信任，提供成长环境。X理论则主张严格监督和控制。',freq:'中',diff:1},
+{q:'项目经理处理团队冲突时，最佳的解决方式是（）。',opts:['强制','回避','妥协','合作/解决问题'],ans:3,cat:'项目资源管理',exp:'冲突解决策略从好到差：合作/解决问题(双赢)\u2192妥协(各让一步)\u2192缓和/包容(求同存异)\u2192强制(命令)\u2192回避(拖延)。合作/解决问题是最佳方式。',freq:'中',diff:1},
+{q:'虚拟团队的最大挑战是（）。',opts:['成本过高','沟通困难','技术不足','工作效率低'],ans:1,cat:'项目资源管理',exp:'虚拟团队的最大挑战是沟通，包括时区差异、文化差异、缺乏面对面交流、信息传递延迟等。',freq:'中',diff:2},
+{q:'创建WBS的工具不包括（）。',opts:['专家判断','分解','鱼骨图','WBS模板'],ans:2,cat:'项目范围管理',exp:'鱼骨图属质量工具。创建WBS工具：专家判断、分解(自上而下)、WBS模板。',freq:'高',diff:2},
+{q:'确认范围产生的主要输出是（）。',opts:['核实的可交付成果','验收的可交付成果','工作绩效信息','变更请求'],ans:1,cat:'项目范围管理',exp:'确认范围输出=验收的可交付成果。注意区别：控制质量输出=核实的可交付成果(内部检查)，确认范围输出=验收的可交付成果(客户验收)。',freq:'高',diff:2},
+{q:'范围说明书的主要内容不包括（）。',opts:['产品范围描述','可交付成果','验收标准','详细进度计划'],ans:3,cat:'项目范围管理',exp:'详细进度计划是进度管理计划的产物。范围说明书内容：产品范围描述、可交付成果、验收标准、项目的除外责任(不在项目范围内的事项)。',freq:'高',diff:2},
+{q:'控制范围的目的是（）。',opts:['管理范围变更','创建WBS','定义产品范围','收集需求'],ans:0,cat:'项目范围管理',exp:'控制范围=监督项目范围状态和管理范围基准变更，防止范围蔓延。',freq:'高',diff:1},
+// ===== Batch 5: 沟通+风险+采购+干系人+技术+法律+信息化 (50+ questions) =====
+{q:'项目沟通管理中，沟通模型的基本要素不包括（）。',opts:['发送者','编码','反馈','约束'],ans:3,cat:'项目沟通管理',exp:'沟通模型要素：发送者、编码、信息、媒介、解码、接收者、反馈、噪声。约束不在基本沟通模型中。',freq:'中',diff:2},
+{q:'沟通方法中，适用于受众面广、信息量大的方式是（）。',opts:['交互式','推式','拉式','面对面'],ans:2,cat:'项目沟通管理',exp:'拉式适用于大量信息/大受众(知识库/公告栏/内网)；推式=确保发送(邮件/报告)；交互式=最有效(会议/电话)。',freq:'中',diff:2},
+{q:'以下哪种沟通方法最有效？',opts:['电子邮件','书面报告','面对面会议','知识库'],ans:2,cat:'项目沟通管理',exp:'交互式沟通(面对面、电话)最有效，允许实时反馈和确认理解。面对面还包含55%的非语言信息。',freq:'中',diff:1},
+{q:'报告绩效属于哪个沟通过程？',opts:['规划沟通管理','管理沟通','监督沟通','识别干系人'],ans:1,cat:'项目沟通管理',exp:'报告绩效=管理沟通(执行过程组)。管理沟通确保信息及时、恰当地生成、收集、分发和最终处置。',freq:'中',diff:2},
+{q:'有效沟通的障碍不包括（）。',opts:['噪声','文化差异','语言障碍','沟通渠道不足'],ans:3,cat:'项目沟通管理',exp:'沟通渠道数量(n(n-1)/2)不是障碍，是客观规律。障碍包括：噪声、文化差异、语言、情绪、过滤(选择性注意)等。',freq:'中',diff:2},
+{q:'信息发送者责任不包括（）。',opts:['确保信息清晰','确保信息完整','确认接收者理解','确保接收者服从'],ans:3,cat:'项目沟通管理',exp:'发送者责任：清晰、完整、确认理解。接收者责任：完整接收、正确理解、确认收讫。服从不是沟通责任。',freq:'中',diff:2},
+{q:'项目团队10人(含PM)，沟通渠道数是（）。',opts:['45','90','50','100'],ans:0,cat:'项目沟通管理',exp:'10人(含PM)，渠道数=10\u00d79/2=45条。',freq:'中',diff:2},
+{q:'常见的风险识别方法不包括（）。',opts:['头脑风暴','德尔菲法','SWOT分析','挣值分析'],ans:3,cat:'项目风险管理',exp:'挣值分析是成本进度监控工具。风险识别工具：头脑风暴、德尔菲、SWOT(优势/劣势/机会/威胁)、核对表、假设分析、图解技术、根本原因分析。',freq:'高',diff:2},
+{q:'德尔菲法的特点是（）。',opts:['面对面讨论','匿名多轮','现场投票','一对一访谈'],ans:1,cat:'项目风险管理',exp:'德尔菲技术=专家组匿名、多轮、反馈趋同。特点是匿名(避免从众/权威影响)、重复多轮、逐步收敛。',freq:'高',diff:2},
+{q:'定性风险分析的主要输出是（）。',opts:['风险概率和影响矩阵','风险登记册更新','风险应对计划','定量数据'],ans:1,cat:'项目风险管理',exp:'定性风险分析=评估风险概率和影响并排序，输出=风险登记册更新(含优先级排序、紧迫性、需进一步分析的风险)。',freq:'高',diff:1},
+{q:'定量风险分析常用工具不包括（）。',opts:['蒙特卡洛模拟','决策树分析','敏感性分析','帕累托图'],ans:3,cat:'项目风险管理',exp:'帕累托图是质量工具。定量分析工具：蒙特卡洛模拟、决策树分析(EMV)、敏感性分析(龙卷风图)、影响图、预期货币价值分析。',freq:'高',diff:2},
+{q:'风险接受策略的正确理解是（）。',opts:['完全忽略风险','主动(储备)+被动(记录)','将风险转移给第三方','消除风险'],ans:1,cat:'项目风险管理',exp:'风险接受：主动接受=建立应急储备；被动接受=记录风险但暂不行动，发生再处理。接受不同于忽略。',freq:'高',diff:1},
+{q:'风险概率和影响矩阵(P-I矩阵)用于（）。',opts:['定量分析','定性分析','风险应对','风险监控'],ans:1,cat:'项目风险管理',exp:'P-I矩阵是定性风险分析的工具，通过概率和影响两个维度对风险排序(高/中/低)。',freq:'高',diff:1},
+{q:'预期货币价值(EMV)属于（）工具。',opts:['定性风险分析','定量风险分析','风险识别','风险应对'],ans:1,cat:'项目风险管理',exp:'EMV=概率\u00d7影响(金额)，是定量风险分析工具，用于决策树分析。',freq:'高',diff:2},
+{q:'SWOT分析中O和T分别代表（）。',opts:['对象和技术','机会和威胁','目标和时间','开放和测试'],ans:1,cat:'项目风险管理',exp:'SWOT=S(优势Strengths)/W(劣势Weaknesses)/O(机会Opportunities)/T(威胁Threats)。SW识别内部因素，OT识别外部因素。',freq:'高',diff:2},
+{q:'风险的"概率\u00d7影响"计算方式用于（）。',opts:['定性分析','定量分析(EMV)','两者都可以','仅用于机会'],ans:2,cat:'项目风险管理',exp:'概率\u00d7影响既用于定性分析(风险评级)也用于定量分析(EMV=金额)。定性给出级别，定量给出货币值。',freq:'高',diff:2},
+{q:'以下哪个不是威胁应对策略？',opts:['规避','转移','分享','减轻'],ans:2,cat:'项目风险管理',exp:'分享是机会应对策略。威胁应对五策略：规避、转移、减轻、接受、上报(超出项目范围)。机会应对：开拓、分享、提高、接受、上报。',freq:'高',diff:2},
+{q:'采购文件的RFP主要用于（）。',opts:['标准商品','复杂采购','简单服务','固定价格'],ans:1,cat:'项目采购管理',exp:'RFP(建议书邀请)=复杂采购需详细技术方案；RFQ(报价邀请)=标准产品价格比较；IFB(投标邀请)=正式招标公告。',freq:'中',diff:1},
+{q:'成本补偿合同中，卖方风险最小的是（）。',opts:['CPFF(成本加固定费)','CPIF(成本加激励费)','CPA(成本加奖励)','FFP(固定总价)'],ans:0,cat:'项目采购管理',exp:'成本补偿合同卖方风险排序(从小到大)：CPFF<CPIF<CPA<FFP。CPFF=无论实际成本多少，固定费不增不减，卖方风险最小。FFP=买方风险最小。',freq:'中',diff:2},
+{q:'工料合同(T&M)适用于（）。',opts:['范围明确','工作量难以预先确定','高风险项目','大型复杂项目'],ans:1,cat:'项目采购管理',exp:'T&M(工料合同)=工作量不确定的项目，按实际工时和材料费结算，灵活但成本控制弱。适用于范围不确定或需要快速启动的情况。',freq:'中',diff:1},
+{q:'控制采购的输出不包括（）。',opts:['结束的采购','采购文档更新','工作绩效信息','采购管理计划'],ans:3,cat:'项目采购管理',exp:'采购管理计划是规划采购的输出。控制采购输出：结束的采购、采购文档更新、工作绩效信息、变更请求等。',freq:'中',diff:2},
+{q:'以下属于采购关闭时需确认的事项是（）。',opts:['所有发票已支付','所有文档已归档','所有合同条款已完成','以上都是'],ans:3,cat:'项目采购管理',exp:'采购关闭=确认所有工作已完成、产品已交付验收、发票已结算、文件归档。包括合同完成的确认、行政收尾等。',freq:'中',diff:2},
+{q:'投标人会议(Bidder Conference)的目的是（）。',opts:['选择中标人','保证所有投标人对采购理解一致','谈判合同条款','评估投标人资质'],ans:1,cat:'项目采购管理',exp:'投标人会议=招标前沟通会，确保所有潜在投标人对采购需求有相同的理解。所有问题及答案发给全部投标人(公平原则)。',freq:'中',diff:1},
+{q:'实施采购过程的主要输出是（）。',opts:['采购管理计划','选定的卖方','采购工作说明书','招标文件'],ans:1,cat:'项目采购管理',exp:'实施采购输出=选定的卖方和签订的合同。采购管理计划和采购工作说明书是规划采购的输出。',freq:'中',diff:1},
+{q:'权力/利益方格中，权力低/利益高的干系人应（）。',opts:['重点管理','令其满意','随时告知','监督'],ans:2,cat:'项目干系人管理',exp:'四象限：高权高利=重点管理；高权低利=令其满意；低权高利=随时告知；低权低利=监督(最小努力)。',freq:'中',diff:1},
+{q:'凸显模型(Salience Model)不包括以下哪个维度？',opts:['权力','紧急程度','合法性','利益大小'],ans:3,cat:'项目干系人管理',exp:'凸显模型三维度：权力(Power)、紧急程度(Urgency)、合法性(Legitimacy)。组合7类干系人(核心/支配/危险/依赖/潜在/酌处/非干系人)。',freq:'中',diff:2},
+{q:'干系人参与度分类中，"抵制的"下一级是（）。',opts:['不知晓的','中立的','支持性的','领导性的'],ans:1,cat:'项目干系人管理',exp:'参与度等级从低到高：不知晓\u2192抵制\u2192中立\u2192支持\u2192领导。目标：将干系人从低参与度移向高参与度。',freq:'中',diff:1},
+{q:'干系人参与计划属于（）的输出。',opts:['识别干系人','规划干系人参与','管理干系人参与','监督干系人参与'],ans:1,cat:'项目干系人管理',exp:'规划干系人参与输出=干系人参与计划。该计划定义干系人参与策略和所需参与程度。',freq:'中',diff:2},
+{q:'监督干系人参与的目的是（）。',opts:['与干系人沟通','维护关系满足期望','识别新干系人','制定参与策略'],ans:1,cat:'项目干系人管理',exp:'监督干系人参与=维持/提升干系人参与效率和效果，调整策略满足干系人期望(监控过程组)。',freq:'中',diff:2},
+{q:'OSI七层模型中，交换机工作在哪层？',opts:['物理层','数据链路层','网络层','传输层'],ans:1,cat:'技术基础',exp:'交换机工作在数据链路层(第2层)，基于MAC地址转发。路由器工作在网络层(第3层)，基于IP地址转发。',freq:'低',diff:1},
+{q:'DNS服务属于OSI哪层？',opts:['应用层','传输层','网络层','数据链路层'],ans:0,cat:'技术基础',exp:'DNS=应用层。应用层协议：HTTP/HTTPS、FTP、SMTP、DNS、Telnet、SNMP等。',freq:'低',diff:2},
+{q:'数据库的1NF要求（）。',opts:['消除部分依赖','消除传递依赖','字段不可再分','消除多值依赖'],ans:2,cat:'技术基础',exp:'1NF=字段原子性(不可再分)，2NF=消除非主属性对主键的部分依赖，3NF=消除非主属性对主键的传递依赖。',freq:'低',diff:1},
+{q:'UDP协议的特点不包括（）。',opts:['无连接','不可靠','面向连接','开销小'],ans:2,cat:'技术基础',exp:'UDP=无连接、不可靠、开销小、适合实时传输(视频/语音)。TCP=面向连接、可靠、开销大、适合文件/网页。',freq:'低',diff:2},
+{q:'面向对象的三大特性不包括（）。',opts:['封装','继承','多态','抽象'],ans:3,cat:'技术基础',exp:'OOP三大特性：封装(数据隐藏)、继承(子类复用父类)、多态(同一接口不同行为)。抽象是基础思想但传统定义为三大特性之外。',freq:'低',diff:2},
+{q:'软件能力成熟度模型(CMMI)五级中，最高级别是（）。',opts:['初始级','已管理级','已定义级','优化级'],ans:3,cat:'技术基础',exp:'CMMI五级从低到高：1级初始级\u21922级已管理\u21923级已定义\u21924级量化管理\u21925级优化级。',freq:'低',diff:1},
+{q:'大数据5V特征不包括（）。',opts:['Volume(量大)','Velocity(快速)','Verification(验证)','Variety(多样)'],ans:2,cat:'技术基础',exp:'大数据5V：Volume(海量)、Velocity(高速)、Variety(多样)、Value(价值密度低)、Veracity(真实性)。Verification(验证)不是5V之一。',freq:'低',diff:2},
+{q:'云计算的部署模式不包括（）。',opts:['公有云','私有云','混合云','专业云'],ans:3,cat:'技术基础',exp:'云计算部署模式：公有云、私有云、混合云、社区云。服务模式：IaaS、PaaS、SaaS。专业云不是标准模式。',freq:'低',diff:2},
+{q:'区块链的核心特征不包括（）。',opts:['去中心化','不可篡改','高性能','可追溯'],ans:2,cat:'技术基础',exp:'区块链核心特征：去中心化(分布式账本)、不可篡改(加密链)、可追溯(时间戳)、共识机制、智能合约。高性能不是区块链的特征，目前区块链受限于共识速度。',freq:'低',diff:2},
+{q:'物联网三层架构从下到上为（）。',opts:['应用层\u2192网络层\u2192感知层','感知层\u2192网络层\u2192应用层','网络层\u2192感知层\u2192应用层','应用层\u2192感知层\u2192网络层'],ans:1,cat:'技术基础',exp:'物联网架构从下到上：感知层(传感器/RFID)\u2192网络层(通信/互联网)\u2192应用层(智能处理/应用服务)。',freq:'低',diff:1},
+// ===== Batch 6: 法律法规+信息化基础 (15 questions) =====
+{q:'下列不属于《政府采购法》规定的采购方式的是（）。',opts:['公开招标','竞争性谈判','询价','拍卖'],ans:3,cat:'法律法规',exp:'政府采购六方式：公开招标(主要)、邀请招标、竞争性谈判、竞争性磋商、询价、单一来源。拍卖不属于政府采购方式。',freq:'低',diff:2},
+{q:'竞争性谈判要求参与的供应商不少于（）。',opts:['2家','3家','4家','5家'],ans:1,cat:'法律法规',exp:'竞争性谈判、询价均要求\u22653家供应商参与。公开招标\u22653家，不足3家可转为其他方式。',freq:'低',diff:1},
+{q:'招投标法中，评标委员会成员应回避的情况不包括（）。',opts:['与投标人有经济利益','是投标人的亲属','曾评过该投标人','与投标人负责人有同学关系'],ans:3,cat:'法律法规',exp:'同学关系通常不构成法定回避，除非存在明显利害关系。经济利益关系、近亲属关系必须回避。',freq:'低',diff:2},
+{q:'某软件著作权保护期说法正确的是（）。',opts:['登记后50年','自然人终生+死后50年','开发完成后10年','终生+70年'],ans:1,cat:'法律法规',exp:'软件著作权：自然人=终生+死后50年(第50年12月31日截止)；法人=首次发表后50年。保护期期满进入公有领域。',freq:'低',diff:2},
+{q:'以下关于合同生效的说法正确的是（）。',opts:['自签订之日起生效','自签字盖章之日起成立，生效看约定','必须公证后才生效','签订后30日生效'],ans:1,cat:'法律法规',exp:'合同成立\u2260合同生效。合同一般自双方签字盖章时成立，生效时间按约定。注意要式合同需书面形式。',freq:'低',diff:2},
+{q:'合同变更需要满足的条件是（）。',opts:['单方意愿','双方协商一致','项目经理批准','CCB批准'],ans:1,cat:'法律法规',exp:'合同是双方的协议，变更需双方协商一致(书面形式)。CCB批准的是项目内部变更，合同变更需买卖双方同意。',freq:'低',diff:1},
+{q:'索赔处理时限中，索赔方应在知道索赔事件后（）天内提出。',opts:['14','28','30','60'],ans:1,cat:'法律法规',exp:'索赔程序：28天内通知(知悉事件)\u219228天内提交详细报告(通知后)\u219228天内批复(收到报告)\u2192协商/仲裁/诉讼。',freq:'低',diff:1},
+{q:'政府采购项目，投标人少于（）个时应当重新招标。',opts:['2','3','4','5'],ans:1,cat:'法律法规',exp:'投标人不足3家=重新招标。经过重新招标仍不足3家，经批准可改变采购方式。',freq:'低',diff:1},
+{q:'《网络安全法》规定关键信息基础设施运营者采购网络产品和服务，可能影响国家安全的应当进行（）。',opts:['安全审查','招标','备案','认证'],ans:0,cat:'法律法规',exp:'网络安全法第35条：关键信息基础设施运营者采购网络产品和服务可能影响国家安全的，应当通过国家安全审查。',freq:'低',diff:1},
+{q:'信息系统服务管理中的SLA是指（）。',opts:['服务等级协议','系统许可协议','安全等级评估','服务水平评估'],ans:0,cat:'法律法规',exp:'SLA(Service Level Agreement)=服务等级协议，定义服务提供商和客户之间的服务标准(可用性、响应时间等)。',freq:'低',diff:1},
+{q:'ERP的核心思想是（）。',opts:['供应链管理','客户管理','企业资源计划与整合','生产自动化'],ans:2,cat:'信息化基础',exp:'ERP=Enterprise Resource Planning，核心是整合企业所有资源(人/财/物/信息)进行统一计划和管理。',freq:'低',diff:2},
+{q:'CRM的主要功能不包括（）。',opts:['客户信息管理','销售自动化','客服管理','财务管理'],ans:3,cat:'信息化基础',exp:'财务管理是ERP模块。CRM=客户关系管理，功能：营销自动化、销售自动化(管理线索/机会)、客服管理(工单/知识库)、数据分析。',freq:'低',diff:2},
+{q:'SCM(供应链管理)的"牛鞭效应"是指（）。',opts:['需求信息沿供应链逐级放大','供应链成本增加','库存减少','供应商数量增加'],ans:0,cat:'信息化基础',exp:'牛鞭效应=需求信息从终端消费者向上游供应商传递时被逐级放大的现象，小订单波动变成大库存波动。信息共享可以缓解此效应。',freq:'低',diff:1},
+{q:'电子商务B2C是指（）。',opts:['企业对消费者','企业对企业','消费者对消费者','政府对消费者'],ans:0,cat:'信息化基础',exp:'常见电商模式：B2B(企业对企业批发)、B2C(企业直接卖消费者)、C2C(个人间交易如闲鱼)、O2O(线上线下融合)。',freq:'低',diff:1},
+{q:'信息化体系六要素中作为基础设施的是（）。',opts:['信息技术应用','信息资源','信息网络','信息技术和产业'],ans:2,cat:'信息化基础',exp:'六要素：信息技术应用(龙头)、信息资源(核心)、信息网络(基础设施)、信息技术和产业(建设基础)、信息化人才(成功之本)、法规标准(保障)。',freq:'低',diff:1},
+// ===== Batch 7: 综合补充 (10 questions) =====
+{q:'SPI=1.2表示（）。',opts:['进度超前','进度滞后','成本节约','成本超支'],ans:0,cat:'项目成本管理',exp:'SPI>1=进度超前；SPI<1=进度滞后；CPI>1=成本节约；CPI<1=成本超支。1是分界线。',freq:'高',diff:2},
+{q:'以下关于CPFF(成本加固定费)合同的描述错误的是（）。',opts:['卖方有成本控制动力','买方承担成本风险','适用于范围不明确','固定费与实际成本无关'],ans:0,cat:'项目采购管理',exp:'CPFF=固定费+报销成本。无论实际成本多少固定费不变，卖方无成本控制动力(花的越多报销越多)。买方承担全部成本超支风险。',freq:'中',diff:2},
+{q:'项目经理发现一个团队成员的绩效持续不佳，首先应该（）。',opts:['更换该成员','直接下达警告','私下沟通了解原因','向职能经理投诉'],ans:2,cat:'项目资源管理',exp:'管理团队中处理绩效问题：先私下沟通了解原因(建设性方式)，若无改善再采取正式措施(培训/警告/替换)。',freq:'中',diff:1},
+{q:'以下关于范围确认的时间点说法正确的是（）。',opts:['只在项目结束时','每个可交付成果完成时','项目中期一次','进度完成50%时'],ans:1,cat:'项目范围管理',exp:'确认范围不是一个只在结束时发生的过程。每个阶段/可交付成果完成时都应有确认范围的动作，由客户/发起人验收。',freq:'高',diff:2},
+{q:'执行过程组中与范围相关的活动不包括（）。',opts:['确认范围','收集需求执行','范围控制','指导项目工作'],ans:0,cat:'ITTO速记',exp:'确认范围属于监控过程组。范围6个过程分布：规划(4个)+监控(2个)。执行过程组没有范围过程。',freq:'中',diff:2},
+{q:'质量测量指标属于（）的输出。',opts:['规划质量管理','管理质量','控制质量','质量改进'],ans:0,cat:'项目质量管理',exp:'规划质量管理输出：质量管理计划、质量测量指标。控制质量使用质量测量指标检查可交付成果是否符合标准。',freq:'中',diff:2},
+{q:'以下属于管理质量过程的是（）。',opts:['质量审计','检查可交付成果','控制图分析','统计抽样'],ans:0,cat:'项目质量管理',exp:'质量审计=管理质量(QA)的工具(审查过程合规性)。检查/控制图/统计抽样=控制质量(QC)的工具(检查产品是否符合标准)。',freq:'中',diff:2},
+{q:'定性风险分析与定量风险分析的主要区别是（）。',opts:['定性用数值(概率\u00d7影响)；定量排序','定性排序评级；定量用数值分析整体影响','没有区别','定量先于定性'],ans:1,cat:'项目风险管理',exp:'定性=主观评估、优先级排序(高/中/低)；定量=数值分析(蒙特卡洛/EMV/决策树)、量化整体风险影响。定性评估快速，定量更精确。',freq:'高',diff:2},
+{q:'风险管理中储备分析属于（）的组成部分。',opts:['应急计划','风险应对策略','已识别风险管理','风险数据质量'],ans:1,cat:'项目风险管理',exp:'储备分析=为应对风险设置应急储备和管理储备的方法，属于风险应对策略(风险接受\u2192主动接受)的实施方式。',freq:'高',diff:2},
+{q:'以下关于合同类型选择说法正确的是（）。',opts:['范围很明确选CPFF','范围不明确选FFP','范围不明确选T&M','范围不明确选FPIF'],ans:2,cat:'项目采购管理',exp:'范围越明确\u2192越适合固定总价(FFP)；范围越不明确\u2192越适合成本补偿(CPFF)或工料(T&M)。T&M比CPFF更灵活，适用于工作量不可预估时。',freq:'中',diff:2},
+// ===== Batch 8: 项目成本管理EVM计算 (15 questions) =====
+{q:'已知BAC=200万,PV=80万,EV=70万,AC=85万，CPI为（）。',opts:['1.06','0.82','0.88','1.14'],ans:1,cat:'项目成本管理',exp:'CPI=EV/AC=70/85\u22480.82。CPI<1表示成本超支，每投入1元只获得0.82元的价值。',freq:'高',diff:2},
+{q:'已知BAC=200万,PV=80万,EV=70万,AC=85万，SPI为（）。',opts:['0.88','1.14','1.06','0.82'],ans:0,cat:'项目成本管理',exp:'SPI=EV/PV=70/80=0.875\u22480.88。SPI<1表示进度滞后，实际完成工作量仅为计划的88%。',freq:'高',diff:2},
+{q:'已知EV=100,AC=120,BAC=500，CPI为0.83，按典型偏差计算EAC=（）。',opts:['580','600','602','620'],ans:2,cat:'项目成本管理',exp:'典型偏差EAC=BAC/CPI=500/0.83\u2248602。即按当前效率继续，完工总成本预计约602。非典型公式EAC=AC+(BAC-EV)。',freq:'高',diff:3},
+{q:'当前CPI=1.1，BAC-EV=100万，ETC为（）。',opts:['110','100','91','90'],ans:2,cat:'项目成本管理',exp:'典型偏差下ETC=(BAC-EV)/CPI=100/1.1\u224891。当前CPI>1(节约)，剩余工作按此效率只需约91万。',freq:'高',diff:3},
+{q:'已知BAC-EV=50万，BAC-AC=80万，TCPI=（）。',opts:['0.625','1.6','0.4','1.25'],ans:0,cat:'项目成本管理',exp:'TCPI=(BAC-EV)/(BAC-AC)=50/80=0.625。TCPI<1表示按预算完成有压力，需要提高效率。',freq:'高',diff:3},
+{q:'CPI<1表示项目处于什么状态？',opts:['成本超支','成本节约','进度滞后','进度超前'],ans:0,cat:'项目成本管理',exp:'CPI<1=成本超支(花得多挣得少)；CPI>1=成本节约；CPI=1=按预算。注意与SPI区分：SPI是进度指标。',freq:'高',diff:1},
+{q:'非典型偏差EAC的计算公式是（）。',opts:['BAC/CPI','AC+BAC-EV','AC+(BAC-EV)/CPI','BAC-EV'],ans:1,cat:'项目成本管理',exp:'非典型偏差=后续继续按预算执行(偏差不会重复)，EAC=AC+BAC-EV=AC+ETC。典型偏差EAC=AC+(BAC-EV)/CPI。',freq:'高',diff:2},
+{q:'管理储备与应急储备的说法正确的是（）。',opts:['管理储备由项目经理支配','应急储备包含在成本基准中','管理储备包含在成本基准中','两者都包含在成本基准中'],ans:1,cat:'项目成本管理',exp:'应急储备=已知-未知风险，包含在成本基准(PM支配)；管理储备=未知-未知风险，不包含在成本基准(管理层批准)。',freq:'高',diff:2},
+{q:'估算方法中，最准确的是（）。',opts:['类比估算','参数估算','自下而上估算','三点估算'],ans:2,cat:'项目成本管理',exp:'自下而上估算=从工作包逐层汇总，最准确但最耗时。类比估算最快但精度最低，参数估算中等精度，三点估算提高单点估算可靠性。',freq:'中',diff:1},
+{q:'类比估算的主要特点是（）。',opts:['使用统计模型','基于历史相似项目','从工作包汇总','使用乐观悲观值'],ans:1,cat:'项目成本管理',exp:'类比估算=利用历史类似项目的实际数据进行估算。特点：快但精度低(通常\u00b130%~50%)，项目早期常用。',freq:'中',diff:1},
+{q:'参数估算的特点是（）。',opts:['使用历史类似项目','基于统计关系','从底层汇总','基于专家判断'],ans:1,cat:'项目成本管理',exp:'参数估算=利用历史数据与变量间的统计关系(如每平方米造价\u00d7面积)。比类比估算更精确，需要可靠的数据模型。',freq:'中',diff:2},
+{q:'储备分析应在（）过程中进行。',opts:['规划成本管理','估算成本','制定预算','控制成本'],ans:2,cat:'项目成本管理',exp:'储备分析是制定预算过程的工具。在制定预算时确定应急储备和管理储备的金额，最终形成成本基准+管理储备=项目预算。',freq:'中',diff:2},
+{q:'成本基准包含（）。',opts:['只含应急储备','只含管理储备','含应急储备不含管理储备','含管理储备不含应急储备'],ans:2,cat:'项目成本管理',exp:'成本基准=活动成本估算+应急储备。管理储备不包含在成本基准中，需批准后才能使用。项目预算=成本基准+管理储备。',freq:'高',diff:2},
+{q:'BAC=100万,EAC=120万，VAC=（）。',opts:['20万','-20万','80万','-80万'],ans:1,cat:'项目成本管理',exp:'VAC=BAC-EAC=100-120=-20万。VAC为负值表示预计超支20万，正值表示预计节约。VAC反映了完工时的偏差预判。',freq:'中',diff:2},
+{q:'挣值管理衡量的是（）。',opts:['成本与预算的对比','实际进度与计划进度的对比','实际绩效与基准计划的对比','质量与标准的对比'],ans:2,cat:'项目成本管理',exp:'挣值管理(EVM)=将范围、进度、成本整合在一起，衡量项目实际绩效相对于基准计划的偏差。核心指标：PV/EV/AC + CV/SV + CPI/SPI。',freq:'高',diff:1},
+// ===== Batch 9: 项目进度管理CPM/PERT (15 questions) =====
+{q:'关键路径上某项活动总时差为（）。',opts:['大于0','等于0','小于0','不确定'],ans:1,cat:'项目进度管理',exp:'关键路径上的活动总浮动时间(TF)为零或负值(进度落后时)。正浮动时间的活动通常在非关键路径上。CPM通过TF=0确定关键路径。',freq:'高',diff:1},
+{q:'以下关于总浮动时间的说法，正确的是（）。',opts:['TF=LS-ES=LF-EF','TF=ES-LS','TF=EF-LF','TF=(P-O)/6'],ans:0,cat:'项目进度管理',exp:'总浮动时间TF=最晚开始-最早开始=最晚结束-最早结束。TF=0的活动在关键路径上。TF为负时需调整进度模型。',freq:'高',diff:2},
+{q:'自由浮动时间与总浮动时间的区别是（）。',opts:['自由浮动不影响后续活动；总浮动不影响工期','自由浮动影响后续活动','总浮动不影响后续活动','两者没有区别'],ans:0,cat:'项目进度管理',exp:'自由浮动(FF)=不影响紧后活动最早开始时间可延迟的时间。总浮动(TF)=不影响总工期可延迟的总时间。FF\u2264TF，自由浮动消耗完才会影响总浮动。',freq:'中',diff:2},
+{q:'三点估算：乐观时间O=4天，最可能M=6天，悲观P=14天，期望工期tE=（）。',opts:['6天','7天','8天','9天'],ans:1,cat:'项目进度管理',exp:'tE=(O+4M+P)/6=(4+24+14)/6=42/6=7天。标准差\u03c3=(P-O)/6=(14-4)/6=10/6\u22481.67天。',freq:'高',diff:2},
+{q:'三点估算中，活动工期在tE\u00b11\u03c3范围内的概率约为（）。',opts:['50%','68.27%','95.46%','99.73%'],ans:1,cat:'项目进度管理',exp:'正态分布概率：\u00b11\u03c3=68.27%、\u00b12\u03c3=95.46%、\u00b13\u03c3=99.73%。考题常考\u00b11\u03c3的68.27%和\u00b12\u03c3的95.46%。',freq:'高',diff:2},
+{q:'赶工与快速跟进的主要区别是（）。',opts:['赶工增加成本；快速跟进增加风险','赶工并行活动；快速跟进增加资源','赶工增加风险；快速跟进增加成本','没有区别'],ans:0,cat:'项目进度管理',exp:'赶工=增加资源缩短工期(增加成本，常用于关键路径)；快速跟进=并行执行原顺序活动(增加返工风险，不增加成本)。',freq:'高',diff:2},
+{q:'资源平衡对项目进度的影响是（）。',opts:['缩短工期','延长工期','不影响工期','加速活动'],ans:1,cat:'项目进度管理',exp:'资源平衡=在资源约束下调整进度，通常会导致关键路径变长(工期延长)。优先使用资源平滑(不改变关键路径)，资源不足时才用资源平衡。',freq:'中',diff:2},
+{q:'以下属于进度压缩技术的是（）。',opts:['资源平衡','赶工和快速跟进','滚动式规划','关键链法'],ans:1,cat:'项目进度管理',exp:'进度压缩=赶工+快速跟进。资源平衡/滚动规划/关键链是其他进度管理技术。注意区分：资源优化(平衡+平滑)\u2260进度压缩。',freq:'中',diff:2},
+{q:'活动依赖关系中，提前量与滞后量的作用是（）。',opts:['紧前完成紧后开始','紧前开始后过一段时间紧后开始','紧前活动中途紧后开始','以上都可能'],ans:3,cat:'项目进度管理',exp:'提前量(Lead)=紧前未完成时紧后即可开始(负滞后)；滞后量(Lag)=紧前完成后等待一段时间紧后才开始。两者用于调整FS、SS、FF、SF依赖关系。',freq:'中',diff:2},
+{q:'里程碑清单包含的内容有（）。',opts:['里程碑名称和计划日期','活动细节和资源','成本和持续时间','所有WBS内容'],ans:0,cat:'项目进度管理',exp:'里程碑清单=里程碑名称+计划日期+是否强制性。里程碑持续时间为零(没有工期)。它不包含活动细节和资源信息。',freq:'中',diff:1},
+{q:'三点估算的公式为（）。',opts:['tE=(O+4M+P)/6','tE=(O+M+P)/3','tE=(2O+3M+2P)/7','tE=(O+2M+P)/4'],ans:0,cat:'项目进度管理',exp:'PERT三点估算：tE=(O+4M+P)/6，标准差\u03c3=(P-O)/6。O乐观、M最可能、P悲观。加权平均值(最可能占4权重)。',freq:'高',diff:1},
+{q:'关键链法与关键路径法的主要区别是（）。',opts:['关键链法不考虑资源','关键链法考虑资源约束并加入缓冲','没有区别','关键路径法也加缓冲'],ans:1,cat:'项目进度管理',exp:'关键链法(CCM)=在CPM基础上考虑资源约束，加入接驳缓冲和项目缓冲来应对不确定性。关注资源而不是浮动时间。',freq:'中',diff:2},
+{q:'进度模型与进度基准的区别是（）。',opts:['没有区别','进度模型是工具；进度基准是经批准的模型','进度基准包含在进度模型中','进度模型就是进度计划'],ans:1,cat:'项目进度管理',exp:'进度模型=填入数据后产生进度计划(可修改)；进度基准=经批准的进度模型版本(需通过变更控制修改)，用于衡量实际绩效。',freq:'中',diff:2},
+{q:'以下不属于进度报告技术的是（）。',opts:['燃尽图','甘特图','里程碑图','鱼骨图'],ans:3,cat:'项目进度管理',exp:'鱼骨图是质量管理的根本原因分析工具。进度报告技术：燃尽图/甘特图/里程碑图/S曲线/偏差分析。',freq:'低',diff:1},
+{q:'SV<0时，正确的解读是（）。',opts:['进度超前','进度滞后','成本节约','成本超支'],ans:1,cat:'项目进度管理',exp:'SV=EV-PV，SV<0=挣得价值小于计划价值=进度滞后。SPI<1也表明进度滞后。记住：SV是进度偏差(用Earned Value衡量)，不是成本偏差。',freq:'高',diff:1},
+// ===== Batch 10: 项目风险管理 (12 questions) =====
+{q:'风险登记册中通常不包含（）。',opts:['已识别风险列表','潜在风险应对措施','风险责任人','项目章程'],ans:3,cat:'项目风险管理',exp:'风险登记册=已识别风险清单+潜在应对措施+风险责任人+风险优先级+风险分类。项目章程是整体管理的输出，不属于风险登记册内容。',freq:'高',diff:1},
+{q:'对正面风险（机会）的应对策略不包括（）。',opts:['开拓','分享','规避','提高'],ans:2,cat:'项目风险管理',exp:'机会应对5策：上报、开拓、分享、提高、接受。规避是威胁应对策略。提高=增加机会发生概率/正面影响。',freq:'中',diff:1},
+{q:'对负面风险（威胁）的应对策略不包括（）。',opts:['规避','转移','分享','减轻'],ans:2,cat:'项目风险管理',exp:'威胁应对5策：上报、规避、转移、减轻、接受。分享是机会应对策略。规避=完全消除威胁(如改变项目计划)。',freq:'中',diff:1},
+{q:'风险紧急度评估主要考虑的因素不包括（）。',opts:['风险发生概率','可能发生时间','预警信号','成本基准'],ans:3,cat:'项目风险管理',exp:'紧急度评估=概率+影响+可能发生的时间+预警信号(触发条件)。成本基准是成本管理的基准，不直接用于风险紧急度评估。',freq:'中',diff:2},
+{q:'概率-影响矩阵的主要作用是（）。',opts:['识别风险','风险排序和优先级划分','量化风险金额','制定应对计划'],ans:1,cat:'项目风险管理',exp:'概率影响矩阵(P-I矩阵)=根据概率\u00d7影响对风险进行排序，划分高/中/低优先级。是定性风险分析的核心工具。',freq:'高',diff:1},
+{q:'风险审计的主要目的是（）。',opts:['识别新风险','评估风险管理过程有效性','量化风险','规避风险'],ans:1,cat:'项目风险管理',exp:'风险审计=评估风险管理过程的有效性(是否按计划执行、措施是否有效)。属于监控风险过程的工具，不是识别新风险。',freq:'中',diff:2},
+{q:'以下哪种情况需要重新进行风险识别？',opts:['每周例行','仅项目初期','重大变更发生时','不需要重新识别'],ans:2,cat:'项目风险管理',exp:'风险是一个持续的过程，重大变更(如范围变更、关键人员离职、外部环境变化)时应立即重新识别。不要等到定期评审才做。',freq:'高',diff:1},
+{q:'某风险发生概率30%，发生损失50万元，期望货币价值EMV=（）。',opts:['15万','50万','30万','80万'],ans:0,cat:'项目风险管理',exp:'EMV=概率\u00d7影响=0.3\u00d750=15万。对威胁EMV为负值(-15)，对机会EMV为正值。多风险累加可得项目总EMV。',freq:'高',diff:2},
+{q:'决策树分析属于哪种风险分析方法？',opts:['定性风险分析','定量风险分析','风险识别','风险应对规划'],ans:1,cat:'项目风险管理',exp:'决策树分析+EMV计算=定量风险分析。蒙特卡洛模拟、敏感性分析也属于定量分析。定性分析包括概率影响矩阵、风险数据质量评估。',freq:'中',diff:2},
+{q:'蒙特卡洛模拟适用于（）。',opts:['单个风险排序','量化整体项目风险','识别风险','定性评估'],ans:1,cat:'项目风险管理',exp:'蒙特卡洛模拟=基于概率分布进行大量随机模拟，输出项目完工日期/成本的概率分布。用于量化分析整体项目风险，而非单个风险。',freq:'中',diff:2},
+{q:'风险责任人的主要职责是（）。',opts:['制定整体风险管理计划','监督风险全过程','监控指定风险并实施应对措施','批准风险储备使用'],ans:2,cat:'项目风险管理',exp:'风险责任人=为每个已识别风险指定的负责人，负责监控该风险+实施商定的应对措施。项目经理负责整体风险管理计划。',freq:'中',diff:1},
+{q:'关于残余风险与次生风险的说法正确的是（）。',opts:['是一回事','残余风险=应对后剩余；次生风险=应对措施引发的新风险','次生风险比残余风险更严重','残余风险不需关注'],ans:1,cat:'项目风险管理',exp:'残余风险=实施应对后仍存在的风险(可接受)；次生风险=实施应对措施后产生的新风险(需持续监控)。两者都需要记录在风险登记册中。',freq:'中',diff:2},
+// ===== Batch 11: 项目整体管理 (10 questions) =====
+{q:'项目章程通常不包含以下哪项内容？',opts:['项目目的','高层级风险','详细WBS','项目退出标准'],ans:2,cat:'项目整体管理',exp:'项目章程=高层级文件，包含：项目目的、高层级需求/风险/里程碑、关键干系人、退出标准、PM任命。WBS是规划过程组产物，不在章程中。',freq:'高',diff:1},
+{q:'商业论证与可行性研究的区别是（）。',opts:['没有区别','商业论证侧重商业价值；可行性研究侧重技术可行','商业论证是可行性研究的子集','可行性研究必须在商业论证之前'],ans:1,cat:'项目整体管理',exp:'商业论证=论证项目是否值得投资(商业价值/ROI/NPV)；可行性研究=论证技术/经济/法律是否可行(能做吗)。两者通常结合使用。',freq:'中',diff:2},
+{q:'项目经理的权力来源不包括（）。',opts:['正式权力(职位)','专家权力','奖励权力','股东权力'],ans:3,cat:'项目整体管理',exp:'PM权力来源：正式(职位)、专家(知识技能)、奖励、惩罚(强制)、参照(人格魅力)。股东权力是投资方的权力，不属于PM在项目中的权力来源。',freq:'中',diff:1},
+{q:'PMO的类型不包括（）。',opts:['支持型','控制型','指令型','服务型'],ans:3,cat:'项目整体管理',exp:'PMO三种类型：支持型(提供模板培训)、控制型(要求合规)、指令型(直接管理项目)。服务型不是PMO标准类型。管控程度：支持<控制<指令。',freq:'中',diff:1},
+{q:'纠正措施与预防措施的区别是（）。',opts:['纠正=防止未来问题；预防=修复当前问题','纠正=修复当前问题；预防=防止未来问题','没有区别','纠正比预防更重要'],ans:1,cat:'项目整体管理',exp:'纠正措施=使项目重新符合计划(修复偏差)；预防措施=确保未来绩效符合计划(防患未然)。缺陷补救=修复产品缺陷(面向产品而非过程)。',freq:'中',diff:1},
+{q:'工作绩效数据-信息-报告的层次关系是（）。',opts:['数据\u2192信息\u2192报告','信息\u2192数据\u2192报告','报告\u2192数据\u2192信息','三者并列'],ans:0,cat:'项目整体管理',exp:'工作绩效数据(原始观测)\u2192控制过程分析\u2192工作绩效信息(有背景的数据)\u2192整体分析汇总\u2192工作绩效报告(决策用)。逐层加工提炼。',freq:'中',diff:2},
+{q:'项目启动会议（kick-off meeting）的主要目的是（）。',opts:['制定项目计划','展示项目章程','统一团队目标并明确角色','批准项目预算'],ans:2,cat:'项目整体管理',exp:'启动会议=项目规划完成后、执行开始前召开，目的是：统一认识、明确角色职责、建立承诺。与项目启动(Initiation)不同，后者是过程组概念。',freq:'中',diff:2},
+{q:'项目生命周期与产品生命周期的关系是（）。',opts:['完全一样','项目生命周期是产品生命周期的一部分','产品生命周期是项目生命周期的一部分','两者无关'],ans:1,cat:'项目整体管理',exp:'项目生命周期=从启动到收尾(临时性)；产品生命周期=从概念到退市(可能包含多个项目+运营)。项目只是产品生命周期中的一个阶段。',freq:'中',diff:1},
+{q:'项目收尾时需要完成的检查清单不包括（）。',opts:['所有合同已关闭','经验教训已归档','项目文件已移交','新项目已启动'],ans:3,cat:'项目整体管理',exp:'项目收尾：合同关闭+经验教训归档+文件移交+资源释放+最终报告+客户验收。新项目启动是另一项目的事，不属于当前收尾工作。',freq:'中',diff:1},
+{q:'经验教训登记册应该在何时创建？',opts:['项目结束时','项目启动时','贯穿整个项目','遇到问题时'],ans:2,cat:'项目整体管理',exp:'经验教训登记册=从项目启动即可创建，贯穿全程持续更新。结束时可移交为组织过程资产。不是只在结束时才做。',freq:'高',diff:1},
+// ===== Batch 12: ITTO速记 (10 questions) =====
+{q:'49个管理过程中，哪个过程组的数量最多？',opts:['启动过程组','规划过程组','执行过程组','监控过程组'],ans:1,cat:'ITTO速记',exp:'过程分布：启动(2个)、规划(24个)、执行(10个)、监控(12个)、收尾(1个)=49。规划占近一半，是项目经理最有掌控力的过程组。',freq:'高',diff:1},
+{q:'确认范围属于哪个过程组？',opts:['启动','规划','执行','监控'],ans:3,cat:'ITTO速记',exp:'确认范围=监控过程组。范围6过程分布：规划(4个：规划范围、收集需求、定义范围、创建WBS)+监控(2个：确认范围、控制范围)。',freq:'高',diff:1},
+{q:'执行过程组中唯一的风险管理过程是（）。',opts:['规划风险管理','实施风险应对','识别风险','监控风险'],ans:1,cat:'ITTO速记',exp:'执行过程组=实施风险应对(唯一在执行组中的风险管理过程)。其他风险过程分布：规划(5个)、监控(1个)。记忆技巧：定个位去监控。',freq:'高',diff:2},
+{q:'事业环境因素（EEF）是以下哪些过程的输入？',opts:['仅启动过程','仅规划过程','几乎所有过程','仅监控过程'],ans:2,cat:'ITTO速记',exp:'EEF=几乎所有管理过程的重要输入，很少有不包含EEF的过程。组织过程资产OPA同理。两者是PMBOK最重要的公共输入。',freq:'高',diff:1},
+{q:'专家判断在多少管理过程中被用作工具？',opts:['仅几个','约一半','绝大多数','只有规划过程'],ans:2,cat:'ITTO速记',exp:'专家判断=PMBOK使用最广泛的工具，49个过程中绝大多数都使用。其次是数据分析、会议。项目管理的核心依赖专家经验。',freq:'中',diff:1},
+{q:'变更请求是哪些过程的输出？',opts:['仅规划过程','仅监控过程','只有执行整体变更控制','很多执行和监控过程'],ans:3,cat:'ITTO速记',exp:'变更请求=执行和监控过程组的常见输出，在执行和监控中发现问题均可提出变更请求(纠正/预防/缺陷补救/更新)。由实施整体变更控制审批。',freq:'高',diff:2},
+{q:'49个过程中，哪个过程组只有1个过程？',opts:['启动','规划','执行','收尾'],ans:3,cat:'ITTO速记',exp:'收尾过程组只有1个过程：结束项目或阶段。内容涵盖：合同关闭、经验教训、文件归档、资源释放、最终报告。',freq:'中',diff:1},
+{q:'管理项目知识属于哪个过程组？',opts:['启动','规划','执行','监控'],ans:2,cat:'ITTO速记',exp:'管理项目知识=执行过程组。属于整合管理领域，将经验教训用于改进。另2个执行组过程：指导与管理项目工作、管理项目知识、实施风险应对等。',freq:'中',diff:2},
+{q:'制定项目章程的输出是（）。',opts:['项目管理计划','项目章程','假设日志','变更请求'],ans:1,cat:'ITTO速记',exp:'制定项目章程\u2192输出项目章程+假设日志。制定项目章程属于启动过程组(2个过程之一)。章程批准后PM正式被授权。',freq:'高',diff:1},
+{q:'监督风险属于哪个过程组？',opts:['启动','规划','执行','监控'],ans:3,cat:'ITTO速记',exp:'监督风险=监控过程组。风险7个过程分布：规划(5个)+执行(1个实施风险应对)+监控(1个监督风险)。记住了：定个位去监控。',freq:'中',diff:1},
+// ===== Batch 13: 技术基础 (8 questions) =====
+{q:'TCP与UDP的主要区别是（）。',opts:['TCP无连接；UDP面向连接','TCP面向连接可靠；UDP无连接不可靠','TCP不可靠；UDP可靠','没有区别'],ans:1,cat:'技术基础',exp:'TCP=面向连接、可靠传输(三次握手、确认重传)；UDP=无连接、不可靠传输(快但可能丢包)。TCP适用于文件传输，UDP适用于实时视频/语音。',freq:'中',diff:2},
+{q:'IPv4与IPv6的主要区别是（）。',opts:['IPv4地址更短','IPv6地址空间更大(128位)','IPv4是128位','IPv6是32位'],ans:1,cat:'技术基础',exp:'IPv4=32位(约43亿地址，已耗尽)；IPv6=128位(2\u00b9\u00b2\u2078个地址，几乎无限)。IPv6还简化了头部格式，内置IPSec安全。',freq:'中',diff:1},
+{q:'软件测试级别的正确顺序是（）。',opts:['集成\u2192单元\u2192系统\u2192验收','单元\u2192集成\u2192系统\u2192验收','验收\u2192系统\u2192集成\u2192单元','系统\u2192单元\u2192集成\u2192验收'],ans:1,cat:'技术基础',exp:'测试级别由低到高：单元测试(函数级)\u2192集成测试(模块间接口)\u2192系统测试(完整系统)\u2192验收测试(用户验收)。是最常见的测试金字塔。',freq:'中',diff:1},
+{q:'黑盒测试与白盒测试的主要区别是（）。',opts:['黑盒关注内部结构；白盒关注功能','黑盒关注功能输入输出；白盒关注内部逻辑结构','没有区别','白盒不需要代码'],ans:1,cat:'技术基础',exp:'黑盒测试=不考虑内部结构，仅验证输入输出(功能测试)。白盒测试=检查内部逻辑、路径覆盖(结构测试)。灰盒测试介于两者之间。',freq:'中',diff:1},
+{q:'以下不属于GoF设计模式的是（）。',opts:['单例模式','工厂模式','观察者模式','MVC模式'],ans:3,cat:'技术基础',exp:'MVC(Model-View-Controller)是架构模式不是GoF设计模式。GoF23模式分为创建型(单例/工厂)、结构型、行为型(观察者/策略)三类。',freq:'低',diff:2},
+{q:'数据库事务的ACID属性不包括（）。',opts:['原子性','一致性','隔离性','持久性','可扩展性'],ans:4,cat:'技术基础',exp:'ACID=A原子性(全做或全不做)+C一致性(事务前后数据一致)+I隔离性(并发事务互不干扰)+D持久性(提交后永久保存)。可扩展性不是ACID属性。',freq:'中',diff:2},
+{q:'CAP定理中的三个属性是（）。',opts:['一致、可用、分区容错','一致、可用、性能','可用、性能、安全','一致、安全、扩展'],ans:0,cat:'技术基础',exp:'CAP定理=一致性(Consistency)+可用性(Availability)+分区容错性(Partition tolerance)。分布式系统三者只能同时满足两个。',freq:'中',diff:2},
+{q:'微服务架构与单体架构相比的主要优势是（）。',opts:['部署简单','独立部署和扩展','性能更高','开发更快'],ans:1,cat:'技术基础',exp:'微服务优势=独立部署/扩展/技术选型、故障隔离；缺点=分布式复杂性(通信/事务/运维)。单体优势=简单/性能高，但耦合度高扩展难。',freq:'中',diff:2},
+// ===== Batch 14: 法律法规 (10 questions) =====
+{q:'政府采购限额标准以下的采购可以采用（）。',opts:['必须公开招标','可以采用更简便的方式','必须竞争性谈判','必须询价'],ans:1,cat:'法律法规',exp:'达到公开招标数额标准以上的必须公开招标；限额标准以下可采用更灵活方式。具体限额由各级财政部门制定。',freq:'中',diff:2},
+{q:'委托开发的软件，著作权归属在没有约定的情况下属于（）。',opts:['委托方','受托方(开发者)','双方共有','国家'],ans:1,cat:'法律法规',exp:'委托开发软件(无约定)=著作权归受托方(开发者)；委托方享有使用权。如果有合同约定则按约定。合作开发=双方共有。',freq:'高',diff:2},
+{q:'法人作品的软件著作权保护期为（）。',opts:['首次发表后20年','首次发表后50年','终生+死后50年','永久保护'],ans:1,cat:'法律法规',exp:'法人或其他组织作品=首次发表后50年(第50年12月31日)。自然人作品=终生+死后50年。两者不同，需区分清楚。',freq:'高',diff:1},
+{q:'我国合同法规定的有名合同类型不包括（）。',opts:['买卖合同','建设工程合同','技术合同','融资租赁合同','战略合作合同'],ans:4,cat:'法律法规',exp:'合同法规定15类有名合同：买卖/供用电水气/赠与/借款/租赁/融资租赁/承揽/建设工程/运输/技术/保管/仓储/委托/行纪/居间。战略合作不是有名合同。',freq:'低',diff:2},
+{q:'以下关于国家软件工程标准(GB/T)的说法正确的是（）。',opts:['GB是强制性；GB/T是推荐性','GB/T是强制性','都属强制性','都属推荐性'],ans:0,cat:'法律法规',exp:'GB=国家标准(强制)；GB/T=国家推荐性标准；GB/Z=国家指导性技术文件。软件工程多为GB/T(推荐性)，但合同引用后即具有约束力。',freq:'中',diff:1},
+{q:'投标保证金与履约保证金的区别是（）。',opts:['没有区别','投标保证金=投标时交；履约保证金=中标后签合同交','履约保证金=投标时交','投标保证金金额更高'],ans:1,cat:'法律法规',exp:'投标保证金\u2264估价的2%(\u226480万)；履约保证金\u2264合同价10%。投标保证金防止恶意投标，履约保证金保障合同履行。两者用途和金额都不同。',freq:'中',diff:2},
+{q:'以下会导致合同无效的情形不包括（）。',opts:['欺诈损害国家利益','恶意串通损害第三人利益','价格过高','违反法律强制性规定'],ans:2,cat:'法律法规',exp:'合同无效=欺诈/胁迫损害国家、恶意串通、合法形式掩盖非法目的、损害公共利益、违反强制性规定。价格高属于显失公平(可撤销)而非无效。',freq:'中',diff:2},
+{q:'合同变更需满足的条件是（）。',opts:['双方协商一致','单方面通知','项目经理批准','任何一方可发起'],ans:0,cat:'法律法规',exp:'合同变更需双方协商一致+书面形式。与项目内部变更不同(内部变更CCB批准即可)。合同变更涉及法律权利义务调整，须双方同意。',freq:'高',diff:1},
+{q:'我国知识产权类型不包括（）。',opts:['著作权','专利权','商标权','域名权'],ans:3,cat:'法律法规',exp:'知识产权=著作权+专利权(发明/实用新型/外观)+商标权+商业秘密+集成电路布图等。域名通过《域名争议解决办法》保护，不属于法定知识产权类型。',freq:'中',diff:1},
+{q:'《网络安全法》要求网络运营者应当留存网络日志不少于（）。',opts:['1个月','3个月','6个月','12个月'],ans:2,cat:'法律法规',exp:'网络安全法第21条：网络日志留存\u22656个月。关键信息基础设施的个人信息和重要数据应境内存储。注意与等保要求的日志留存时间区分。',freq:'中',diff:2},
+];
+
+// ===== CASE STUDIES =====
+const CASES=[
+{
+id:1,title:'案例1：挣值管理综合分析',cat:'成本管理',
+scenario:'某信息系统集成项目预算BAC=100万元，项目进行到第6个月末时，项目经理收集到以下数据：计划完成工作预算PV=50万元，实际完成工作价值EV=40万元，实际花费AC=45万元。',
+questions:['1. 计算CV、SV、CPI、SPI。','2. 判断当前项目成本和进度状况。','3. 按典型偏差计算EAC和ETC。','4. 计算完工偏差VAC。'],
+answer:'<h4>1. 偏差与指数计算</h4>'+
+'<p>\u2460 CV = EV - AC = 40 - 45 = <strong>-5万元</strong>（超支）</p>'+
+'<p>\u2461 SV = EV - PV = 40 - 50 = <strong>-10万元</strong>（滞后）</p>'+
+'<p>\u2462 CPI = EV/AC = 40/45 = <strong>0.89</strong>（&lt;1，超支）</p>'+
+'<p>\u2463 SPI = EV/PV = 40/50 = <strong>0.80</strong>（&lt;1，滞后）</p>'+
+'<h4>2. 项目状况判断</h4>'+
+'<p>CV&lt;0, CPI&lt;1 \u2192 <strong>成本超支</strong></p>'+
+'<p>SV&lt;0, SPI&lt;1 \u2192 <strong>进度滞后</strong></p>'+
+'<p>综合：项目既超支又滞后，形势严峻。</p>'+
+'<h4>3. 完工预测（典型偏差）</h4>'+
+'<p>ETC = (BAC - EV)/CPI = (100-40)/0.89 = <strong>67.42万元</strong></p>'+
+'<p>EAC = AC + ETC = 45 + 67.42 = <strong>112.42万元</strong></p>'+
+'<p>或 EAC = BAC/CPI = 100/0.89 = <strong>112.36万元</strong></p>'+
+'<h4>4. 完工偏差</h4>'+
+'<p>VAC = BAC - EAC = 100 - 112.36 = <strong>-12.36万元</strong></p>'+
+'<p>VAC&lt;0，说明项目最终将超支约12.36万元。</p>'
+},
+{
+id:2,title:'案例2：关键路径法计算',cat:'进度管理',
+scenario:'某项目有以下6个活动，其工期和逻辑依赖关系如下：\n\nA(3天) \u2192 B(4天)\nA(3天) \u2192 C(2天)\nB(4天) \u2192 D(5天)\nC(2天) \u2192 D(5天)\nB(4天) \u2192 E(3天)\nD(5天) \u2192 F(2天)\nE(3天) \u2192 F(2天)',
+questions:['1. 画出单代号网络图。','2. 用正向/反向推算法计算ES、EF、LS、LF。','3. 计算各活动总浮动TF和自由浮动FF。','4. 确定关键路径和项目总工期。'],
+answer:'<h4>1. 网络图</h4>'+
+'<p>A\u2192B, A\u2192C, B\u2192D, C\u2192D, B\u2192E, D\u2192F, E\u2192F</p>'+
+'<h4>2. 正推/逆推计算</h4>'+
+'<p><strong>A</strong>: ES=0, EF=0+3=3 | LF=3, LS=3-3=0, TF=0</p>'+
+'<p><strong>B</strong>: ES=3, EF=3+4=7 | LF=7, LS=7-4=3, TF=0</p>'+
+'<p><strong>C</strong>: ES=3, EF=3+2=5 | LF=10, LS=10-2=8, TF=5</p>'+
+'<p><strong>D</strong>: ES=max(7,5)=7, EF=7+5=12 | LF=12, LS=12-5=7, TF=0</p>'+
+'<p><strong>E</strong>: ES=7, EF=7+3=10 | LF=12, LS=12-3=9, TF=2</p>'+
+'<p><strong>F</strong>: ES=max(12,10)=12, EF=12+2=14 | LF=14, LS=14-2=12, TF=0</p>'+
+'<h4>3. 浮动时间</h4>'+
+'<p>A: TF=0, FF=3-3=0</p>'+
+'<p>B: TF=0, FF=7-7=0</p>'+
+'<p>C: TF=8-3=5, FF=7-5=2</p>'+
+'<p>D: TF=0, FF=12-12=0</p>'+
+'<p>E: TF=9-7=2, FF=12-10=2</p>'+
+'<p>F: TF=0, FF=14-14=0</p>'+
+'<h4>4. 关键路径与工期</h4>'+
+'<p><strong>关键路径：A\u2192B\u2192D\u2192F</strong></p>'+
+'<p><strong>项目总工期：14天</strong></p>'+
+'<p>非关键活动：C(TF=5天)、E(TF=2天)</p>'
+},
+{
+id:3,title:'案例3：变更管理与沟通管理',cat:'整体管理',
+scenario:'某项目经理张工在项目执行过程中出现以下问题：\n\n场景1：客户口头提出需求变更，张工直接安排开发人员修改了程序代码。\n\n场景2：变更实施后出现了严重的质量问题，张工要求开发人员重新返工，但没有记录任何变更文档。\n\n场景3：多个干系人对项目进展有不同意见，张工只在周报中简单罗列了问题，没有主动沟通协调。\n\n场景4：项目成本已经超支，但张工没有向管理层汇报，试图自己解决。',
+questions:['1. 指出张工在每个场景中的不当之处。','2. 给出正确的变更控制流程。','3. 提出改进沟通管理的建议。','4. 结合案例说明项目经理应具备哪些素养。'],
+answer:'<h4>1. 各场景问题分析</h4>'+
+'<p><strong>场景1：</strong></p>'+
+'<ul><li>不应接受口头变更，应要求客户提交书面变更申请</li>'+
+'<li>未经CCB审批直接实施变更，违反变更控制流程</li>'+
+'<li>未进行变更影响分析就直接修改代码</li></ul>'+
+'<p><strong>场景2：</strong></p>'+
+'<ul><li>变更后未进行验证，导致质量问题</li>'+
+'<li>未更新配置项和文档，缺乏变更记录</li>'+
+'<li>返工属于质量成本中的非一致性成本，说明质量保证不足</li></ul>'+
+'<p><strong>场景3：</strong></p>'+
+'<ul><li>仅用推式沟通（周报）不够，应采用交互式沟通</li>'+
+'<li>未及时召开沟通协调会，化解干系人分歧</li>'+
+'<li>没有制定有效的沟通管理计划</li></ul>'+
+'<p><strong>场景4：</strong></p>'+
+'<ul><li>成本超支应及时向管理层报告，纳入管理储备</li>'+
+'<li>超支应启动成本控制措施和变更流程</li>'+
+'<li>独自处理可能延误问题解决时机</li></ul>'+
+'<h4>2. 正确的变更控制流程</h4>'+
+'<p>提出变更申请 \u2192 变更影响分析 \u2192 CCB审批 \u2192 实施变更 \u2192 变更验证 \u2192 更新配置项/文档 \u2192 结束变更归档</p>'+
+'<h4>3. 沟通管理改进建议</h4>'+
+'<ul><li>制定沟通管理计划，明确沟通频率、方式和内容</li>'+
+'<li>针对重要干系人使用交互式沟通（会议）</li>'+
+'<li>建立干系人登记册和权力/利益方格分析</li>'+
+'<li>定期召开项目状态评审会议</li>'+
+'<li>使用沟通渠道公式n(n-1)/2评估沟通复杂度</li></ul>'+
+'<h4>4. 项目经理素养</h4>'+
+'<ul><li>遵守流程：严格执行变更控制和项目管理规范</li>'+
+'<li>主动沟通：及时、准确地传递项目信息</li>'+
+'<li>风险意识：发现超支等问题应立即上报</li>'+
+'<li>团队管理：合理安排返工，做好质量保证</li></ul>'
+},
+{
+id:4,title:'案例4：质量管理与风险',cat:'质量管理',
+scenario:'某软件开发项目在系统测试阶段发现大量缺陷，测试团队统计如下：\n\n- 共发现120个缺陷，其中严重缺陷15个、一般缺陷45个、轻微缺陷60个\n- 缺陷来源分析：需求不明确导致30个、设计缺陷40个、编码错误50个\n- 项目已使用了以下质量活动：代码评审、单元测试\n- 项目经理计划在测试完成后直接交付，不再进行其他质量活动',
+questions:['1. 用帕累托图思路分析主要缺陷来源。','2. 指出项目经理质量计划的不足。','3. 建议补充哪些质量活动？','4. 说明质量保证(QA)与质量控制(QC)的区别。'],
+answer:'<h4>1. 帕累托分析（二八定律）</h4>'+
+'<p>按严重程度：严重+一般 = 60个（50%）vs 轻微60个（50%）</p>'+
+'<p>按来源：编码错误50个（41.7%）+ 设计缺陷40个（33.3%）+ 需求30个（25%）</p>'+
+'<p><strong>结论</strong>：编码错误和设计缺陷占总缺陷75%，应重点关注。</p>'+
+'<p>建议优先对编码和设计阶段加强质量活动。</p>'+
+'<h4>2. 质量计划不足</h4>'+
+'<ul><li>缺少需求评审环节（需求不明确是重要缺陷来源）</li>'+
+'<li>缺少设计评审环节</li>'+
+'<li>仅做了代码评审和单元测试，质量活动覆盖不全</li>'+
+'<li>测试完成后直接交付不合理，缺少验收测试环节</li>'+
+'<li>没有使用帕累托图等质量工具进行缺陷分析</li>'+
+'<li>缺少过程改进（PDCA中的Act环节）</li></ul>'+
+'<h4>3. 补充的质量活动</h4>'+
+'<ul><li><strong>需求阶段</strong>：需求评审、需求跟踪矩阵</li>'+
+'<li><strong>设计阶段</strong>：设计评审（概要设计评审+详细设计评审）</li>'+
+'<li><strong>编码阶段</strong>：编码规范培训、持续代码评审</li>'+
+'<li><strong>测试阶段</strong>：集成测试、系统测试、验收测试（完整测试链）</li>'+
+'<li><strong>全程</strong>：使用质量工具（鱼骨图分析根本原因、控制图监控过程）</li></ul>'+
+'<h4>4. QA vs QC 区别</h4>'+
+'<p><strong>质量保证(QA)</strong> — 过程导向</p>'+
+'<ul><li>属于执行过程组</li>'+
+'<li>侧重过程改进和审计</li>'+
+'<li>是预防性的（做对的过程）</li></ul>'+
+'<p><strong>质量控制(QC)</strong> — 结果导向</p>'+
+'<ul><li>属于监控过程组</li>'+
+'<li>侧重检查可交付成果是否合格</li>'+
+'<li>是纠正性的（检查产品）</li></ul>'
+},
+{
+id:5,title:'案例5：合同管理与索赔',cat:'采购管理',
+scenario:'某政府信息系统项目采用固定总价合同，合同金额800万元，工期10个月。项目执行过程中发生以下事件：\n\n事件1：第3个月，客户要求新增一个功能模块，新增工作量约50万元。项目经理口头答应后直接安排开发，未签订补充协议。\n\n事件2：第5个月，由于客户方内部调整，项目暂停了1个月，造成项目团队人员闲置和资源浪费。\n\n事件3：第7个月，项目团队发现由于供应商提供的中间件存在严重缺陷，导致集成测试反复失败，延误工期15天。供应商拒绝承担任何责任。\n\n事件4：项目最终交付延期20天，客户要求扣罚违约金。',
+questions:['1. 分析事件1中项目经理的做法有何不当。','2. 事件2中客户暂停项目，承包商应如何处理？','3. 事件3中的中间件缺陷责任应如何界定？','4. 针对索赔事件，承包商应如何操作？'],
+answer:'<h4>1. 事件1分析</h4>'+
+'<ul><li>固定总价合同下，新增功能属于范围变更，应走变更控制流程</li>'+
+'<li>不应口头答应，应要求客户提交书面变更申请</li>'+
+'<li>变更实施前应进行影响分析（成本、进度、质量）</li>'+
+'<li>必须签订补充协议或变更令，明确新增费用和工期调整</li>'+
+'<li>未经正式变更审批的额外工作，承包商可能无法获得补偿</li></ul>'+
+'<h4>2. 事件2处理</h4>'+
+'<ul><li>客户暂停属于不可抗力或客户原因，承包商有权索赔</li>'+
+'<li><strong>索赔程序</strong>：发出索赔意向通知（28天内）\u2192提交索赔报告和证据\u2192等待批复（28天）\u2192协商/仲裁</li>'+
+'<li>索赔内容：人员闲置费、资源占用费、工期顺延</li>'+
+'<li>应做好证据留存：暂停通知、人员工时记录、费用清单等</li></ul>'+
+'<h4>3. 事件3责任界定</h4>'+
+'<ul><li>首先查阅采购合同中关于质量保证和违约责任的条款</li>'+
+'<li>如果合同规定了中间件应满足的性能标准，供应商应承担质量责任</li>'+
+'<li>承包商应依据合同中的<strong>验收标准</strong>和<strong>质保条款</strong>向供应商提出索赔</li>'+
+'<li>索赔内容：中间件更换费用、集成测试延误费用、工期补偿</li>'+
+'<li>如供应商拒不配合，可通过合同约定的争议解决机制处理</li></ul>'+
+'<h4>4. 承包商索赔操作要点</h4>'+
+'<ul><li><strong>及时性</strong>：索赔意向通知应在事件发生后28天内发出</li>'+
+'<li><strong>书面性</strong>：所有索赔必须书面形式，保留证据</li>'+
+'<li><strong>合理性</strong>：索赔金额和工期要有依据和计算方法</li>'+
+'<li><strong>关联性</strong>：索赔事件与损失之间要有因果关系</li>'+
+'<li>事件2（客户暂停）和事件3（供应商缺陷）导致的延期，不应由承包商承担</li>'+
+'<li>如客户坚持扣罚，承包商可用暂停期间索赔和供应商索赔进行抵扣</li></ul>'
+}
+];
+
+// ===== ANSWER TEMPLATES =====
+const TEMPLATES=[
+{
+title:'找错题万能模板',
+content:'<h4>找错题答题步骤</h4>'+
+'<ol>'+
+'<li><strong>审题</strong>：明确项目背景、项目阶段、干系人角色</li>'+
+'<li><strong>逐条找错</strong>：对照PMBOK标准流程和规范，逐一分析案例描述中的做法</li>'+
+'<li><strong>分类归纳</strong>：将问题按知识领域归类（范围/进度/成本/质量/沟通/风险等）</li>'+
+'<li><strong>指出不当</strong>：说明做法违反了哪个标准/流程，以及正确做法是什么</li>'+
+'</ol>'+
+'<h4>常见错误模式</h4>'+
+'<ul>'+
+'<li>口头变更 vs 书面申请（变更控制）</li>'+
+'<li>PM直接修改 vs CCB审批（变更控制）</li>'+
+'<li>无计划直接做 vs 先规划再执行（整体管理）</li>'+
+'<li>仅推式沟通 vs 交互式沟通（沟通管理）</li>'+
+'<li>超支不报告 vs 及时上报（成本管理）</li>'+
+'<li>缺少评审/验证 vs 完整质量活动（质量管理）</li>'+
+'</ul>'
+},
+{
+title:'变更控制流程模板',
+content:'<h4>标准变更控制流程（7步）</h4>'+
+'<ol>'+
+'<li><strong>提出变更申请</strong>：变更申请人提交书面变更请求</li>'+
+'<li><strong>变更影响分析</strong>：项目经理组织团队评估变更对范围/进度/成本/质量的影响</li>'+
+'<li><strong>CCB审查审批</strong>：变更控制委员会审批（批准或否决）</li>'+
+'<li><strong>发出变更通知</strong>：将审批结果通知相关干系人</li>'+
+'<li><strong>实施变更</strong>：按审批方案执行变更</li>'+
+'<li><strong>变更验证</strong>：验证变更是否正确实施</li>'+
+'<li><strong>更新配置项/文档</strong>：更新相关文档、基线和配置项，归档</li>'+
+'</ol>'+
+'<p><strong>CCB职责</strong>：仅审批变更，不提出、不实施、不验证。</p>'+
+'<p><strong>紧急变更</strong>：可先实施后补审批，但必须有记录。</p>'
+},
+{
+title:'计算题答题模板（挣值分析）',
+content:'<h4>挣值分析计算题标准答题格式</h4>'+
+'<p><strong>第一步：列出已知参数</strong></p>'+
+'<p>BAC=__万元, PV=__万元, EV=__万元, AC=__万元</p>'+
+'<p><strong>第二步：计算偏差</strong></p>'+
+'<p>CV = EV - AC = __ - __ = __万元（正=节约，负=超支）</p>'+
+'<p>SV = EV - PV = __ - __ = __万元（正=超前，负=滞后）</p>'+
+'<p><strong>第三步：计算绩效指数</strong></p>'+
+'<p>CPI = EV/AC = __/__ = __（&gt;1节约，&lt;1超支）</p>'+
+'<p>SPI = EV/PV = __/__ = __（&gt;1超前，&lt;1滞后）</p>'+
+'<p><strong>第四步：完工预测</strong></p>'+
+'<p>典型EAC = BAC/CPI = __/__ = __万元</p>'+
+'<p>非典型EAC = AC + BAC - EV = __ + __ - __ = __万元</p>'+
+'<p><strong>第五步：判断与建议</strong></p>'+
+'<p>综合分析CPI、SPI，给出项目状态判断和改进建议。</p>'
+},
+{
+title:'计算题答题模板（关键路径法）',
+content:'<h4>关键路径法计算题标准答题格式</h4>'+
+'<p><strong>第一步：列活动清单</strong></p>'+
+'<p>列出所有活动名称、工期、紧前活动</p>'+
+'<p><strong>第二步：正推（Forward Pass）</strong></p>'+
+'<p>ES(首活动) = 0</p>'+
+'<p>ES = max(所有前置活动的EF)</p>'+
+'<p>EF = ES + 工期</p>'+
+'<p><strong>第三步：确定项目总工期</strong></p>'+
+'<p>项目总工期 = max(所有活动的EF)</p>'+
+'<p><strong>第四步：逆推（Backward Pass）</strong></p>'+
+'<p>LF(末活动) = 项目总工期</p>'+
+'<p>LF = min(所有后置活动的LS)</p>'+
+'<p>LS = LF - 工期</p>'+
+'<p><strong>第五步：计算浮动时间</strong></p>'+
+'<p>总浮动TF = LS - ES = LF - EF</p>'+
+'<p>自由浮动FF = ES(后置) - EF(当前)</p>'+
+'<p><strong>第六步：确定关键路径</strong></p>'+
+'<p>TF=0的活动构成关键路径，是项目最短工期。</p>'
+},
+{
+title:'原因分析模板',
+content:'<h4>原因分析万能框架</h4>'+
+'<p><strong>人员因素</strong></p>'+
+'<ul><li>项目经理经验不足/管理不到位</li>'+
+'<li>团队成员技能不足/缺乏培训</li>'+
+'<li>干系人沟通不充分/期望管理缺失</li></ul>'+
+'<p><strong>过程因素</strong></p>'+
+'<ul><li>变更控制流程未执行/不完善</li>'+
+'<li>质量管理流程缺失（缺少评审/测试）</li>'+
+'<li>风险管理不到位（未识别/未应对）</li>'+
+'<li>沟通管理不充分（方式单一/频率不够）</li></ul>'+
+'<p><strong>技术因素</strong></p>'+
+'<ul><li>技术方案不成熟/评估不充分</li>'+
+'<li>供应商产品存在质量问题</li>'+
+'<li>需求不明确/频繁变更</li></ul>'+
+'<p><strong>管理因素</strong></p>'+
+'<ul><li>项目管理计划不完善</li>'+
+'<li>资源配置不合理</li>'+
+'<li>监控不及时/纠正措施不到位</li></ul>'
+},
+{
+title:'改进措施模板',
+content:'<h4>改进措施万能框架</h4>'+
+'<p><strong>流程层面</strong></p>'+
+'<ul><li>严格执行变更控制流程（申请\u2192分析\u2192CCB\u2192实施\u2192验证\u2192更新）</li>'+
+'<li>完善项目管理计划，制定各子管理计划</li>'+
+'<li>建立质量保证体系，加强评审和测试</li>'+
+'<li>加强风险识别和应对规划</li></ul>'+
+'<p><strong>沟通层面</strong></p>'+
+'<ul><li>制定沟通管理计划，明确沟通方式和频率</li>'+
+'<li>定期召开项目会议（周会/月度评审）</li>'+
+'<li>及时向上级和干系人汇报项目状态</li>'+
+'<li>使用交互式沟通解决分歧</li></ul>'+
+'<p><strong>技术层面</strong></p>'+
+'<ul><li>加强需求评审，确保需求明确</li>'+
+'<li>加强供应商管理和合同约束</li>'+
+'<li>加强技术方案评审和验证</li></ul>'+
+'<p><strong>资源层面</strong></p>'+
+'<ul><li>合理安排人力资源，加强培训</li>'+
+'<li>做好资源预留和应急预案</li>'+
+'<li>加强团队建设，提升凝聚力</li></ul>'
+}
+];
+
+// ===== APP STATE =====
+let currentPage='home';
+let quizState={mode:'practice',cat:'all',idx:0,answers:{},answered:{},timer:null,seconds:0,started:false,done:false};
+let cpmActivities=[];
+let dailyTasks=['复习知识点 30分钟','刷题 20道','练习案例题 1个','复习错题 10道','计算题练习 3道'];
+
+// ===== NAVIGATION =====
+function nav(page){
+  currentPage=page;
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  const pageEl=$('page-'+page);
+  if(pageEl)pageEl.classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b=>{
+    if(b.textContent.includes(page==='home'?'首页':page==='knowledge'?'知识':page==='quiz'?'刷题':page==='case'?'案例':page==='calc'?'计算':page==='wrong'?'错题':page==='plan'?'备考':page==='mock'?'模拟':page==='analysis'?'分析':''))b.classList.add('active');
+  });
+  if(page==='home')renderHome();
+  else if(page==='knowledge')renderKnowledge();
+  else if(page==='quiz')renderQuiz();
+  else if(page==='case')renderCase();
+  else if(page==='calc')renderCalc();
+  else if(page==='wrong')renderWrong();
+  else if(page==='plan')renderPlan();
+  else if(page==='mock')renderMock();
+  else if(page==='analysis')renderAnalysis();
+}
+
+// ===== HOME =====
+function renderHome(){
+  const db=getDB();
+  const totalQ=QB.length;
+  const answered=Object.keys(db.quizAnswered||{}).length;
+  const correct=Object.values(db.quizAnswered||{}).filter(v=>v).length;
+  const wrongCount=Object.keys(db.wrongBook||{}).length;
+  const learnedTopics=(db.learnedTopics||[]).length;
+  const totalTopics=KB.reduce((s,c)=>s+c.topics.length,0);
+  const streak=db.checkInStreak||0;
+  const todayChecked=db.lastCheckIn===new Date().toISOString().slice(0,10);
+
+  $('page-home').innerHTML=
+  '<div class="stats-row">'+
+    '<div class="stat-card"><div class="stat-num" style="color:var(--primary)">'+totalQ+'</div><div class="stat-label">题库总量</div></div>'+
+    '<div class="stat-card"><div class="stat-num" style="color:var(--success)">'+answered+'</div><div class="stat-label">已答题数</div></div>'+
+    '<div class="stat-card"><div class="stat-num" style="color:'+(correct/Math.max(answered,1)>.7?'var(--success)':'var(--warning)')+'">'+(answered?Math.round(correct/answered*100):0)+'%</div><div class="stat-label">正确率</div></div>'+
+    '<div class="stat-card"><div class="stat-num" style="color:var(--danger)">'+wrongCount+'</div><div class="stat-label">错题数</div></div>'+
+  '</div>'+
+  '<div class="stats-row">'+
+    '<div class="stat-card"><div class="stat-num" style="color:var(--primary)">'+totalTopics+'</div><div class="stat-label">知识点总数</div></div>'+
+    '<div class="stat-card"><div class="stat-num" style="color:var(--success)">'+learnedTopics+'</div><div class="stat-label">已学知识点</div></div>'+
+    '<div class="stat-card"><div class="stat-num" style="color:var(--warning)">'+streak+'</div><div class="stat-label">连续打卡天数</div></div>'+
+    '<div class="stat-card"><div class="stat-num" style="color:'+(todayChecked?'var(--success)':'var(--text-s)')+'">'+(todayChecked?'已打卡':'未打卡')+'</div><div class="stat-label">今日打卡</div></div>'+
+  '</div>'+
+  '<div class="card"><div class="card-title">学习进度</div>'+
+    '<div class="progress-bar"><div class="fill" style="width:'+(answered/Math.max(totalQ,1)*100)+'%;background:var(--primary)"></div></div>'+
+    '<p style="font-size:.78rem;color:var(--text-s);margin-top:6px">刷题进度 '+answered+'/'+totalQ+'</p>'+
+    '<div class="progress-bar" style="margin-top:8px"><div class="fill" style="width:'+(learnedTopics/Math.max(totalTopics,1)*100)+'%;background:var(--success)"></div></div>'+
+    '<p style="font-size:.78rem;color:var(--text-s);margin-top:6px">知识点进度 '+learnedTopics+'/'+totalTopics+'</p>'+
+  '</div>'+
+  '<div class="card"><div class="card-title">快速入口</div>'+
+    '<div style="display:flex;flex-wrap:wrap;gap:8px">'+
+      '<button class="btn-primary" style="padding:10px 18px;border-radius:8px;border:none;cursor:pointer;font-size:.84rem" onclick="nav(\'quiz\')">开始刷题</button>'+
+      '<button class="btn-success" style="padding:10px 18px;border-radius:8px;border:none;cursor:pointer;font-size:.84rem" onclick="nav(\'knowledge\')">复习知识</button>'+
+      '<button class="btn-warning" style="padding:10px 18px;border-radius:8px;border:none;cursor:pointer;font-size:.84rem" onclick="nav(\'calc\')">打开计算器</button>'+
+      '<button class="btn-secondary" style="padding:10px 18px;border-radius:8px;border:none;cursor:pointer;font-size:.84rem" onclick="nav(\'wrong\')">复习错题</button>'+
+    '</div>'+
+  '</div>';
+}
+
+// ===== KNOWLEDGE =====
+function renderKnowledge(){
+  const db=getDB();
+  const learned=db.learnedTopics||[];
+  let cats=['all'];
+  KB.forEach(c=>cats.push(c.id));
+
+  let html='<input class="search-box" id="kb-search" placeholder="搜索知识点..." oninput="filterKB()">';
+  html+='<div class="quiz-config">';
+  html+='<select id="kb-cat-filter" onchange="filterKB()">';
+  cats.forEach(c=>{html+='<option value="'+c+'">'+(c==='all'?'全部分类':c)+'</option>';});
+  html+='</select>';
+  html+='<button class="btn-secondary" onclick="collapseAllKB()">全部折叠</button>';
+  html+='</div>';
+  html+='<div id="kb-list">';
+  html+=buildKBList(learned,'','');
+  html+='</div>';
+  $('page-knowledge').innerHTML=html;
+}
+
+function buildKBList(learned,filterCat,searchTerm){
+  let html='';
+  KB.forEach((cat,ci)=>{
+    if(filterCat!=='all'&&filterCat!==cat.id)return;
+    let filteredTopics=cat.topics;
+    if(searchTerm){
+      filteredTopics=cat.topics.filter(t=>t.title.includes(searchTerm)||t.detail.includes(searchTerm));
+    }
+    if(searchTerm&&filteredTopics.length===0)return;
+    html+='<div class="knowledge-category" id="kb-cat-'+ci+'">';
+    html+='<div class="cat-header" onclick="toggleKB('+ci+')">';
+    html+='<h3>'+cat.title+' <span class="tag tag-blue">'+filteredTopics.length+'</span></h3>';
+    html+='<span class="arrow">\u25b6</span></div>';
+    html+='<div class="cat-body">';
+    filteredTopics.forEach((t,ti)=>{
+      const key=cat.id+'_'+ti;
+      const isLearned=learned.includes(key);
+      html+='<div class="topic-item'+(isLearned?' learned':'')+'">';
+      html+='<div class="topic-title"><span onclick="toggleTopic(this)">'+t.title+'</span>';
+      html+='<button class="mark-btn'+(isLearned?' marked':'')+'" onclick="event.stopPropagation();markLearned(\''+key+'\',this)">'+(isLearned?'已掌握':'标记已学')+'</button>';
+      html+='</div>';
+      html+='<div class="topic-detail">'+t.detail+'</div>';
+      html+='</div>';
+    });
+    html+='</div></div>';
+  });
+  return html;
+}
+
+function toggleKB(ci){
+  const el=document.getElementById('kb-cat-'+ci);
+  el.classList.toggle('open');
+}
+
+function collapseAllKB(){
+  document.querySelectorAll('.knowledge-category').forEach(el=>el.classList.remove('open'));
+}
+
+function filterKB(){
+  const db=getDB();
+  const learned=db.learnedTopics||[];
+  const filterCat=$('kb-cat-filter').value;
+  const searchTerm=$('kb-search').value.trim();
+  $('kb-list').innerHTML=buildKBList(learned,filterCat,searchTerm);
+}
+
+function toggleTopic(el){
+  const detail=el.parentElement.nextElementSibling;
+  detail.style.display=detail.style.display==='block'?'none':'block';
+}
+
+function markLearned(key,btn){
+  const db=getDB();
+  if(!db.learnedTopics)db.learnedTopics=[];
+  const idx=db.learnedTopics.indexOf(key);
+  if(idx>=0){
+    db.learnedTopics.splice(idx,1);
+    btn.textContent='标记已学';
+    btn.classList.remove('marked');
+    btn.parentElement.parentElement.classList.remove('learned');
+    toast('已取消标记');
+  }else{
+    db.learnedTopics.push(key);
+    btn.textContent='已掌握';
+    btn.classList.add('marked');
+    btn.parentElement.parentElement.classList.add('learned');
+    toast('已标记为已学');
+  }
+  saveDB(db);
+}
+
+// ===== QUIZ =====
+function getFilteredQuestions(){
+  if(quizState.cat==='all')return QB;
+  return QB.filter(q=>q.cat===quizState.cat);
+}
+
+function renderQuiz(){
+  const cats=['all'];
+  QB.forEach(q=>{if(!cats.includes(q.cat))cats.push(q.cat);});
+
+  let html='<div class="card"><div class="card-title">刷题配置</div>';
+  html+='<div class="quiz-config">';
+  html+='<select id="quiz-mode" onchange="quizState.mode=this.value;startQuiz()">';
+  html+='<option value="practice"'+(quizState.mode==='practice'?' selected':'')+'>练习模式</option>';
+  html+='<option value="exam"'+(quizState.mode==='exam'?' selected':'')+'>考试模式</option>';
+  html+='</select>';
+  html+='<select id="quiz-cat" onchange="quizState.cat=this.value;startQuiz()">';
+  cats.forEach(c=>{html+='<option value="'+c+'"'+(quizState.cat===c?' selected':'')+'>'+(c==='all'?'全部分类':c)+'</option>';});
+  html+='</select>';
+  html+='<button class="btn-primary" onclick="startQuiz()">重新开始</button>';
+  html+='</div></div>';
+  html+='<div id="quiz-area"></div>';
+  $('page-quiz').innerHTML=html;
+  if(!quizState.done)startQuiz();
+  else renderQuizQuestion();
+}
+
+function startQuiz(){
+  if(quizState.timer){clearInterval(quizState.timer);quizState.timer=null;}
+  quizState.idx=0;
+  quizState.answers={};
+  quizState.answered={};
+  quizState.seconds=0;
+  quizState.started=false;
+  quizState.done=false;
+  if(quizState.mode==='exam')quizState.seconds=QB.length*60;
+  renderQuizQuestion();
+}
+
+function renderQuizQuestion(){
+  const qs=getFilteredQuestions();
+  if(qs.length===0){$('quiz-area').innerHTML='<div class="card"><p>该分类暂无题目</p></div>';return;}
+  if(quizState.idx>=qs.length){
+    quizState.done=true;
+    if(quizState.timer){clearInterval(quizState.timer);quizState.timer=null;}
+    renderQuizResult();
+    return;
+  }
+  const q=qs[quizState.idx];
+  const answered=quizState.answered[quizState.idx];
+  const selected=quizState.answers[quizState.idx];
+  const labels=['A','B','C','D'];
+
+  let html='';
+  if(quizState.mode==='exam'){
+    html+='<div class="timer-display">'+formatTime(quizState.seconds)+'</div>';
+    html+='<div class="timer-controls">';
+    if(!quizState.started){
+      html+='<button class="btn-primary" onclick="startTimer()">开始计时</button>';
+    }else{
+      html+='<button class="btn-warning" onclick="pauseTimer()">暂停</button>';
+    }
+    html+='</div>';
+  }
+  html+='<div class="quiz-progress">';
+  for(let i=0;i<qs.length;i++){
+    let cls='quiz-dot';
+    if(i===quizState.idx)cls+=' current';
+    if(quizState.answered[i]===true)cls+=' correct';
+    if(quizState.answered[i]===false)cls+=' wrong';
+    html+='<span class="'+cls+'" onclick="jumpToQ('+i+')"></span>';
+  }
+  html+='</div>';
+  html+='<div class="card">';
+  html+='<div class="card-title"><span class="tag tag-blue">'+q.cat+'</span>';
+  const freq=q.freq||'?'; const freqColor={'高':'tag-red','中':'tag-yellow','低':'tag-green','?':'tag-purple'};
+  html+='<span class="tag '+(freqColor[freq]||'tag-purple')+'" title="考试频率">考频:'+freq+'</span>';
+  const diff=q.diff||'?'; const diffLabel={1:'易',2:'中',3:'难','?':'?'};
+  const diffColor={1:'tag-green',2:'tag-yellow',3:'tag-red','?':'tag-purple'};
+  html+='<span class="tag '+(diffColor[diff]||'tag-purple')+'" title="难度等级">难度:'+(diffLabel[diff]||'?')+'</span>';
+  html+=' 第'+(quizState.idx+1)+'/'+qs.length+'题</div>';
+  html+='<p style="font-size:.9rem;margin-bottom:10px">'+q.q+'</p>';
+  html+='<div class="quiz-options">';
+  q.opts.forEach((opt,oi)=>{
+    let cls='quiz-option';
+    if(!answered&&selected===oi)cls+=' selected';
+    if(answered){
+      if(oi===q.ans)cls+=' correct';
+      else if(selected===oi&&oi!==q.ans)cls+=' wrong';
+    }
+    html+='<div class="'+cls+'" onclick="selectQuizOption('+oi+')">';
+    html+='<span class="opt-label">'+labels[oi]+'</span>'+opt;
+    html+='</div>';
+  });
+  html+='</div>';
+  if(answered){
+    const isCorrect=selected===q.ans;
+    html+='<div class="quiz-explanation'+(isCorrect?'':' wrong-exp')+' show">';
+    html+='<strong>'+(isCorrect?'\u2714 正确':'\u2718 错误，正确答案：'+labels[q.ans])+'</strong>';
+    html+='<p style="margin-top:4px">'+q.exp+'</p>';
+    html+='</div>';
+  }
+  html+='</div>';
+  html+='<div class="quiz-nav">';
+  if(quizState.idx>0)html+='<button class="btn-secondary" onclick="prevQ()">上一题</button>';
+  if(quizState.idx<qs.length-1)html+='<button class="btn-primary" onclick="nextQ()">下一题</button>';
+  if(quizState.idx===qs.length-1&&quizState.answered[quizState.idx]!==undefined)html+='<button class="btn-success" onclick="finishQuiz()">查看结果</button>';
+  html+='</div>';
+  $('quiz-area').innerHTML=html;
+}
+
+function selectQuizOption(oi){
+  if(quizState.answered[quizState.idx]!==undefined)return;
+  quizState.answers[quizState.idx]=oi;
+  quizState.answered[quizState.idx]=oi===getFilteredQuestions()[quizState.idx].ans;
+
+  const db=getDB();
+  if(!db.quizAnswered)db.quizAnswered={};
+  const q=getFilteredQuestions()[quizState.idx];
+  const qKey=q.q.slice(0,20);
+  db.quizAnswered[qKey]=quizState.answered[quizState.idx];
+  saveDB(db);
+
+  if(!quizState.answered[quizState.idx]){
+    if(!db.wrongBook)db.wrongBook={};
+    db.wrongBook[qKey]={q:q.q,opts:q.opts,ans:q.ans,cat:q.cat,exp:q.exp,freq:q.freq,diff:q.diff,date:Date.now()};
+    saveDB(db);
+  }else{
+    if(!db.wrongBook)db.wrongBook={};
+    delete db.wrongBook[qKey];
+    saveDB(db);
+  }
+  renderQuizQuestion();
+}
+
+function prevQ(){if(quizState.idx>0){quizState.idx--;renderQuizQuestion();}}
+function nextQ(){if(quizState.idx<getFilteredQuestions().length-1){quizState.idx++;renderQuizQuestion();}}
+function jumpToQ(i){quizState.idx=i;renderQuizQuestion();}
+
+function startTimer(){
+  quizState.started=true;
+  quizState.timer=setInterval(()=>{
+    quizState.seconds--;
+    const td=$('quiz-area')?.querySelector('.timer-display');
+    if(td)td.textContent=formatTime(quizState.seconds);
+    if(quizState.seconds<=0){
+      clearInterval(quizState.timer);
+      toast('时间到！自动提交');
+      finishQuiz();
+    }
+  },1000);
+  renderQuizQuestion();
+}
+
+function pauseTimer(){
+  if(quizState.timer){clearInterval(quizState.timer);quizState.timer=null;quizState.started=false;}
+  renderQuizQuestion();
+}
+
+function formatTime(s){
+  const m=Math.floor(s/60);
+  const sec=s%60;
+  return String(m).padStart(2,'0')+':'+String(sec).padStart(2,'0');
+}
+
+function finishQuiz(){
+  quizState.done=true;
+  if(quizState.timer){clearInterval(quizState.timer);quizState.timer=null;}
+  renderQuizResult();
+}
+
+function renderQuizResult(){
+  const qs=getFilteredQuestions();
+  let correct=0,wrong=0,unanswered=0;
+  qs.forEach((q,i)=>{
+    if(quizState.answered[i]===true)correct++;
+    else if(quizState.answered[i]===false)wrong++;
+    else unanswered++;
+  });
+  const total=qs.length;
+  const pct=total?Math.round(correct/total*100):0;
+
+  let html='<div class="card" style="text-align:center">';
+  html+='<h3 style="margin-bottom:14px">考试结果</h3>';
+  html+='<div class="stats-row">';
+  html+='<div class="stat-card"><div class="stat-num" style="color:var(--success)">'+correct+'</div><div class="stat-label">正确</div></div>';
+  html+='<div class="stat-card"><div class="stat-num" style="color:var(--danger)">'+wrong+'</div><div class="stat-label">错误</div></div>';
+  html+='<div class="stat-card"><div class="stat-num" style="color:var(--text-s)">'+unanswered+'</div><div class="stat-label">未答</div></div>';
+  html+='<div class="stat-card"><div class="stat-num" style="color:'+(pct>=60?'var(--success)':'var(--danger)')+'">'+pct+'%</div><div class="stat-label">正确率</div></div>';
+  html+='</div>';
+  html+='<p style="margin:10px 0">'+(pct>=80?'优秀！继续保持':pct>=60?'及格，但仍需努力':'不及格，需要加强复习')+'</p>';
+  html+='<div class="progress-bar" style="margin:10px auto;max-width:300px"><div class="fill" style="width:'+pct+'%;background:'+(pct>=60?'var(--success)':'var(--danger)')+'"></div></div>';
+  html+='<button class="btn-primary" style="margin-top:12px;padding:10px 24px;border:none;border-radius:8px;cursor:pointer;font-size:.84rem" onclick="startQuiz()">再考一次</button>';
+  html+='</div>';
+
+  if(wrong>0){
+    html+='<div class="card"><div class="card-title">错题回顾</div>';
+    qs.forEach((q,i)=>{
+      if(quizState.answered[i]===false){
+        const labels=['A','B','C','D'];
+        html+='<div style="padding:8px 0;border-bottom:1px solid var(--border);font-size:.84rem">';
+        html+='<p><strong>第'+(i+1)+'题：</strong>'+q.q+'</p>';
+        html+='<p style="color:var(--text-s)">你的答案：'+labels[quizState.answers[i]]+' | 正确答案：'+labels[q.ans]+'</p>';
+        html+='<p style="color:var(--text-s)">'+q.exp+'</p></div>';
+      }
+    });
+    html+='</div>';
+  }
+  $('quiz-area').innerHTML=html;
+}
+
+// ===== CASE STUDIES =====
+function renderCase(){
+  let html='<div class="tabs">';
+  html+='<button class="tab-btn active" onclick="showCaseTab(\'cases\',this)">案例分析</button>';
+  html+='<button class="tab-btn" onclick="showCaseTab(\'templates\',this)">答题模板</button>';
+  html+='</div>';
+  html+='<div id="case-content"></div>';
+  $('page-case').innerHTML=html;
+  renderCases();
+}
+
+function showCaseTab(tab,btn){
+  document.querySelectorAll('#page-case .tab-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  if(tab==='cases')renderCases();
+  else renderTemplates();
+}
+
+function renderCases(){
+  let html='';
+  CASES.forEach(c=>{
+    html+='<div class="card">';
+    html+='<div class="card-title"><span class="tag tag-purple">'+c.cat+'</span>'+c.title+'</div>';
+    html+='<div class="case-scenario"><p>'+c.scenario+'</p></div>';
+    c.questions.forEach(q=>{html+='<div class="case-question">'+q+'</div>';});
+    html+='<button class="btn-primary" style="margin-top:8px;padding:8px 16px;border:none;border-radius:8px;cursor:pointer;font-size:.82rem" onclick="toggleCaseAnswer(this)">显示参考答案</button>';
+    html+='<div class="case-answer-area"><div class="case-reference"><h4>参考答案</h4><p>'+c.answer+'</p></div></div>';
+    html+='</div>';
+  });
+  $('case-content').innerHTML=html;
+}
+
+function toggleCaseAnswer(btn){
+  const area=btn.nextElementSibling;
+  if(area.classList.contains('show')){
+    area.classList.remove('show');
+    btn.textContent='显示参考答案';
+  }else{
+    area.classList.add('show');
+    btn.textContent='隐藏参考答案';
+  }
+}
+
+function renderTemplates(){
+  let html='';
+  TEMPLATES.forEach(t=>{
+    html+='<div class="card">';
+    html+='<div class="card-title">'+t.title+'</div>';
+    html+='<div style="font-size:.84rem;line-height:1.8">'+t.content+'</div>';
+    html+='</div>';
+  });
+  $('case-content').innerHTML=html;
+}
+
+// ===== CALCULATOR =====
+function renderCalc(){
+  let html='<div class="tabs">';
+  html+='<button class="tab-btn active" onclick="showCalcTab(\'evm\',this)">挣值计算</button>';
+  html+='<button class="tab-btn" onclick="showCalcTab(\'cpm\',this)">关键路径</button>';
+  html+='<button class="tab-btn" onclick="showCalcTab(\'pert\',this)">三点估算</button>';
+  html+='<button class="tab-btn" onclick="showCalcTab(\'formula\',this)">公式参考</button>';
+  html+='</div>';
+  html+='<div id="calc-content"></div>';
+  $('page-calc').innerHTML=html;
+  renderEVM();
+}
+
+function showCalcTab(tab,btn){
+  document.querySelectorAll('#page-calc .tab-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  if(tab==='evm')renderEVM();
+  else if(tab==='cpm')renderCPM();
+  else if(tab==='pert')renderPERT();
+  else renderFormulaRef();
+}
+
+function renderEVM(){
+  let html='<div class="card"><div class="card-title">挣值管理计算器</div>';
+  html+='<div class="calc-form">';
+  html+='<div><label>BAC (预算总额)</label><input type="number" id="evm-bac" value="100"></div>';
+  html+='<div><label>PV (计划值)</label><input type="number" id="evm-pv" value="50"></div>';
+  html+='<div><label>EV (挣值)</label><input type="number" id="evm-ev" value="40"></div>';
+  html+='<div><label>AC (实际成本)</label><input type="number" id="evm-ac" value="45"></div>';
+  html+='</div>';
+  html+='<div style="margin-top:10px"><button class="btn-primary" style="padding:8px 20px;border:none;border-radius:8px;cursor:pointer;font-size:.84rem" onclick="calcEVM()">计算</button></div>';
+  html+='<div id="evm-result"></div></div>';
+  $('calc-content').innerHTML=html;
+}
+
+function calcEVM(){
+  const BAC=parseFloat($('evm-bac').value)||0;
+  const PV=parseFloat($('evm-pv').value)||0;
+  const EV=parseFloat($('evm-ev').value)||0;
+  const AC=parseFloat($('evm-ac').value)||0;
+
+  const CV=EV-AC;
+  const SV=EV-PV;
+  const CPI=AC?EV/AC:0;
+  const SPI=PV?EV/PV:0;
+
+  const etcNonTypical=BAC-EV;
+  const etcTypical=CPI?((BAC-EV)/CPI):0;
+  const eacNonTypical=AC+etcNonTypical;
+  const eacTypical=AC+etcTypical;
+  const VAC=BAC-eacTypical;
+  const TCPI=(BAC-AC)?((BAC-EV)/(BAC-AC)):0;
+
+  const cls={good:'good',bad:'bad',warn:'warn'};
+  let html='<div class="calc-result">';
+  html+=resultItem('CV (成本偏差)',CV.toFixed(2)+'万',CV>=0?cls.good:cls.bad);
+  html+=resultItem('SV (进度偏差)',SV.toFixed(2)+'万',SV>=0?cls.good:cls.bad);
+  html+=resultItem('CPI (成本绩效指数)',CPI.toFixed(4),CPI>=1?cls.good:cls.bad);
+  html+=resultItem('SPI (进度绩效指数)',SPI.toFixed(4),SPI>=1?cls.good:cls.bad);
+  html+='</div>';
+  html+='<div class="calc-result">';
+  html+='<p style="font-size:.78rem;color:var(--text-s);margin-bottom:6px;font-weight:600">完工预测</p>';
+  html+=resultItem('ETC (典型)',etcTypical.toFixed(2)+'万');
+  html+=resultItem('ETC (非典型)',etcNonTypical.toFixed(2)+'万');
+  html+=resultItem('EAC (典型)',eacTypical.toFixed(2)+'万',eacTypical<=BAC?cls.good:cls.bad);
+  html+=resultItem('EAC (非典型)',eacNonTypical.toFixed(2)+'万',eacNonTypical<=BAC?cls.good:cls.bad);
+  html+=resultItem('VAC (完工偏差)',VAC.toFixed(2)+'万',VAC>=0?cls.good:cls.bad);
+  html+=resultItem('TCPI (完工绩效指数)',TCPI.toFixed(4));
+  html+='</div>';
+  html+='<div class="formula-ref"><h4>判断</h4><p>'+
+    (CV>=0?'CV\u22650 成本节约':'CV&lt;0 成本超支')+' | '+
+    (SV>=0?'SV\u22650 进度超前':'SV&lt;0 进度滞后')+' | '+
+    (CPI>=1?'CPI\u22651 成本节约':'CPI&lt;1 成本超支')+' | '+
+    (SPI>=1?'SPI\u22651 进度超前':'SPI&lt;1 进度滞后')+
+  '</p></div>';
+  $('evm-result').innerHTML=html;
+}
+
+function resultItem(label,value,cls){
+  return '<div class="result-item"><span class="result-label">'+label+'</span><span class="result-value'+(cls?' '+cls:'')+'">'+value+'</span></div>';
+}
+
+function renderCPM(){
+  cpmActivities=[
+    {name:'A',dur:3,pre:[]},
+    {name:'B',dur:4,pre:['A']},
+    {name:'C',dur:2,pre:['A']},
+    {name:'D',dur:5,pre:['B','C']},
+    {name:'E',dur:3,pre:['B']},
+    {name:'F',dur:2,pre:['D','E']}
+  ];
+  renderCPMUI();
+}
+
+function renderCPMUI(){
+  let html='<div class="card"><div class="card-title">关键路径法计算器</div>';
+  html+='<div class="cpm-add-row">';
+  html+='<input type="text" id="cpm-name" placeholder="活动名" style="width:60px">';
+  html+='<input type="number" id="cpm-dur" placeholder="工期" style="width:60px">';
+  html+='<input type="text" id="cpm-pre" placeholder="前置活动(逗号分隔)" style="width:120px">';
+  html+='<button class="btn-primary" style="padding:6px 12px;border:none;border-radius:6px;cursor:pointer;font-size:.78rem" onclick="addCPMActivity()">添加</button>';
+  html+='<button class="btn-warning" style="padding:6px 12px;border:none;border-radius:6px;cursor:pointer;font-size:.78rem" onclick="resetCPM()">重置</button>';
+  html+='</div>';
+  html+='<div id="cpm-result"></div></div>';
+  $('calc-content').innerHTML=html;
+  calcCPM();
+}
+
+function addCPMActivity(){
+  const name=$('cpm-name').value.trim();
+  const dur=parseInt($('cpm-dur').value);
+  const preStr=$('cpm-pre').value.trim();
+  if(!name||!dur||isNaN(dur)){toast('请填写完整信息');return;}
+  const pre=preStr?preStr.split(',').map(s=>s.trim()).filter(Boolean):[];
+  cpmActivities.push({name,dur,pre});
+  $('cpm-name').value='';$('cpm-dur').value='';$('cpm-pre').value='';
+  calcCPM();
+  toast('已添加活动 '+name);
+}
+
+function resetCPM(){
+  cpmActivities=[];
+  calcCPM();
+  toast('已重置');
+}
+
+function calcCPM(){
+  if(cpmActivities.length===0){
+    $('cpm-result').innerHTML='<p style="font-size:.82rem;color:var(--text-s)">请添加活动</p>';
+    return;
+  }
+  const acts={};
+  cpmActivities.forEach(a=>{acts[a.name]={name:a.name,dur:a.dur,pre:a.pre,es:0,ef:0,ls:0,lf:0,tf:0,ff:0};});
+
+  // Topological sort for forward pass
+  const sorted=[];
+  const visited=new Set();
+  function visit(name){
+    if(visited.has(name))return;
+    visited.add(name);
+    (acts[name].pre||[]).forEach(p=>{if(acts[p])visit(p);});
+    sorted.push(name);
+  }
+  Object.keys(acts).forEach(n=>visit(n));
+
+  // Forward pass
+  sorted.forEach(name=>{
+    const a=acts[name];
+    a.es=(a.pre||[]).reduce((max,p)=>{return acts[p]?Math.max(max,acts[p].ef):max;},0);
+    a.ef=a.es+a.dur;
+  });
+
+  const projectDur=sorted.reduce((max,n)=>Math.max(max,acts[n].ef),0);
+
+  // Backward pass
+  const reversed=[...sorted].reverse();
+  reversed.forEach(name=>{
+    const a=acts[name];
+    const successors=sorted.filter(n=>(acts[n].pre||[]).includes(name));
+    if(successors.length===0){
+      a.lf=projectDur;
+    }else{
+      a.lf=successors.reduce((min,s)=>Math.min(min,acts[s].ls),Infinity);
+    }
+    a.ls=a.lf-a.dur;
+  });
+
+  // Float
+  sorted.forEach(name=>{
+    const a=acts[name];
+    a.tf=a.ls-a.es;
+    const successors=sorted.filter(n=>(acts[n].pre||[]).includes(name));
+    if(successors.length===0){
+      a.ff=projectDur-a.ef;
+    }else{
+      a.ff=successors.reduce((min,s)=>Math.min(min,acts[s].es),Infinity)-a.ef;
+    }
+  });
+
+  // Critical path
+  const critical=sorted.filter(n=>acts[n].tf===0);
+  const cpStr=critical.join(' \u2192 ');
+
+  let html='<div class="cpm-network">';
+  html+='<table class="process-table" style="font-size:.76rem">';
+  html+='<tr><th>活动</th><th>工期</th><th>ES</th><th>EF</th><th>LS</th><th>LF</th><th>TF</th><th>FF</th><th>关键</th></tr>';
+  sorted.forEach(name=>{
+    const a=acts[name];
+    const isCritical=a.tf===0;
+    html+='<tr><td style="font-weight:600">'+a.name+'</td><td>'+a.dur+'</td>';
+    html+='<td>'+a.es+'</td><td>'+a.ef+'</td><td>'+a.ls+'</td><td>'+a.lf+'</td>';
+    html+='<td style="color:'+(isCritical?'var(--danger)':'var(--text)')+'">'+a.tf+'</td>';
+    html+='<td>'+a.ff+'</td>';
+    html+='<td>'+(isCritical?'\u2605':'')+'</td></tr>';
+  });
+  html+='</table>';
+  html+='<div style="margin-top:10px;padding:10px;background:#eff6ff;border-radius:8px;font-size:.84rem">';
+  html+='<strong>项目总工期：'+projectDur+'</strong><br>';
+  html+='<strong>关键路径：'+cpStr+'</strong>';
+  html+='</div></div>';
+  $('cpm-result').innerHTML=html;
+}
+
+function renderPERT(){
+  let html='<div class="card"><div class="card-title">三点估算(PERT)计算器</div>';
+  html+='<div class="calc-form">';
+  html+='<div><label>乐观时间 O</label><input type="number" id="pert-o" value="6"></div>';
+  html+='<div><label>最可能时间 M</label><input type="number" id="pert-m" value="10"></div>';
+  html+='<div><label>悲观时间 P</label><input type="number" id="pert-p" value="20"></div>';
+  html+='</div>';
+  html+='<div style="margin-top:10px"><button class="btn-primary" style="padding:8px 20px;border:none;border-radius:8px;cursor:pointer;font-size:.84rem" onclick="calcPERT()">计算</button></div>';
+  html+='<div id="pert-result"></div></div>';
+  $('calc-content').innerHTML=html;
+}
+
+function calcPERT(){
+  const O=parseFloat($('pert-o').value)||0;
+  const M=parseFloat($('pert-m').value)||0;
+  const P=parseFloat($('pert-p').value)||0;
+  const tE=(O+4*M+P)/6;
+  const sigma=(P-O)/6;
+
+  let html='<div class="calc-result">';
+  html+=resultItem('期望工期 tE',tE.toFixed(2));
+  html+=resultItem('标准差 \u03c3',sigma.toFixed(2));
+  html+='</div>';
+  html+='<div class="calc-result">';
+  html+='<p style="font-size:.78rem;color:var(--text-s);margin-bottom:6px;font-weight:600">概率区间</p>';
+  html+=resultItem('\u00b11\u03c3 范围',(tE-sigma).toFixed(2)+' ~ '+(tE+sigma).toFixed(2),'');
+  html+=resultItem('\u00b11\u03c3 概率','68.27%');
+  html+=resultItem('\u00b12\u03c3 范围',(tE-2*sigma).toFixed(2)+' ~ '+(tE+2*sigma).toFixed(2),'');
+  html+=resultItem('\u00b12\u03c3 概率','95.45%');
+  html+=resultItem('\u00b13\u03c3 范围',(tE-3*sigma).toFixed(2)+' ~ '+(tE+3*sigma).toFixed(2),'');
+  html+=resultItem('\u00b13\u03c3 概率','99.73%');
+  html+='</div>';
+  html+='<div class="formula-ref"><h4>公式</h4><p>tE = (O + 4M + P) / 6<br>\u03c3 = (P - O) / 6</p></div>';
+  $('pert-result').innerHTML=html;
+}
+
+function renderFormulaRef(){
+  let html='<div class="card"><div class="card-title">核心公式速查</div>';
+  html+='<div class="formula-ref" style="background:#fff;border:1px solid var(--border)">';
+  html+='<h4 style="color:var(--primary-dark);margin-bottom:8px">挣值管理</h4>';
+  html+='<p>CV = EV - AC（成本偏差，正=节约）<br>';
+  html+='SV = EV - PV（进度偏差，正=超前）<br>';
+  html+='CPI = EV / AC（成本指数，&gt;1节约）<br>';
+  html+='SPI = EV / PV（进度指数，&gt;1超前）<br>';
+  html+='EAC(典型) = BAC / CPI<br>';
+  html+='EAC(非典型) = AC + BAC - EV<br>';
+  html+='ETC(典型) = (BAC - EV) / CPI<br>';
+  html+='ETC(非典型) = BAC - EV<br>';
+  html+='VAC = BAC - EAC<br>';
+  html+='TCPI = (BAC - EV) / (BAC - AC)</p>';
+  html+='<h4 style="color:var(--primary-dark);margin:10px 0 8px">关键路径法</h4>';
+  html+='<p>ES = max(前置EF)<br>';
+  html+='EF = ES + Dur<br>';
+  html+='LF = min(后置LS)<br>';
+  html+='LS = LF - Dur<br>';
+  html+='TF(总浮动) = LS - ES = LF - EF<br>';
+  html+='FF(自由浮动) = ES(后置) - EF(当前)<br>';
+  html+='关键路径 = TF=0的活动路径</p>';
+  html+='<h4 style="color:var(--primary-dark);margin:10px 0 8px">三点估算(PERT)</h4>';
+  html+='<p>tE = (O + 4M + P) / 6<br>';
+  html+='\u03c3 = (P - O) / 6</p>';
+  html+='<h4 style="color:var(--primary-dark);margin:10px 0 8px">沟通管理</h4>';
+  html+='<p>沟通渠道 = n(n-1)/2</p>';
+  html+='<h4 style="color:var(--primary-dark);margin:10px 0 8px">风险管理</h4>';
+  html+='<p>EMV = 影响 \u00d7 概率</p>';
+  html+='</div></div>';
+  $('calc-content').innerHTML=html;
+}
+
+// ===== WRONG BOOK =====
+function renderWrong(){
+  const db=getDB();
+  const wb=db.wrongBook||{};
+  const keys=Object.keys(wb);
+  const cats=['all'];
+  keys.forEach(k=>{if(!cats.includes(wb[k].cat))cats.push(wb[k].cat);});
+
+  let html='<div class="card"><div class="card-title">错题本 ('+keys.length+'题)</div>';
+  html+='<div class="quiz-config">';
+  html+='<select id="wrong-filter" onchange="filterWrong()">';
+  cats.forEach(c=>{html+='<option value="'+c+'">'+(c==='all'?'全部分类':c)+'</option>';});
+  html+='</select>';
+  html+='<button class="btn-danger" style="padding:8px 14px;border:none;border-radius:8px;cursor:pointer;font-size:.82rem" onclick="clearWrong()">清空错题本</button>';
+  html+='</div></div>';
+  html+='<div id="wrong-list"></div>';
+
+  if(keys.length===0){
+    html+='<div class="card" style="text-align:center"><p style="color:var(--text-s)">暂无错题，继续加油！</p></div>';
+  }
+
+  $('page-wrong').innerHTML=html;
+  filterWrong();
+}
+
+function filterWrong(){
+  const db=getDB();
+  const wb=db.wrongBook||{};
+  const filter=$('wrong-filter')?.value||'all';
+  const keys=Object.keys(wb).filter(k=>filter==='all'||wb[k].cat===filter);
+  const labels=['A','B','C','D'];
+
+  let html='';
+  keys.forEach(k=>{
+    const w=wb[k];
+    html+='<div class="wrong-item">';
+    html+='<div class="wrong-q">'+w.q+'</div>';
+    html+='<div class="wrong-info">';
+    html+='<span class="tag tag-purple">'+w.cat+'</span>';
+    if(w.freq){const fc={'\u9ad8':'tag-red','\u4e2d':'tag-yellow','\u4f4e':'tag-green'};html+='<span class="tag '+(fc[w.freq]||'')+'">\u8003\u9891:'+w.freq+'</span>';}
+    if(w.diff){const dc={1:'tag-green',2:'tag-yellow',3:'tag-red'};const dl={1:'\u6613',2:'\u4e2d',3:'\u96be'};html+='<span class="tag '+(dc[w.diff]||'')+'">\u96be\u5ea6:'+(dl[w.diff]||w.diff)+'</span>';}
+    html+='<span>\u6b63\u786e\u7b54\u6848\uff1a'+labels[w.ans]+'</span>';
+    html+='</div>';
+    html+='<p style="font-size:.78rem;color:var(--text-s);margin-top:4px">'+w.exp+'</p>';
+    html+='<div class="wrong-actions">';
+    html+='<button class="btn-primary" style="padding:4px 10px;border:none;border-radius:4px;font-size:.73rem;cursor:pointer" onclick="removeWrong(\''+k+'\')">标记已掌握</button>';
+    html+='<button class="btn-warning" style="padding:4px 10px;border:none;border-radius:4px;font-size:.73rem;cursor:pointer" onclick="retryWrong(\''+k+'\')">重做</button>';
+    html+='</div>';
+    html+='</div>';
+  });
+  if(keys.length===0){
+    html+='<div class="card" style="text-align:center"><p style="color:var(--text-s)">该分类暂无错题</p></div>';
+  }
+  $('wrong-list').innerHTML=html;
+}
+
+function removeWrong(key){
+  const db=getDB();
+  if(!db.wrongBook)db.wrongBook={};
+  delete db.wrongBook[key];
+  saveDB(db);
+  filterWrong();
+  toast('已从错题本移除');
+}
+
+function retryWrong(key){
+  const db=getDB();
+  const w=(db.wrongBook||{})[key];
+  if(!w)return;
+  const labels=['A','B','C','D'];
+  const ans=prompt('请选择正确答案（输入A/B/C/D）：\n\n'+w.q+'\n\nA. '+w.opts[0]+'\nB. '+w.opts[1]+'\nC. '+w.opts[2]+'\nD. '+w.opts[3]);
+  if(ans===null)return;
+  const ansIdx=labels.indexOf(ans.toUpperCase());
+  if(ansIdx===w.ans){
+    delete db.wrongBook[key];
+    saveDB(db);
+    toast('回答正确！已从错题本移除');
+    filterWrong();
+  }else{
+    toast('回答错误，正确答案是 '+labels[w.ans]);
+  }
+}
+
+function clearWrong(){
+  if(!confirm('确定清空所有错题？'))return;
+  const db=getDB();
+  db.wrongBook={};
+  saveDB(db);
+  renderWrong();
+  toast('错题本已清空');
+}
+
+// ===== PLAN =====
+function renderPlan(){
+  const db=getDB();
+  const streak=db.checkInStreak||0;
+  const lastCheckIn=db.lastCheckIn||'';
+  const today=new Date().toISOString().slice(0,10);
+  const todayChecked=lastCheckIn===today;
+  const checkedTasks=db.checkedTasks||{};
+
+  // Calculate exam countdown (2026年一年两考)
+  const now=new Date();
+  const examDates=[
+    new Date(2026,4,23), // 2026上半年 5月23日
+    new Date(2026,9,24), // 2026下半年 10月24日
+  ];
+  let targetExam=examDates.find(d=>d>now);
+  if(!targetExam){
+    // If both passed, show next year estimate
+    targetExam=new Date(2027,4,23);
+  }
+  const daysLeft=Math.ceil((targetExam-now)/(1000*60*60*24));
+  const examLabel=(targetExam.getMonth()+1)+'月'+targetExam.getDate()+'日';
+  const examYear=targetExam.getFullYear();
+
+  const weekday=['日','一','二','三','四','五','六'];
+  const dateStr=now.getFullYear()+'年'+(now.getMonth()+1)+'月'+now.getDate()+'日 星期'+weekday[now.getDay()];
+
+  let html='<div class="plan-today">';
+  html+='<h3>备考倒计时</h3>';
+  html+='<div class="plan-date">'+dateStr+'</div>';
+  html+='<div style="font-size:1.6rem;font-weight:700;margin:8px 0">'+daysLeft+' 天</div>';
+  html+='<div style="font-size:.78rem;opacity:.8">距离'+examYear+'年'+examLabel+'考试</div>';
+  html+='</div>';
+
+  html+='<div class="card"><div class="card-title">每日打卡</div>';
+  html+='<div style="display:flex;align-items:center;gap:12px">';
+  html+='<div><span style="font-size:1.1rem;font-weight:600">连续打卡：<span style="color:var(--warning)">'+streak+'</span> 天</span></div>';
+  html+='<button class="'+(todayChecked?'btn-success':'btn-primary')+'" style="padding:8px 18px;border:none;border-radius:8px;cursor:pointer;font-size:.84rem" onclick="doCheckIn()"'+(todayChecked?' disabled':'')+'>'+(todayChecked?'今日已打卡':'打卡')+'</button>';
+  html+='</div>';
+  html+='</div>';
+
+  html+='<div class="card"><div class="card-title">每日任务清单</div>';
+  html+='<div class="plan-checklist">';
+  dailyTasks.forEach((t,i)=>{
+    const key=today+'_'+i;
+    const checked=checkedTasks[key]||false;
+    const completedCount=Object.values(checkedTasks).filter(v=>v&&v.startsWith(today)).length;
+    html+='<div class="check-item">';
+    html+='<input type="checkbox" '+(checked?'checked':'')+' onchange="toggleTask(\''+key+'\',this.checked)">';
+    html+='<span style="'+(checked?'text-decoration:line-through;color:var(--text-s)':'')+'">'+t+'</span>';
+    html+='</div>';
+  });
+  html+='</div>';
+  html+='<div style="margin-top:8px">';
+  html+='<div class="progress-bar"><div class="fill" style="width:'+(Object.values(checkedTasks).filter(v=>v&&v.startsWith(today)).length/dailyTasks.length*100)+'%;background:var(--success)"></div></div>';
+  html+='<p style="font-size:.76rem;color:var(--text-s);margin-top:4px">今日完成 '+Object.values(checkedTasks).filter(v=>v&&v.startsWith(today)).length+'/'+dailyTasks.length+'</p>';
+  html+='</div></div>';
+
+  html+='<div class="card"><div class="card-title">学习建议</div>';
+  html+='<div style="font-size:.84rem;line-height:2">';
+  if(daysLeft>90){
+    html+='<p>\u2714 第一阶段：系统学习所有知识点</p>';
+    html+='<p>\u2714 每天刷题20-30道</p>';
+    html+='<p>\u2714 重点关注计算题（挣值+关键路径）</p>';
+    html+='<p>\u2714 每周练习1-2个案例分析</p>';
+  }else if(daysLeft>30){
+    html+='<p>\u2714 第二阶段：重点突破薄弱环节</p>';
+    html+='<p>\u2714 集中复习错题本</p>';
+    html+='<p>\u2714 每天练习计算题</p>';
+    html+='<p>\u2714 模拟考试练习</p>';
+  }else{
+    html+='<p>\u2714 第三阶段：冲刺复习</p>';
+    html+='<p>\u2714 回顾所有错题</p>';
+    html+='<p>\u2714 背诵核心公式</p>';
+    html+='<p>\u2714 练习答题模板</p>';
+  }
+  html+='</div></div>';
+
+  $('page-plan').innerHTML=html;
+}
+
+function doCheckIn(){
+  const db=getDB();
+  const today=new Date().toISOString().slice(0,10);
+  const lastCheckIn=db.lastCheckIn||'';
+
+  if(lastCheckIn===today){toast('今日已打卡');return;}
+
+  // Calculate streak
+  const yesterday=new Date();
+  yesterday.setDate(yesterday.getDate()-1);
+  const yesterdayStr=yesterday.toISOString().slice(0,10);
+
+  if(lastCheckIn===yesterdayStr){
+    db.checkInStreak=(db.checkInStreak||0)+1;
+  }else{
+    db.checkInStreak=1;
+  }
+  db.lastCheckIn=today;
+  saveDB(db);
+  toast('打卡成功！连续'+db.checkInStreak+'天');
+  renderPlan();
+}
+
+function toggleTask(key,checked){
+  const db=getDB();
+  if(!db.checkedTasks)db.checkedTasks={};
+  db.checkedTasks[key]=checked;
+  saveDB(db);
+  renderPlan();
+}
+
+// ===== MOCK EXAM =====
+let mockState={mode:'config',paper:{},currentQ:0,answers:{},timeLeft:0,timer:null,startTime:null};
+const PAPERS=[
+  {id:1,name:'2024年下半年真题模拟',sections:[
+    {title:'综合知识（上午）',count:75,time:150,catFilter:null,type:'choice'},
+    {title:'案例分析（下午）',count:5,time:90,catFilter:null,type:'case'}
+  ]},
+  {id:2,name:'2025年上半年真题模拟',sections:[
+    {title:'综合知识（上午）',count:75,time:150,catFilter:null,type:'choice'},
+    {title:'案例分析（下午）',count:5,time:90,catFilter:null,type:'case'}
+  ]},
+  {id:3,name:'综合强化模拟卷',sections:[
+    {title:'综合知识（上午）',count:75,time:150,catFilter:null,type:'choice'},
+    {title:'案例分析（下午）',count:5,time:90,catFilter:null,type:'case'}
+  ]},
+  {id:4,name:'专项突破·成本管理',sections:[
+    {title:'成本管理专项（上午）',count:30,time:60,catFilter:'项目成本管理',type:'choice'},
+    {title:'成本管理案例（下午）',count:3,time:45,catFilter:'项目成本管理',type:'case'}
+  ]},
+  {id:5,name:'专项突破·进度管理',sections:[
+    {title:'进度管理专项（上午）',count:30,time:60,catFilter:'项目进度管理',type:'choice'},
+    {title:'进度管理案例（下午）',count:3,time:45,catFilter:'项目进度管理',type:'case'}
+  ]},
+];
+
+function renderMock(){
+  const el=$('page-mock');
+  if(mockState.mode==='config'){
+    el.innerHTML='<div class="card"><div class="card-title">模拟考卷</div><p style="font-size:.84rem;color:var(--text-s);margin-bottom:14px">选择模拟试卷进行拟真练习，严格按照真题格式组卷，计时交卷，自动评分。</p><div class="mock-config"><div id="paperList"></div></div></div>';
+    const list=$('paperList');
+    PAPERS.forEach(p=>{
+      const div=document.createElement('div');
+      div.style.cssText='padding:12px;border:1px solid var(--border);border-radius:8px;margin-bottom:8px;cursor:pointer;transition:all .2s';
+      div.innerHTML='<div style="font-weight:600;font-size:.88rem">'+p.name+'</div><div style="font-size:.75rem;color:var(--text-s);margin-top:4px">'+p.sections.map(s=>s.title+' ('+s.count+'题/'+s.time+'分钟)').join(' + ')+'</div>';
+      div.onmouseover=()=>{div.style.borderColor='var(--primary)';div.style.background='#f0f7ff'};
+      div.onmouseout=()=>{div.style.borderColor='var(--border)';div.style.background='transparent'};
+      div.onclick=()=>startMockExam(p.id);
+      list.appendChild(div);
+    });
+  } else if(mockState.mode==='exam'){
+    renderMockQuestion();
+  } else if(mockState.mode==='result'){
+    renderMockResult();
+  }
+}
+
+function startMockExam(paperId){
+  const paper=PAPERS.find(p=>p.id===paperId);
+  mockState.mode='exam';
+  mockState.paper=paper;
+  mockState.currentQ=0;
+  mockState.answers={};
+  mockState.startTime=Date.now();
+  const totalSec=paper.sections.reduce((s,sec)=>s+sec.time*60,0);
+  mockState.timeLeft=totalSec;
+  if(mockState.timer)clearInterval(mockState.timer);
+  mockState.timer=setInterval(()=>{
+    mockState.timeLeft--;
+    if(mockState.timeLeft<=0){
+      clearInterval(mockState.timer);
+      toast('时间到！自动交卷');
+      submitMockExam();
+    }
+    const te=document.querySelector('.mock-timer');
+    if(te){
+      const h=Math.floor(mockState.timeLeft/3600);
+      const m=Math.floor((mockState.timeLeft%3600)/60);
+      const s=mockState.timeLeft%60;
+      te.textContent=(h>0?h+'时':'')+m+'分'+s+'秒';
+      if(mockState.timeLeft<300)te.style.color='var(--danger)';
+    }
+  },1000);
+  nav('mock');
+  renderMock();
+}
+
+function getMockQuestions(){
+  const paper=mockState.paper;
+  let questions=[];
+  paper.sections.forEach(sec=>{
+    if(sec.type==='choice'){
+      let pool=QB.filter(q=>!sec.catFilter||q.cat===sec.catFilter);
+      // Shuffle and pick
+      pool=shuffleArray([...pool]);
+      const selected=pool.slice(0,sec.count);
+      selected.forEach(q=>{questions.push({...q,sectionIdx:questions.length,_type:'choice'})});
+    } else if(sec.type==='case'){
+      CASES.slice(0,sec.count).forEach((c,i)=>{questions.push({...c,_type:'case',sectionIdx:questions.length,caseIdx:i})});
+    }
+  });
+  return questions;
+}
+
+function shuffleArray(arr){
+  for(let i=arr.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [arr[i],arr[j]]=[arr[j],arr[i]];
+  }
+  return arr;
+}
+
+let mockQuestions=[];
+
+function renderMockQuestion(){
+  const el=$('page-mock');
+  if(!mockQuestions.length)mockQuestions=getMockQuestions();
+  const q=mockQuestions[mockState.currentQ];
+  const totalQ=mockQuestions.length;
+  const h=Math.floor(mockState.timeLeft/3600);
+  const m=Math.floor((mockState.timeLeft%3600)/60);
+  const s=mockState.timeLeft%60;
+  const timeStr=(h>0?h+'时':'')+m+'分'+s+'秒';
+
+  let html='<div class="mock-header"><div><span class="mock-timer">'+timeStr+'</span></div><div><span class="mock-question-num">第 '+(mockState.currentQ+1)+' / '+totalQ+' 题</span></div></div>';
+
+  // Answer sheet (mini)
+  html+='<div style="margin-bottom:10px;overflow-x:auto"><div style="display:flex;gap:2px;flex-wrap:wrap">';
+  mockQuestions.forEach((mq,i)=>{
+    const cls=i===mockState.currentQ?'current':mockState.answers[i]!==undefined?'answered':'';
+    html+='<div class="mock-sheet-dot '+(cls)+'" onclick="jumpMockQ('+i+')">'+(i+1)+'</div>';
+  });
+  html+='</div></div>';
+
+  if(q._type==='choice'){
+    html+='<div class="card"><div style="font-size:.84rem;color:var(--text-s);margin-bottom:8px">'+q.cat+'</div><p style="font-size:.88rem;font-weight:500;line-height:1.8">'+q.q+'</p><div class="quiz-options">';
+    q.opts.forEach((opt,i)=>{
+      const selected=mockState.answers[mockState.currentQ]===i;
+      html+='<div class="quiz-option'+(selected?' selected':'')+'" onclick="selectMockAnswer('+i+')"><span class="opt-label">'+String.fromCharCode(65+i)+'</span>'+opt+'</div>';
+    });
+    html+='</div></div>';
+  } else if(q._type==='case'){
+    html+='<div class="card"><div class="section-divider">案例分析</div><div class="case-scenario"><p>'+q.scenario+'</p></div>';
+    q.questions.forEach((cq,i)=>{
+      html+='<div class="case-question">问题'+(i+1)+'：'+cq+'</div>';
+    });
+    html+='<div style="margin-top:10px;padding:10px;background:#f8fafc;border-radius:8px;font-size:.82rem;color:var(--text-s)">案例分析题请在草稿纸上作答，交卷后可查看参考答案。</div></div>';
+  }
+
+  // Navigation
+  html+='<div class="quiz-nav"><button class="btn-secondary" onclick="mockPrev()"' +(mockState.currentQ===0?' disabled':'')+' >上一题</button>';
+  if(mockState.currentQ<totalQ-1){
+    html+='<button class="btn-primary" onclick="mockNext()">下一题</button>';
+  } else {
+    html+='<button class="btn-danger" onclick="submitMockExam()">交卷</button>';
+  }
+  html+='<button class="btn-warning" onclick="submitMockExam()">交卷</button></div>';
+  el.innerHTML=html;
+}
+
+function selectMockAnswer(ans){
+  mockState.answers[mockState.currentQ]=ans;
+  renderMockQuestion();
+}
+
+function jumpMockQ(idx){
+  mockState.currentQ=idx;
+  renderMockQuestion();
+}
+
+function mockPrev(){if(mockState.currentQ>0){mockState.currentQ--;renderMockQuestion();}}
+function mockNext(){if(mockState.currentQ<mockQuestions.length-1){mockState.currentQ++;renderMockQuestion();}}
+
+function submitMockExam(){
+  if(mockState.timer)clearInterval(mockState.timer);
+  const totalTime=Math.floor((Date.now()-mockState.startTime)/1000);
+  mockState.totalTime=totalTime;
+  mockState.mode='result';
+  renderMockResult();
+}
+
+function renderMockResult(){
+  const el=$('page-mock');
+  let correctCount=0;
+  let wrongCount=0;
+  let unanswered=0;
+  const catStats={};
+
+  mockQuestions.forEach((q,i)=>{
+    if(q._type!=='choice')return;
+    const ans=mockState.answers[i];
+    if(ans===undefined){unanswered++;}
+    else if(ans===q.ans){correctCount++;catStats[q.cat]=(catStats[q.cat]||{correct:0,wrong:0});catStats[q.cat].correct++;}
+    else{wrongCount++;catStats[q.cat]=(catStats[q.cat]||{correct:0,wrong:0});catStats[q.cat].wrong++;}
+  });
+
+  const totalChoice=mockQuestions.filter(q=>q._type==='choice').length;
+  const score=Math.round(correctCount/totalChoice*75);
+  const passLine=45;
+  const passed=score>=passLine;
+  const m=Math.floor(mockState.totalTime/60);
+  const s=mockState.totalTime%60;
+
+  let html='<div class="card mock-result"><h2 style="margin-bottom:8px">模拟考卷成绩</h2>';
+  html+='<div class="score '+(passed?'pass':'fail')+'">'+score+'</div>';
+  html+='<div style="font-size:.85rem;color:var(--text-s)">/ 75分（及格线'+passLine+'分）| 用时'+m+'分'+s+'秒</div>';
+  html+='<div style="margin-top:12px;display:flex;justify-content:center;gap:16px;font-size:.85rem"><span style="color:var(--success)">正确 '+correctCount+'</span><span style="color:var(--danger)">错误 '+wrongCount+'</span><span style="color:var(--text-s)">未答 '+unanswered+'</span></div></div>';
+
+  // Category analysis
+  html+='<div class="card"><div class="card-title">各章节正确率</div>';
+  const cats=Object.entries(catStats);
+  cats.sort((a,b)=>{
+    const ra=a[1].correct/(a[1].correct+a[1].wrong||1);
+    const rb=b[1].correct/(b[1].correct+b[1].wrong||1);
+    return ra-rb;
+  });
+  cats.forEach(([cat,stats])=>{
+    const total=stats.correct+stats.wrong;
+    const rate=Math.round(stats.correct/total*100);
+    const color=rate>=70?'var(--success)':rate>=50?'var(--warning)':'var(--danger)';
+    html+='<div style="display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--border);font-size:.84rem">';
+    html+='<span>'+cat+'</span>';
+    html+='<div style="display:flex;align-items:center;gap:8px"><div class="progress-bar" style="width:120px"><div class="fill" style="width:'+rate+'%;background:'+color+'"></div></div><span style="color:'+color+';font-weight:600;width:40px;text-align:right">'+rate+'%</span></div></div>';
+  });
+  html+='</div>';
+
+  // Weak suggestions
+  const weakCats=cats.filter(([c,s])=>{
+    const r=s.correct/(s.correct+s.wrong||1);
+    return r<0.6&&s.wrong>2;
+  });
+  if(weakCats.length>0){
+    html+='<div class="card"><div class="card-title" style="color:var(--danger)">薄弱环节建议</div>';
+    weakCats.forEach(([cat,stats])=>{
+      html+='<p style="font-size:.84rem;margin:6px 0">\u2022 <strong>'+cat+'</strong>：正确率较低，建议重点复习该章节知识点并刷题</p>';
+    });
+    html+='</div>';
+  }
+
+  // Question review
+  html+='<div class="card"><div class="card-title">答题回顾</div>';
+  mockQuestions.forEach((q,i)=>{
+    if(q._type!=='choice')return;
+    const ans=mockState.answers[i];
+    const isCorrect=ans===q.ans;
+    const isUnanswered=ans===undefined;
+    html+='<div class="mock-review-item '+(isUnanswered?'wrong-item':isCorrect?'correct-item':'wrong-item')+'">';
+    html+='<div class="mock-review-q">'+(i+1)+'. '+q.q+'</div>';
+    html+='<div class="mock-review-answer">你的答案：'+(isUnanswered?'<span style="color:var(--text-s)">未作答</span>':String.fromCharCode(65+ans)+(isCorrect?' <span style="color:var(--success)">\u2713</span>':' <span style="color:var(--danger)">\u2717</span>'))+' | 正确答案：'+String.fromCharCode(65+q.ans)+'</div>';
+    if(!isCorrect&&!isUnanswered)html+='<div class="mock-review-answer" style="color:var(--text-s);margin-top:4px">解析：'+q.exp+'</div>';
+    html+='</div>';
+  });
+  html+='</div>';
+
+  // Case study reference answers
+  const caseQuestions=mockQuestions.filter(q=>q._type==='case');
+  if(caseQuestions.length>0){
+    html+='<div class="card"><div class="card-title">案例分析参考答案</div>';
+    caseQuestions.forEach((q,idx)=>{
+      html+='<div class="case-reference"><h4>案例'+(idx+1)+'</h4><p>'+q.answer+'</p></div>';
+    });
+    html+='</div>';
+  }
+
+  html+='<div style="text-align:center;margin:14px 0"><button class="btn-primary" onclick="mockState={mode:\'config\',paper:{},currentQ:0,answers:{},timeLeft:0,timer:null,startTime:null};mockQuestions=[];nav(\'mock\')">返回试卷选择</button></div>';
+  el.innerHTML=html;
+}
+
+// ===== EXAM ANALYSIS =====
+function renderAnalysis(){
+  const el=$('page-analysis');
+  const db=getDB();
+  const answered=db.quizAnswered||{};
+  const wrongBook=db.wrongBook||{};
+
+  // Analyze user performance by category
+  const catPerf={};
+  QB.forEach((q,i)=>{
+    if(!catPerf[q.cat])catPerf[q.cat]={total:0,correct:0,wrong:0,unanswered:0};
+    catPerf[q.cat].total++;
+    if(answered[i]===true)catPerf[q.cat].correct++;
+    else if(answered[i]===false)catPerf[q.cat].wrong++;
+    else catPerf[q.cat].unanswered++;
+  });
+
+  let html='<div class="card"><div class="card-title">考试趋势分析</div>';
+  html+='<p style="font-size:.84rem;color:var(--text-s);margin-bottom:12px">基于历年真题和考纲分析，帮助你把握高频考点，精准分配复习时间。</p>';
+
+  // Exam format
+  html+='<div style="margin-bottom:14px"><h4 style="font-size:.88rem;margin-bottom:8px">考试题型与分值分布</h4>';
+  html+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">';
+  html+='<div style="padding:12px;background:#f0f9ff;border-radius:8px;text-align:center"><div style="font-size:1.2rem;font-weight:700;color:var(--primary)">75分</div><div style="font-size:.78rem;color:var(--text-s)">上午综合知识<br>75道单选题</div></div>';
+  html+='<div style="padding:12px;background:#fef3c7;border-radius:8px;text-align:center"><div style="font-size:1.2rem;font-weight:700;color:#92400e">75分</div><div style="font-size:.78rem;color:var(--text-s)">下午案例分析<br>3-4道大题</div></div>';
+  html+='</div><p style="font-size:.78rem;color:var(--text-s);margin-top:6px">满分150分，上午+下午各须达到45分及以上为通过（不累计）</p></div>';
+
+  // Knowledge domain distribution (based on real exam analysis)
+  html+='<div class="card"><div class="card-title">各知识领域出题占比（上午综合知识）</div>';
+  const domainDist=[
+    {name:'项目管理十大领域',pct:55,color:'var(--primary)',desc:'整体/范围/进度/成本/质量/资源/沟通/风险/采购/干系人'},
+    {name:'技术基础与信息化',pct:20,color:'var(--warning)',desc:'软件工程/网络/数据库/安全/信息化基础/新技术'},
+    {name:'法律法规与标准',pct:10,color:'var(--success)',desc:'招投标法/政府采购/著作权/合同法/软件工程国标'},
+    {name:'ITTO与过程',pct:10,color:'#8b5cf6',desc:'49个过程归类/输入输出工具/过程组分布'},
+    {name:'英语与专业英语',pct:5,color:'var(--text-s)',desc:'IT专业英语词汇'}
+  ];
+  domainDist.forEach(d=>{
+    html+='<div style="margin-bottom:8px"><div style="display:flex;justify-content:space-between;font-size:.82rem;margin-bottom:4px"><span><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:'+d.color+';margin-right:6px"></span>'+d.name+'</span><span style="font-weight:600">'+d.pct+'%</span></div><div class="mock-analysis-bar"><div style="width:'+d.pct+'%;background:'+d.color+'"></div></div><div style="font-size:.75rem;color:var(--text-s);margin-top:2px">'+d.desc+'</div></div>';
+  });
+  html+='</div>';
+
+  // High-frequency TOP20
+  html+='<div class="card"><div class="card-title">高频考点 TOP 20</div><p style="font-size:.78rem;color:var(--text-s);margin-bottom:10px">以下考点历年出现频率最高，务必重点掌握</p>';
+  const topPoints=[
+    {rank:1,name:'挣值管理(EVM)',freq:'95%',tags:['计算题','必考'],diff:'★★★'},
+    {rank:2,name:'关键路径法(CPM)',freq:'90%',tags:['计算题','必考'],diff:'★★★'},
+    {rank:3,name:'49个过程归类',freq:'88%',tags:['选择','必考'],diff:'★★★'},
+    {rank:4,name:'变更控制流程(CCB)',freq:'85%',tags:['案例','必考'],diff:'★★☆'},
+    {rank:5,name:'合同类型与风险',freq:'82%',tags:['选择','案例'],diff:'★★☆'},
+    {rank:6,name:'WBS分解',freq:'80%',tags:['选择','案例'],diff:'★★☆'},
+    {rank:7,name:'沟通渠道计算',freq:'78%',tags:['计算题'],diff:'★☆☆'},
+    {rank:8,name:'质量七工具',freq:'75%',tags:['选择'],diff:'★★☆'},
+    {rank:9,name:'风险应对策略',freq:'72%',tags:['选择','案例'],diff:'★★☆'},
+    {rank:10,name:'招标投标法',freq:'70%',tags:['选择','案例'],diff:'★★☆'},
+    {rank:11,name:'三点估算(PERT)',freq:'68%',tags:['计算题'],diff:'★★☆'},
+    {rank:12,name:'配置管理',freq:'65%',tags:['案例'],diff:'★★★'},
+    {rank:13,name:'激励理论',freq:'63%',tags:['选择'],diff:'★☆☆'},
+    {rank:14,name:'干系人权力/利益方格',freq:'60%',tags:['选择'],diff:'★☆☆'},
+    {rank:15,name:'OSI七层模型',freq:'58%',tags:['选择'],diff:'★☆☆'},
+    {rank:16,name:'软件开发生命周期',freq:'55%',tags:['选择'],diff:'★☆☆'},
+    {rank:17,name:'成本估算方法',freq:'53%',tags:['选择'],diff:'★★☆'},
+    {rank:18,name:'PMO类型',freq:'50%',tags:['选择'],diff:'★☆☆'},
+    {rank:19,name:'项目收尾流程',freq:'48%',tags:['案例'],diff:'★★☆'},
+    {rank:20,name:'敏捷开发(Scrum)',freq:'45%',tags:['选择','新增'],diff:'★★☆'},
+  ];
+  topPoints.forEach(p=>{
+    html+='<div style="display:flex;align-items:center;padding:7px 0;border-bottom:1px solid var(--border);font-size:.84rem;gap:8px">';
+    html+='<span style="width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;background:'+(p.rank<=3?'var(--primary)':p.rank<=10?'var(--warning)':'var(--bg)')+';color:'+(p.rank<=3?'#fff':p.rank<=10?'#92400e':'var(--text)')+'">'+p.rank+'</span>';
+    html+='<div style="flex:1"><div style="font-weight:500">'+p.name+'</div>';
+    html+='<div style="display:flex;gap:4px;margin-top:2px">';
+    html+='<span class="tag tag-purple">频次'+p.freq+'</span>';
+    p.tags.forEach(t=>html+='<span class="tag tag-blue">'+t+'</span>');
+    html+='<span class="tag tag-yellow">难度'+p.diff+'</span>';
+    html+='</div></div></div>';
+  });
+  html+='</div>';
+
+  // Must-memorize formulas
+  html+='<div class="card"><div class="card-title">必背公式汇总</div>';
+  const formulas=[
+    {name:'挣值管理',items:['CV=EV-AC (正=节约)','SV=EV-PV (正=提前)','CPI=EV/AC (>1节约)','SPI=EV/PV (>1提前)','EAC(典型)=BAC/CPI','EAC(非典型)=AC+(BAC-EV)/CPI','ETC(典型)=(BAC-EV)/CPI','ETC(非典型)=BAC-EV','VAC=BAC-EAC','TCPI=(BAC-EV)/(BAC-AC)']},
+    {name:'关键路径法',items:['总时差=LS-ES=LF-EF','自由时差=min(紧后ES)-EF','关键路径=总时差最小=最长路径']},
+    {name:'三点估算',items:['tE=(O+4M+P)/6','σ=(P-O)/6','±1σ=68.27%','±2σ=95.45%','±3σ=99.73%']},
+    {name:'沟通',items:['沟通渠道=n(n-1)/2 (n含PM)']},
+    {name:'决策树',items:['EMV=概率×收益','选择EMV最大的方案']},
+  ];
+  formulas.forEach(f=>{
+    html+='<div style="margin-bottom:10px"><h4 style="font-size:.84rem;color:var(--primary-dark);margin-bottom:6px">'+f.name+'</h4><div style="display:flex;flex-wrap:wrap;gap:6px">';
+    f.items.forEach(item=>{
+      html+='<span class="formula" style="display:inline-block;padding:4px 8px;margin:2px 0;font-size:.78rem">'+item+'</span>';
+    });
+    html+='</div></div>';
+  });
+  html+='</div>';
+
+  // Study strategy recommendations
+  html+='<div class="card"><div class="card-title">备考策略建议</div>';
+  const strategies=[
+    {phase:'第一阶段·打基础',days:30,tasks:'通读教材十大知识领域，配合知识点模块学习，重点理解ITTO和49个过程'},
+    {phase:'第二阶段·刷题强化',days:25,tasks:'按章节刷题，重点攻克计算题（EVM/CPM/PERT），建立错题本'},
+    {phase:'第三阶段·案例突破',days:15,tasks:'练习案例分析答题模板，掌握找错/分析/改进三段式答题法'},
+    {phase:'第四阶段·模拟冲刺',days:10,tasks:'模拟考卷实战训练，限时答题，分析薄弱环节针对性补强'},
+  ];
+  strategies.forEach(s=>{
+    html+='<div style="display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)">';
+    html+='<div style="min-width:80px"><span class="tag tag-blue">'+s.phase+'</span><div style="font-size:.72rem;color:var(--text-s);margin-top:4px">'+s.days+'天</div></div>';
+    html+='<div style="font-size:.84rem">'+s.tasks+'</div></div>';
+  });
+  html+='</div>';
+
+  el.innerHTML=html;
+}
+
+// ===== INIT =====
+renderHome();
+</script>
+</body>
+</html>
