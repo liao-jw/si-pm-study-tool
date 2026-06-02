@@ -63,7 +63,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans S
 .btn-success{background:var(--success);color:#fff}.btn-warning{background:var(--warning);color:#fff}
 .btn-danger{background:var(--danger);color:#fff}
 .quiz-config{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
-.quiz-config select,.quiz-config button{padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-size:.82rem;background:var(--card);cursor:pointer}
+.quiz-config select{padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-size:.82rem;background:var(--card);cursor:pointer;color:var(--text)}
 .quiz-progress{display:flex;gap:2px;margin-bottom:10px;flex-wrap:wrap}
 .quiz-dot{width:7px;height:7px;border-radius:50%;background:var(--border)}
 .quiz-dot.correct{background:var(--success)}.quiz-dot.wrong{background:var(--danger)}
@@ -1239,7 +1239,7 @@ function renderQuiz(){
   html+='<select id="quiz-cat" onchange="quizState.cat=this.value;startQuiz()">';
   cats.forEach(c=>{html+='<option value="'+c+'"'+(quizState.cat===c?' selected':'')+'>'+(c==='all'?'全部分类':c)+'</option>';});
   html+='</select>';
-  html+='<button class="btn-primary" style="color:#fff;padding:8px 12px;border-radius:8px;font-size:.82rem;border:none;cursor:pointer" onclick="startQuiz()">重新开始</button>';
+  html+='<button class="btn-primary" style="padding:8px 12px;border-radius:8px;font-size:.82rem;border:none;cursor:pointer" onclick="startQuiz()">重新开始</button>';
   html+='<label style="display:flex;align-items:center;gap:4px;font-size:.82rem;cursor:pointer;white-space:nowrap"><input type="checkbox" id="quiz-random" '+(quizState.random?'checked':'')+' onchange="quizState.random=this.checked;startQuiz()"> 随机</label>';
   // 在 quiz-config card 的 </div> 前添加进度
   const answeredCount=Object.keys(quizState.answered).length;
