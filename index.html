@@ -735,6 +735,193 @@ answer:'<h4>1. 事件1分析</h4>'+
 '<li><strong>关联性</strong>：索赔事件与损失之间要有因果关系</li>'+
 '<li>事件2（客户暂停）和事件3（供应商缺陷）导致的延期，不应由承包商承担</li>'+
 '<li>如客户坚持扣罚，承包商可用暂停期间索赔和供应商索赔进行抵扣</li></ul>'
+},
+{id:6,title:'案例6：变更管理流程分析',cat:'整体管理',
+scenario:'某市政府门户网站建设项目，预算800万元，工期12个月。项目进行到第5个月时，建设单位提出增加"在线预约办事"功能模块，预计增加费用120万元，工期延长2个月。项目经理小王收到变更请求后，直接安排开发团队开始实施新功能。3周后测试发现新功能与原有系统存在严重兼容性问题，项目整体进度已经严重滞后。建设单位对此表示不满。',
+questions:['1. 指出小王在变更管理中存在的问题。','2. 描述正确的变更管理流程。','3. 变更控制委员会(CCB)的职责是什么？','4. 如何避免类似"范围蔓延"问题？'],
+answer:'<h4>1. 存在的问题</h4>'+
+'<p>\u2460 <strong>未经评估直接实施</strong>：收到变更请求后未进行影响分析就直接开始开发</p>'+
+'<p>\u2461 <strong>未经CCB审批</strong>：变更未提交变更控制委员会审批</p>'+
+'<p>\u2462 <strong>未更新项目计划</strong>：未调整范围说明书、进度计划和成本预算</p>'+
+'<p>\u2463 <strong>未进行风险分析</strong>：未评估新功能对现有系统的兼容性风险</p>'+
+'<p>\u2464 <strong>缺乏配置管理</strong>：新旧系统版本管理混乱</p>'+
+'<h4>2. 正确变更流程</h4>'+
+'<p>\u2460 提出变更请求 \u2192 \u2461 变更影响分析（范围、进度、成本、质量、风险）</p>'+
+'<p>\u2462 CCB审批 \u2192 \u2463 更新项目文件（范围说明书、WBS、进度计划、成本预算）</p>'+
+'<p>\u2464 通知相关干系人 \u2192 \u2465 执行变更 \u2192 \u2466 验证变更 \u2192 \u2467 归档</p>'+
+'<h4>3. CCB职责</h4>'+
+'<p>CCB（变更控制委员会）是负责批准或否决变更请求的正式团体。</p>'+
+'<p>主要职责：审查变更请求、评估变更影响、批准/否决变更、协调变更实施。</p>'+
+'<p>组成：项目经理、客户代表、关键干系人、技术专家等。</p>'+
+'<h4>4. 防止范围蔓延</h4>'+
+'<p>\u2460 建立严格的变更控制流程</p>'+
+'<p>\u2461 明确项目范围边界（范围说明书+WBS）</p>'+
+'<p>\u2462 所有变更必须经过正式审批</p>'+
+'<p>\u2463 加强配置管理和版本控制</p>'+
+'<p>\u2464 定期进行范围确认</p>'
+},
+{id:7,title:'案例7：质量管理综合分析',cat:'质量管理',
+scenario:'某银行核心系统改造项目，质量要求极高。项目经理建立了质量管理体系，但在项目执行过程中出现问题：模块A功能测试通过率仅65%，缺陷修复后反复出现相同问题；模块B性能测试响应时间超标40%；客户验收时发现多项功能与需求文档不一致。项目组共发现缺陷320个，其中严重缺陷45个。',
+questions:['1. 分析项目质量管理各过程是否存在问题。','2. 使用帕累托图(80/20法则)分析缺陷数据。','3. 描述质量审计的过程和目的。','4. 提出质量改进建议。'],
+answer:'<h4>1. 质量管理过程问题</h4>'+
+'<p>\u2460 <strong>规划质量管理</strong>：可能质量标准不明确，验收标准未与客户确认</p>'+
+'<p>\u2461 <strong>质量保证</strong>：过程规范性不足，缺乏质量审计，缺陷反复出现说明根因未消除</p>'+
+'<p>\u2462 <strong>质量控制</strong>：测试覆盖不全，性能测试未提前规划，需求跟踪矩阵缺失</p>'+
+'<h4>2. 帕累托分析(80/20法则)</h4>'+
+'<p>320个缺陷中，假设按模块分布：模块A 130个(40.6%)，模块B 96个(30%)，模块C 54个(16.9%)，其他40个(12.5%)</p>'+
+'<p>前两个模块合计226个(70.6%)，<strong>重点关注模块A和B可解决70%以上的缺陷</strong></p>'+
+'<p>严重缺陷45个中，假设模块A占20个、模块B占15个，这两个模块占严重缺陷的78%</p>'+
+'<h4>3. 质量审计</h4>'+
+'<p>质量审计是质量保证过程的重要工具，目的是：</p>'+
+'<p>\u2460 识别过程低效和低质量活动</p>'+
+'<p>\u2461 确认经过批准的变更请求的实施情况</p>'+
+'<p>\u2462 确认可交付成果和工作产品是否符合要求</p>'+
+'<p>\u2463 获取过程改进的建议</p>'+
+'<p>审计由QA部门或独立审计员执行，结果可用于过程改进计划。</p>'+
+'<h4>4. 改进建议</h4>'+
+'<p>\u2460 建立完善的需求跟踪矩阵，确保每个需求可追踪到测试用例</p>'+
+'<p>\u2461 加强代码审查和单元测试，缺陷修复后必须回归测试</p>'+
+'<p>\u2462 制定性能测试计划，提前进行性能基线测试</p>'+
+'<p>\u2463 定期进行质量审计，及时发现问题</p>'+
+'<p>\u2464 建立缺陷根因分析机制，从根本上解决问题</p>'
+},
+{id:8,title:'案例8：风险管理综合计算',cat:'风险管理',
+scenario:'某企业ERP实施项目面临以下风险事件：\n\n风险A：核心技术人员离职，概率20%，影响损失50万元\n风险B：需求变更频繁，概率60%，影响损失30万元\n风险C：硬件供应商延期交付，概率35%，影响损失25万元\n风险D：数据迁移失败，概率15%，影响损失80万元\n\n项目经理拟定了应对方案：风险A采用减轻策略（培训+文档化）可降低影响至20万元；风险C采用转移策略（合同违约金条款）可降低影响至10万元。',
+questions:['1. 计算各风险暴露值(EMV)。','2. 计算项目总风险暴露值。','3. 分析应对方案后的残余风险和次生风险。','4. 建立风险优先级排序。'],
+answer:'<h4>1. 各风险EMV计算</h4>'+
+'<p>EMV = 概率 \u00d7 影响</p>'+
+'<p><strong>风险A</strong>: EMV = 0.20 \u00d7 50 = <strong>10万元</strong></p>'+
+'<p><strong>风险B</strong>: EMV = 0.60 \u00d7 30 = <strong>18万元</strong></p>'+
+'<p><strong>风险C</strong>: EMV = 0.35 \u00d7 25 = <strong>8.75万元</strong></p>'+
+'<p><strong>风险D</strong>: EMV = 0.15 \u00d7 80 = <strong>12万元</strong></p>'+
+'<h4>2. 项目总EMV</h4>'+
+'<p>总EMV = 10 + 18 + 8.75 + 12 = <strong>48.75万元</strong></p>'+
+'<p>建议预留至少48.75万元作为应急储备。</p>'+
+'<h4>3. 应对方案分析</h4>'+
+'<p><strong>风险A（减轻后）</strong>: EMV = 0.20 \u00d7 20 = 4万元</p>'+
+'<p>残余风险EMV: 4万元 | 节省: 10-4=6万元</p>'+
+'<p><strong>风险C（转移后）</strong>: EMV = 0.35 \u00d7 10 = 3.5万元</p>'+
+'<p>残余风险EMV: 3.5万元 | 节省: 8.75-3.5=5.25万元</p>'+
+'<p><strong>次生风险</strong>: 风险C转移后，合同纠纷可能引发法律风险</p>'+
+'<p>应对后总EMV: 4+18+3.5+12 = <strong>37.5万元</strong>（节省11.25万元）</p>'+
+'<h4>4. 风险优先级排序</h4>'+
+'<p>按EMV排序: B(18万)>D(12万)>A(10万)>C(8.75万)</p>'+
+'<p>风险B（需求变更频繁）应优先应对，因其EMV最高且概率最大。</p>'
+},
+{id:9,title:'案例9：采购管理与合同选择',cat:'采购管理',
+scenario:'某政府部门的信息化项目需要采购核心交换机设备，预算200万元。市场调研发现：\n\n方案1：品牌A设备，单价180万元，质保3年，到货期15天\n方案2：品牌B设备，单价120万元，质保1年，到货期30天\n方案3：品牌C设备，单价150万元，质保2年，到货期20天\n\n项目要求设备故障后4小时内恢复，质保期不少于2年。经评估，自制vs外购分析显示外购更优。',
+questions:['1. 进行自制vs外购分析应考虑哪些因素？','2. 选择合适的合同类型并说明理由。','3. 描述采购管理的关键过程。','4. 如何进行供应商选择？'],
+answer:'<h4>1. 自制vs外购分析因素</h4>'+
+'<p>\u2460 成本比较（直接成本+间接成本+机会成本）</p>'+
+'<p>\u2461 技术能力（是否有足够的技能和知识）</p>'+
+'<p>\u2462 时间因素（自制的开发周期 vs 外购的到货周期）</p>'+
+'<p>\u2463 战略考虑（核心竞争力、知识产权）</p>'+
+'<p>\u2464 风险分析（质量风险、供应风险）</p>'+
+'<p>\u2465 法律法规约束（政府采购法要求公开招标）</p>'+
+'<h4>2. 方案选择</h4>'+
+'<p>方案1（品牌A）<strong>不符合</strong>：超预算200万，虽然质保3年满足要求</p>'+
+'<p>方案2（品牌B）<strong>不符合</strong>：质保仅1年，不满足"不少于2年"要求</p>'+
+'<p>方案3（品牌C）<strong>最优</strong>：150万在预算内，质保2年满足要求，到货期20天合理</p>'+
+'<p>合同类型建议：<strong>固定总价合同(FFP)</strong>，因需求明确、价格固定</p>'+
+'<h4>3. 采购管理过程（PMBOK）</h4>'+
+'<p>\u2460 规划采购管理 \u2192 \u2461 实施采购 \u2192 \u2462 控制采购 \u2192 \u2463 结束采购</p>'+
+'<p>规划阶段：确定采购方式（招标/竞标）、合同类型、评估标准</p>'+
+'<p>实施阶段：发布招标公告、接收投标、评标、授标</p>'+
+'<p>控制阶段：监督合同执行、管理变更、处理索赔</p>'+
+'<h4>4. 供应商选择标准</h4>'+
+'<p>\u2460 技术方案（40%）：设备性能指标、兼容性、可扩展性</p>'+
+'<p>\u2461 商务报价（30%）：总拥有成本TCO、付款条件</p>'+
+'<p>\u2462 资质信誉（15%）：厂商资质、成功案例、财务状况</p>'+
+'<p>\u2463 服务支持（15%）：质保期限、响应时间、售后服务</p>'
+},
+{id:10,title:'案例10：沟通管理与干系人',cat:'沟通管理',
+scenario:'某大型信息化项目团队成员20人，分布在3个城市。项目启动3个月后，出现以下问题：\n\n1) 客户反映不知道项目进展\n2) 开发组A不知道需求已经变更\n3) 测试组收到的文档版本与开发不一致\n4) 项目经理每周发邮件汇报，但管理层认为信息不够\n5) 团队成员之间沟通效率低',
+questions:['1. 计算项目沟通渠道数量，并说明团队规模扩大后沟通复杂度变化。','2. 分析上述沟通问题的根本原因。','3. 制定有效的沟通管理计划应包含哪些内容？','4. 针对问题提出改进措施。'],
+answer:'<h4>1. 沟通渠道计算</h4>'+
+'<p>沟通渠道公式: N(N-1)/2，其中N为干系人数量</p>'+
+'<p>项目团队20人: 20\u00d719/2 = <strong>190条沟通渠道</strong></p>'+
+'<p>如果算上客户3人+管理层2人 = 25人: 25\u00d724/2 = <strong>300条沟通渠道</strong></p>'+
+'<p>团队每增加1人，沟通渠道增加N条，复杂度呈<strong>指数级增长</strong>。</p>'+
+'<h4>2. 问题根因分析</h4>'+
+'<p>\u2460 客户不知进展 \u2192 <strong>缺乏干系人沟通计划</strong>，未规定沟通频率和方式</p>'+
+'<p>\u2461 需求变更未同步 \u2192 <strong>变更通知机制缺失</strong>，CCB决策未有效传达</p>'+
+'<p>\u2462 文档版本不一致 \u2192 <strong>配置管理不规范</strong>，缺乏统一文档库和版本控制</p>'+
+'<p>\u2463 管理层信息不足 \u2192 <strong>沟通方式不匹配</strong>，邮件不足以满足管理层决策需求</p>'+
+'<p>\u2464 团队效率低 \u2192 <strong>跨地域沟通工具不足</strong>，缺乏定期同步会议</p>'+
+'<h4>3. 沟通管理计划内容</h4>'+
+'<p>\u2460 干系人沟通需求分析（谁需要什么信息）</p>'+
+'<p>\u2461 信息分发方式、频率、格式</p>'+
+'<p>\u2462 沟通渠道和工具选择</p>'+
+'<p>\u2463 信息归档和配置管理</p>'+
+'<p>\u2464 升级沟通路径</p>'+
+'<h4>4. 改进措施</h4>'+
+'<p>\u2460 建立统一的项目信息平台（如企业微信/飞书/Slack）</p>'+
+'<p>\u2461 制定变更通知流程，确保变更信息及时同步</p>'+
+'<p>\u2462 建立文档配置管理规范，统一版本控制</p>'+
+'<p>\u2463 对管理层定期面对面汇报（月度/季度）</p>'+
+'<p>\u2464 每日站会+周例会，跨地域使用视频会议</p>'
+},
+{id:11,title:'案例11：范围管理与WBS',cat:'范围管理',
+scenario:'某高校智慧校园项目包含以下需求：\n\n- 统一身份认证系统\n- 教务管理系统（选课、排课、成绩管理）\n- 学生服务平台（一卡通、图书馆、宿舍管理）\n- 校园安防监控\n- 校园APP（iOS+Android）\n- 数据分析平台\n\n项目立项时范围说明书较粗略，执行过程中各部门不断追加需求，项目预算从500万膨胀到800万，工期从10个月延长到16个月，最终交付的系统仍有大量功能未实现。',
+questions:['1. 分析范围管理存在的问题。','2. 编制该项目的WBS（至少3层）。','3. 描述范围确认和范围控制的区别。','4. 如何有效控制范围蔓延？'],
+answer:'<h4>1. 范围管理问题</h4>'+
+'<p>\u2460 <strong>范围说明书不完整</strong>：立项时未充分收集各部门详细需求</p>'+
+'<p>\u2461 <strong>WBS不够细化</strong>：无法有效估算各模块工作量和成本</p>'+
+'<p>\u2462 <strong>缺乏范围确认机制</strong>：各阶段交付物未经正式验收</p>'+
+'<p>\u2463 <strong>范围控制失效</strong>：各部门随意追加需求，未走变更流程</p>'+
+'<p>\u2464 <strong>基线管理缺失</strong>：范围基线未建立，变更无从对比</p>'+
+'<h4>2. WBS示例（3层）</h4>'+
+'<p><strong>1.0 智慧校园项目</strong></p>'+
+'<p>\u2003<strong>1.1 统一身份认证</strong></p>'+
+'<p>\u2003\u20031.1.1 需求分析 | 1.1.2 系统开发 | 1.1.3 测试 | 1.1.4 部署</p>'+
+'<p>\u2003<strong>1.2 教务管理</strong></p>'+
+'<p>\u2003\u20031.2.1 选课模块 | 1.2.2 排课模块 | 1.2.3 成绩管理 | 1.2.4 数据迁移</p>'+
+'<p>\u2003<strong>1.3 学生服务</strong></p>'+
+'<p>\u2003\u20031.3.1 一卡通 | 1.3.2 图书馆 | 1.3.3 宿舍管理</p>'+
+'<p>\u2003<strong>1.4 安防监控</strong> | <strong>1.5 校园APP</strong> | <strong>1.6 数据平台</strong></p>'+
+'<p>\u2003<strong>1.7 项目管理</strong>（计划、监控、收尾等）</p>'+
+'<h4>3. 范围确认 vs 范围控制</h4>'+
+'<p><strong>范围确认</strong>：验收可交付成果，确保完成的工作符合范围说明书和WBS的要求。</p>'+
+'<p>关注点：客户满意度、可交付成果完整性、正式验收签字。</p>'+
+'<p><strong>范围控制</strong>：监督范围状态，管理范围变更，防止范围蔓延。</p>'+
+'<p>关注点：变更请求处理、范围偏差分析、范围基线维护。</p>'+
+'<h4>4. 控制范围蔓延措施</h4>'+
+'<p>\u2460 建立详细WBS和范围基线</p>'+
+'<p>\u2461 所有需求变更必须走CCB审批流程</p>'+
+'<p>\u2462 各阶段设置明确的范围确认里程碑</p>'+
+'<p>\u2463 加强需求跟踪矩阵管理</p>'+
+'<p>\u2464 定期范围审查，及时发现偏差</p>'
+},
+{id:12,title:'案例12：干系人管理与权力利益方格',cat:'干系人管理',
+scenario:'某省政务大数据平台建设项目，涉及以下主要干系人：\n\n- 省政府信息化主管领导（王副省长）- 权力大，对项目结果高度关注\n- 省信息中心技术总监（李总）- 权力大，关注技术方案先进性\n- 各厅局信息处负责人（10人）- 权力中等，主要关注本部门需求\n- 项目开发团队（15人）- 权力小，关注工作分配和技术挑战\n- 外包测试团队 - 权力小，关注测试环境和时间安排\n- 最终用户（各厅局公务员）- 权力小但数量多\n\n项目经理刚被任命，对大多数干系人不够了解。',
+questions:['1. 使用权力/利益方格对干系人分类。','2. 针对不同象限的干系人应采取什么管理策略？','3. 项目经理应如何有效管理这些干系人？','4. 如何识别遗漏的干系人？'],
+answer:'<h4>1. 权力/利益方格分类</h4>'+
+'<p><strong>重点管理（权力高+利益高）</strong>：王副省长、李总</p>'+
+'<p>对项目有重大影响且高度关注，需要最密切的管理。</p>'+
+'<p><strong>令其满意（权力高+利益低）</strong>：（暂无）</p>'+
+'<p>需确保其满意，避免其干预项目。</p>'+
+'<p><strong>随时告知（权力低+利益高）</strong>：各厅局信息处负责人、最终用户</p>'+
+'<p>关注自身利益但权力有限，需充分沟通保持信息透明。</p>'+
+'<p><strong>监督（权力低+利益低）</strong>：项目开发团队、外包测试团队</p>'+
+'<p>权力和利益都较低，一般监控即可，但团队是项目执行者需关注士气。</p>'+
+'<h4>2. 各象限管理策略</h4>'+
+'<p><strong>重点管理</strong>：面对面沟通、定期汇报、邀请参与关键决策、快速响应需求</p>'+
+'<p><strong>令其满意</strong>：定期简报、满足其关键关切、避免意外</p>'+
+'<p><strong>随时告知</strong>：定期邮件更新、公开项目信息、提供反馈渠道</p>'+
+'<p><strong>监督</strong>：一般关注即可，避免过度沟通造成负担</p>'+
+'<h4>3. 干系人管理措施</h4>'+
+'<p>\u2460 编制干系人登记册（识别全部干系人及其信息）</p>'+
+'<p>\u2461 分析干系人期望和影响力</p>'+
+'<p>\u2462 制定干系人参与计划（参与程度：不知晓\u2192抵制\u2192中立\u2192支持\u2192领导）</p>'+
+'<p>\u2463 对王副省长：每月书面汇报+重要节点当面汇报</p>'+
+'<p>\u2464 对李总：每周技术沟通会，邀请参与技术评审</p>'+
+'<p>\u2465 对各厅局负责人：建立沟通群，定期需求对接会</p>'+
+'<h4>4. 识别遗漏干系人的方法</h4>'+
+'<p>\u2460 审查项目章程和合同中的干系人清单</p>'+
+'<p>\u2461 回顾类似项目的历史经验教训</p>'+
+'<p>\u2462 询问已识别干系人"还有谁受影响"</p>'+
+'<p>\u2463 分析项目影响范围（组织、技术、社会等维度）</p>'+
+'<p>\u2464 随着项目推进持续识别新干系人</p>'
 }
 ];
 
@@ -859,7 +1046,7 @@ content:'<h4>改进措施万能框架</h4>'+
 
 // ===== APP STATE =====
 let currentPage='home';
-let quizState={mode:'practice',cat:'all',idx:0,answers:{},answered:{},timer:null,seconds:0,started:false,done:false};
+let quizState={mode:'practice',cat:'all',idx:0,answers:{},answered:{},timer:null,seconds:0,started:false,done:false,random:false};
 let cpmActivities=[];
 let dailyTasks=['复习知识点 30分钟','刷题 20道','练习案例题 1个','复习错题 10道','计算题练习 3道'];
 
@@ -940,7 +1127,7 @@ function renderKnowledge(){
   html+='<button class="btn-secondary" onclick="collapseAllKB()">全部折叠</button>';
   html+='</div>';
   html+='<div id="kb-list">';
-  html+=buildKBList(learned,'','');
+  html+=buildKBList(learned,'all','');
   html+='</div>';
   $('page-knowledge').innerHTML=html;
 }
@@ -1018,11 +1205,28 @@ function markLearned(key,btn){
 
 // ===== QUIZ =====
 function getFilteredQuestions(){
-  if(quizState.cat==='all')return QB;
-  return QB.filter(q=>q.cat===quizState.cat);
+  let qs=quizState.cat==='all'?[...QB]:QB.filter(q=>q.cat===quizState.cat);
+  if(quizState.random){
+    if(!quizState._shuffled){
+      for(let i=qs.length-1;i>0;i--){
+        const j=Math.floor(Math.random()*(i+1));
+        [qs[i],qs[j]]=[qs[j],qs[i]];
+      }
+      quizState._shuffled=qs;
+    }
+    return quizState._shuffled;
+  }
+  return qs;
 }
 
 function renderQuiz(){
+  // 恢复保存的刷题进度
+  const savedProgress=getDB().quizState;
+  if(savedProgress){
+    if(savedProgress.mode)quizState.mode=savedProgress.mode;
+    if(savedProgress.cat)quizState.cat=savedProgress.cat;
+    if(savedProgress.random!==undefined)quizState.random=savedProgress.random;
+  }
   const cats=['all'];
   QB.forEach(q=>{if(!cats.includes(q.cat))cats.push(q.cat);});
 
@@ -1035,12 +1239,31 @@ function renderQuiz(){
   html+='<select id="quiz-cat" onchange="quizState.cat=this.value;startQuiz()">';
   cats.forEach(c=>{html+='<option value="'+c+'"'+(quizState.cat===c?' selected':'')+'>'+(c==='all'?'全部分类':c)+'</option>';});
   html+='</select>';
-  html+='<button class="btn-primary" onclick="startQuiz()">重新开始</button>';
+  html+='<button class="btn-primary" style="color:#fff;padding:8px 12px;border-radius:8px;font-size:.82rem;border:none;cursor:pointer" onclick="startQuiz()">重新开始</button>';
+  html+='<label style="display:flex;align-items:center;gap:4px;font-size:.82rem;cursor:pointer;white-space:nowrap"><input type="checkbox" id="quiz-random" '+(quizState.random?'checked':'')+' onchange="quizState.random=this.checked;startQuiz()"> 随机</label>';
+  // 在 quiz-config card 的 </div> 前添加进度
+  const answeredCount=Object.keys(quizState.answered).length;
+  const correctCount=Object.values(quizState.answered).filter(v=>v===true).length;
+  const totalQ=quizState.cat==='all'?QB.length:QB.filter(q=>q.cat===quizState.cat).length;
+  if(answeredCount>0){
+    html+='<div style="margin-top:8px;font-size:.78rem;color:var(--text-s)">进度: '+answeredCount+'/'+totalQ+' | 正确: '+correctCount+'/'+answeredCount+'</div>';
+  }
   html+='</div></div>';
   html+='<div id="quiz-area"></div>';
   $('page-quiz').innerHTML=html;
-  if(!quizState.done)startQuiz();
-  else renderQuizQuestion();
+  // 有保存进度且模式/分类匹配时恢复
+  if(savedProgress&&savedProgress.answers&&Object.keys(savedProgress.answers).length>0
+    &&savedProgress.mode===quizState.mode&&savedProgress.cat===quizState.cat&&!quizState.done){
+    quizState.idx=savedProgress.idx||0;
+    quizState.answers=savedProgress.answers||{};
+    quizState.answered=savedProgress.answered||{};
+    if(savedProgress.shuffled)quizState._shuffled=savedProgress.shuffled;
+    renderQuizQuestion();
+  }else if(!quizState.done){
+    startQuiz();
+  }else{
+    renderQuizQuestion();
+  }
 }
 
 function startQuiz(){
@@ -1051,7 +1274,11 @@ function startQuiz(){
   quizState.seconds=0;
   quizState.started=false;
   quizState.done=false;
+  quizState._shuffled=null;
   if(quizState.mode==='exam')quizState.seconds=QB.length*60;
+  // 清除保存的进度
+  const db=getDB();delete db.quizState;saveDB(db);
+  saveQuizProgress();
   renderQuizQuestion();
 }
 
@@ -1119,6 +1346,12 @@ function renderQuizQuestion(){
     html+='</div>';
   }
   html+='</div>';
+  if(quizState.mode==='practice'&&selected!==undefined&&answered===undefined){
+    html+='<div style="margin-top:10px;display:flex;gap:8px">';
+    html+='<button class="btn-success" style="padding:8px 20px;border:none;border-radius:8px;cursor:pointer;font-size:.84rem" onclick="confirmAnswer()">确认答案</button>';
+    html+='</div>';
+  }
+  html+='</div>';
   html+='<div class="quiz-nav">';
   if(quizState.idx>0)html+='<button class="btn-secondary" onclick="prevQ()">上一题</button>';
   if(quizState.idx<qs.length-1)html+='<button class="btn-primary" onclick="nextQ()">下一题</button>';
@@ -1128,17 +1361,25 @@ function renderQuizQuestion(){
 }
 
 function selectQuizOption(oi){
+  const qs=getFilteredQuestions();
+  const q=qs[quizState.idx];
+  // 如果已经确认过答案（查看了解析），不允许更改
   if(quizState.answered[quizState.idx]!==undefined)return;
+  // 练习模式：先记录选择，但不立即判断
+  if(quizState.mode==='practice'){
+    quizState.answers[quizState.idx]=oi;
+    saveQuizProgress();
+    renderQuizQuestion();
+    return;
+  }
+  // 考试模式：选择即确认
   quizState.answers[quizState.idx]=oi;
-  quizState.answered[quizState.idx]=oi===getFilteredQuestions()[quizState.idx].ans;
-
+  quizState.answered[quizState.idx]=oi===q.ans;
   const db=getDB();
   if(!db.quizAnswered)db.quizAnswered={};
-  const q=getFilteredQuestions()[quizState.idx];
   const qKey=q.q.slice(0,20);
   db.quizAnswered[qKey]=quizState.answered[quizState.idx];
   saveDB(db);
-
   if(!quizState.answered[quizState.idx]){
     if(!db.wrongBook)db.wrongBook={};
     db.wrongBook[qKey]={q:q.q,opts:q.opts,ans:q.ans,cat:q.cat,exp:q.exp,freq:q.freq,diff:q.diff,date:Date.now()};
@@ -1151,8 +1392,42 @@ function selectQuizOption(oi){
   renderQuizQuestion();
 }
 
-function prevQ(){if(quizState.idx>0){quizState.idx--;renderQuizQuestion();}}
-function nextQ(){if(quizState.idx<getFilteredQuestions().length-1){quizState.idx++;renderQuizQuestion();}}
+function confirmAnswer(){
+  const qs=getFilteredQuestions();
+  const q=qs[quizState.idx];
+  const oi=quizState.answers[quizState.idx];
+  if(oi===undefined)return;
+  quizState.answered[quizState.idx]=oi===q.ans;
+  const db=getDB();
+  if(!db.quizAnswered)db.quizAnswered={};
+  const qKey=q.q.slice(0,20);
+  db.quizAnswered[qKey]=quizState.answered[quizState.idx];
+  if(!db.wrongBook)db.wrongBook={};
+  if(!quizState.answered[quizState.idx]){
+    db.wrongBook[qKey]={q:q.q,opts:q.opts,ans:q.ans,cat:q.cat,exp:q.exp,freq:q.freq,diff:q.diff,date:Date.now()};
+  }else{
+    delete db.wrongBook[qKey];
+  }
+  saveDB(db);
+  saveQuizProgress();
+  renderQuizQuestion();
+}
+
+function saveQuizProgress(){
+  const db=getDB();
+  db.quizState={
+    mode:quizState.mode,
+    cat:quizState.cat,
+    idx:quizState.idx,
+    answers:quizState.answers,
+    answered:quizState.answered,
+    random:quizState.random||false
+  };
+  saveDB(db);
+}
+
+function prevQ(){if(quizState.idx>0){quizState.idx--;saveQuizProgress();renderQuizQuestion();}}
+function nextQ(){if(quizState.idx<getFilteredQuestions().length-1){quizState.idx++;saveQuizProgress();renderQuizQuestion();}}
 function jumpToQ(i){quizState.idx=i;renderQuizQuestion();}
 
 function startTimer(){
