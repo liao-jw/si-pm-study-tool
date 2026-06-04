@@ -147,13 +147,18 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans S
 .mock-sheet-dot.correct-dot{background:var(--success);color:#fff}
 .mock-sheet-dot.wrong-dot{background:var(--danger);color:#fff}
 .section-divider{padding:10px;background:var(--primary);color:#fff;border-radius:8px;margin:14px 0;font-size:.85rem;font-weight:600}
-.flashcard{width:100%;perspective:1000px;cursor:pointer;margin:8px auto}
-.flashcard-inner{position:relative;width:100%;transition:transform 0.6s;transform-style:preserve-3d}
-.flashcard.flipped .flashcard-inner{transform:rotateY(180deg)}
-.flashcard-front,.flashcard-back{backface-visibility:hidden;border-radius:12px;padding:20px;min-height:120px}
-.flashcard-front{background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:.92rem;text-align:center}
-.flashcard-back{background:var(--card);border:1px solid var(--border);transform:rotateY(180deg);overflow:auto;font-size:.78rem;line-height:1.6}
-.flashcard-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.fc-container{max-width:420px;margin:0 auto;user-select:none}
+.fc-card{width:100%;perspective:1000px;cursor:pointer;margin:0 auto}
+.fc-card-inner{position:relative;width:100%;padding-top:70%;transition:transform 0.5s;transform-style:preserve-3d}
+.fc-card.flipped .fc-card-inner{transform:rotateY(180deg)}
+.fc-card-front,.fc-card-back{position:absolute;inset:0;backface-visibility:hidden;border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 20px;box-shadow:0 2px 12px rgba(0,0,0,.08)}
+.fc-card-front{background:linear-gradient(135deg,var(--primary),#4f46e5);color:#fff;font-weight:700;font-size:1.05rem;text-align:center;line-height:1.5}
+.fc-card-front small{font-size:.72rem;opacity:.7;margin-top:8px;font-weight:400}
+.fc-card-back{background:var(--card);border:1px solid var(--border);transform:rotateY(180deg);overflow-y:auto;font-size:.82rem;line-height:1.7;text-align:left;align-items:flex-start;justify-content:flex-start}
+.fc-nav{display:flex;align-items:center;justify-content:space-between;margin-top:12px;gap:8px}
+.fc-nav button{width:40px;height:40px;border-radius:50%;border:1px solid var(--border);background:var(--card);cursor:pointer;font-size:1.1rem;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.fc-nav button:hover{background:var(--primary);color:#fff;border-color:var(--primary)}
+.fc-nav .fc-progress{font-size:.78rem;color:var(--text-s)}
 </style>
 </head>
 <body>
@@ -1158,21 +1163,32 @@ function renderKnowledge(){
   $('page-knowledge').innerHTML=html;
 }
 
+let fcIdx=0;
 function buildKBCards(learned,filterCat){
-  let html='<div class="flashcard-grid">';
+  let topics=[];
   KB.forEach((cat,ci)=>{
     if(filterCat!=='all'&&filterCat!==cat.id)return;
     cat.topics.forEach((t,ti)=>{
       const key=cat.id+'_'+ti;
-      const isLearned=learned.includes(key);
-      html+='<div class="flashcard" id="fc-'+key+'" onclick="this.classList.toggle(\'flipped\')">';
-      html+='<div class="flashcard-inner">';
-      html+='<div class="flashcard-front">'+t.title+(isLearned?' <span style="font-size:.7rem;opacity:.7">✓已掌握</span>':'')+'</div>';
-      html+='<div class="flashcard-back">'+t.detail;
-      html+='<div style="margin-top:8px"><button class="mark-btn'+(isLearned?' marked':'')+'" onclick="event.stopPropagation();markLearned(\''+key+'\',this);renderKnowledge()" style="font-size:.75rem;padding:4px 10px;border-radius:6px;border:1px solid var(--border);cursor:pointer;background:transparent">'+(isLearned?'已掌握':'标记已学')+'</button></div>';
-      html+='</div></div></div>';
+      topics.push({title:t.title,detail:t.detail,cat:cat.id,key,learned:learned.includes(key)});
     });
   });
+  if(!topics.length)return '<div style="text-align:center;color:var(--text-s);padding:20px">暂无知识点</div>';
+  if(fcIdx>=topics.length)fcIdx=0;
+  const t=topics[fcIdx];
+  let html='<div class="fc-container">';
+  html+='<div style="font-size:.73rem;color:var(--text-s);text-align:center;margin-bottom:6px">'+t.cat+'</div>';
+  html+='<div class="fc-card" onclick="this.classList.toggle(\'flipped\')">';
+  html+='<div class="fc-card-inner">';
+  html+='<div class="fc-card-front">'+t.title+(t.learned?'<small>✓ 已掌握</small>':'<small>点击翻转查看详情</small>')+'</div>';
+  html+='<div class="fc-card-back"><div style="width:100%">'+t.detail+'</div>';
+  html+='<div style="margin-top:10px;text-align:center;width:100%"><button style="font-size:.75rem;padding:6px 14px;border-radius:8px;border:1px solid var(--primary);cursor:pointer;background:'+(t.learned?'var(--primary)':'transparent')+';color:'+(t.learned?'#fff':'var(--primary)')+'" onclick="event.stopPropagation();markLearned(\''+t.key+'\',this);fcIdx='+fcIdx+';renderKnowledge()">'+(t.learned?'已掌握 ✓':'标记已学')+'</button></div>';
+  html+='</div></div></div>';
+  html+='<div class="fc-nav">';
+  html+='<button onclick="fcIdx=Math.max(0,fcIdx-1);renderKnowledge()"'+(fcIdx===0?' disabled style="opacity:.4"':'')+'>◀</button>';
+  html+='<span class="fc-progress">'+(fcIdx+1)+' / '+topics.length+'</span>';
+  html+='<button onclick="fcIdx=Math.min('+(topics.length-1)+',fcIdx+1);renderKnowledge()"'+(fcIdx>=topics.length-1?' disabled style="opacity:.4"':'')+'>▶</button>';
+  html+='</div>';
   html+='</div>';
   return html;
 }
@@ -2032,10 +2048,10 @@ function renderPlan(){
 
   html+='<div class="card"><div class="card-title">每日任务清单</div>';
   html+='<div class="plan-checklist">';
+  const todayCompleted=dailyTasks.filter((_,i)=>checkedTasks[today+'_'+i]).length;
   dailyTasks.forEach((t,i)=>{
     const key=today+'_'+i;
-    const checked=checkedTasks[key]||false;
-    const completedCount=Object.values(checkedTasks).filter(v=>v&&v.startsWith(today)).length;
+    const checked=!!checkedTasks[key];
     html+='<div class="check-item">';
     html+='<input type="checkbox" '+(checked?'checked':'')+' onchange="toggleTask(\''+key+'\',this.checked)">';
     html+='<span style="'+(checked?'text-decoration:line-through;color:var(--text-s)':'')+'">'+t+'</span>';
@@ -2043,8 +2059,8 @@ function renderPlan(){
   });
   html+='</div>';
   html+='<div style="margin-top:8px">';
-  html+='<div class="progress-bar"><div class="fill" style="width:'+(Object.values(checkedTasks).filter(v=>v&&v.startsWith(today)).length/dailyTasks.length*100)+'%;background:var(--success)"></div></div>';
-  html+='<p style="font-size:.76rem;color:var(--text-s);margin-top:4px">今日完成 '+Object.values(checkedTasks).filter(v=>v&&v.startsWith(today)).length+'/'+dailyTasks.length+'</p>';
+  html+='<div class="progress-bar"><div class="fill" style="width:'+(todayCompleted/dailyTasks.length*100)+'%;background:var(--success)"></div></div>';
+  html+='<p style="font-size:.76rem;color:var(--text-s);margin-top:4px">今日完成 '+todayCompleted+'/'+dailyTasks.length+'</p>';
   html+='</div></div>';
 
   html+='<div class="card"><div class="card-title">学习建议</div>';
@@ -2096,7 +2112,11 @@ function doCheckIn(){
 function toggleTask(key,checked){
   const db=getDB();
   if(!db.checkedTasks)db.checkedTasks={};
-  db.checkedTasks[key]=checked;
+  if(checked){
+    db.checkedTasks[key]=new Date().toISOString().slice(0,10);
+  }else{
+    delete db.checkedTasks[key];
+  }
   saveDB(db);
   renderPlan();
 }
