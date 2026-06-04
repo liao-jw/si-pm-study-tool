@@ -147,6 +147,13 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans S
 .mock-sheet-dot.correct-dot{background:var(--success);color:#fff}
 .mock-sheet-dot.wrong-dot{background:var(--danger);color:#fff}
 .section-divider{padding:10px;background:var(--primary);color:#fff;border-radius:8px;margin:14px 0;font-size:.85rem;font-weight:600}
+.flashcard{width:100%;perspective:1000px;cursor:pointer;margin:8px auto}
+.flashcard-inner{position:relative;width:100%;transition:transform 0.6s;transform-style:preserve-3d}
+.flashcard.flipped .flashcard-inner{transform:rotateY(180deg)}
+.flashcard-front,.flashcard-back{backface-visibility:hidden;border-radius:12px;padding:20px;min-height:120px}
+.flashcard-front{background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:.92rem;text-align:center}
+.flashcard-back{background:var(--card);border:1px solid var(--border);transform:rotateY(180deg);overflow:auto;font-size:.78rem;line-height:1.6}
+.flashcard-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
 </style>
 </head>
 <body>
@@ -165,6 +172,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans S
     <button class="nav-btn" onclick="nav('plan')">备考</button>
     <button class="nav-btn" onclick="nav('mock')">模拟</button>
     <button class="nav-btn" onclick="nav('analysis')">分析</button>
+    <button class="nav-btn" onclick="nav('formula')">公式</button>
   </div>
   <div class="page active" id="page-home"></div>
   <div class="page" id="page-knowledge"></div>
@@ -175,6 +183,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans S
   <div class="page" id="page-plan"></div>
   <div class="page" id="page-mock"></div>
   <div class="page" id="page-analysis"></div>
+  <div class="page" id="page-formula"></div>
 </div>
 <div class="toast" id="toast"></div>
 <script>
@@ -1046,7 +1055,7 @@ content:'<h4>改进措施万能框架</h4>'+
 
 // ===== APP STATE =====
 let currentPage='home';
-let quizState={mode:'practice',cat:'all',idx:0,answers:{},answered:{},timer:null,seconds:0,started:false,done:false,random:false};
+let quizState={mode:'practice',cat:'all',idx:0,answers:{},answered:{},timer:null,seconds:0,started:false,done:false,random:false,timed:false,questionStart:0,times:{}};
 let cpmActivities=[];
 let dailyTasks=['复习知识点 30分钟','刷题 20道','练习案例题 1个','复习错题 10道','计算题练习 3道'];
 
@@ -1058,7 +1067,7 @@ function nav(page){
   const pageEl=$('page-'+page);
   if(pageEl)pageEl.classList.add('active');
   document.querySelectorAll('.nav-btn').forEach(b=>{
-    if(b.textContent.includes(page==='home'?'首页':page==='knowledge'?'知识':page==='quiz'?'刷题':page==='case'?'案例':page==='calc'?'计算':page==='wrong'?'错题':page==='plan'?'备考':page==='mock'?'模拟':page==='analysis'?'分析':''))b.classList.add('active');
+    if(b.textContent.includes(page==='home'?'首页':page==='knowledge'?'知识':page==='quiz'?'刷题':page==='case'?'案例':page==='calc'?'计算':page==='wrong'?'错题':page==='plan'?'备考':page==='mock'?'模拟':page==='analysis'?'分析':page==='formula'?'公式':''))b.classList.add('active');
   });
   if(page==='home')renderHome();
   else if(page==='knowledge')renderKnowledge();
@@ -1069,6 +1078,7 @@ function nav(page){
   else if(page==='plan')renderPlan();
   else if(page==='mock')renderMock();
   else if(page==='analysis')renderAnalysis();
+  else if(page==='formula')renderFormulaPage();
 }
 
 // ===== HOME =====
@@ -1109,10 +1119,18 @@ function renderHome(){
       '<button class="btn-warning" style="padding:10px 18px;border-radius:8px;border:none;cursor:pointer;font-size:.84rem" onclick="nav(\'calc\')">打开计算器</button>'+
       '<button class="btn-secondary" style="padding:10px 18px;border-radius:8px;border:none;cursor:pointer;font-size:.84rem" onclick="nav(\'wrong\')">复习错题</button>'+
     '</div>'+
+  '</div>'+
+  '<div class="card"><div class="card-title">数据管理</div>'+
+    '<div style="display:flex;flex-wrap:wrap;gap:8px">'+
+      '<button class="btn-primary" style="padding:8px 16px;border-radius:8px;border:none;cursor:pointer;font-size:.82rem" onclick="exportProgress()">导出进度</button>'+
+      '<button class="btn-secondary" style="padding:8px 16px;border-radius:8px;border:1px solid var(--border);cursor:pointer;font-size:.82rem;background:transparent" onclick="importProgress()">导入进度</button>'+
+    '</div>'+
+    '<div style="font-size:.73rem;color:var(--text-s);margin-top:6px">导出后可备份到本地，换设备时可导入恢复</div>'+
   '</div>';
 }
 
 // ===== KNOWLEDGE =====
+let kbViewMode='list';
 function renderKnowledge(){
   const db=getDB();
   const learned=db.learnedTopics||[];
@@ -1125,11 +1143,38 @@ function renderKnowledge(){
   cats.forEach(c=>{html+='<option value="'+c+'">'+(c==='all'?'全部分类':c)+'</option>';});
   html+='</select>';
   html+='<button class="btn-secondary" onclick="collapseAllKB()">全部折叠</button>';
+  html+='<button class="btn-secondary" onclick="kbViewMode=\'list\';renderKnowledge()">列表</button>';
+  html+='<button class="btn-secondary" onclick="kbViewMode=\'card\';renderKnowledge()">闪卡</button>';
   html+='</div>';
-  html+='<div id="kb-list">';
-  html+=buildKBList(learned,'all','');
-  html+='</div>';
+  if(kbViewMode==='card'){
+    html+='<div id="kb-list">';
+    html+=buildKBCards(learned,'all');
+    html+='</div>';
+  }else{
+    html+='<div id="kb-list">';
+    html+=buildKBList(learned,'all','');
+    html+='</div>';
+  }
   $('page-knowledge').innerHTML=html;
+}
+
+function buildKBCards(learned,filterCat){
+  let html='<div class="flashcard-grid">';
+  KB.forEach((cat,ci)=>{
+    if(filterCat!=='all'&&filterCat!==cat.id)return;
+    cat.topics.forEach((t,ti)=>{
+      const key=cat.id+'_'+ti;
+      const isLearned=learned.includes(key);
+      html+='<div class="flashcard" id="fc-'+key+'" onclick="this.classList.toggle(\'flipped\')">';
+      html+='<div class="flashcard-inner">';
+      html+='<div class="flashcard-front">'+t.title+(isLearned?' <span style="font-size:.7rem;opacity:.7">✓已掌握</span>':'')+'</div>';
+      html+='<div class="flashcard-back">'+t.detail;
+      html+='<div style="margin-top:8px"><button class="mark-btn'+(isLearned?' marked':'')+'" onclick="event.stopPropagation();markLearned(\''+key+'\',this);renderKnowledge()" style="font-size:.75rem;padding:4px 10px;border-radius:6px;border:1px solid var(--border);cursor:pointer;background:transparent">'+(isLearned?'已掌握':'标记已学')+'</button></div>';
+      html+='</div></div></div>';
+    });
+  });
+  html+='</div>';
+  return html;
 }
 
 function buildKBList(learned,filterCat,searchTerm){
@@ -1226,6 +1271,7 @@ function renderQuiz(){
     if(savedProgress.mode)quizState.mode=savedProgress.mode;
     if(savedProgress.cat)quizState.cat=savedProgress.cat;
     if(savedProgress.random!==undefined)quizState.random=savedProgress.random;
+    if(savedProgress.timed!==undefined)quizState.timed=savedProgress.timed;
   }
   const cats=['all'];
   QB.forEach(q=>{if(!cats.includes(q.cat))cats.push(q.cat);});
@@ -1241,6 +1287,7 @@ function renderQuiz(){
   html+='</select>';
   html+='<button class="btn-primary" style="padding:8px 12px;border-radius:8px;font-size:.82rem;border:none;cursor:pointer" onclick="startQuiz()">重新开始</button>';
   html+='<label style="display:flex;align-items:center;gap:4px;font-size:.82rem;cursor:pointer;white-space:nowrap"><input type="checkbox" id="quiz-random" '+(quizState.random?'checked':'')+' onchange="quizState.random=this.checked;startQuiz()"> 随机</label>';
+  html+='<label style="display:flex;align-items:center;gap:4px;font-size:.82rem;cursor:pointer;white-space:nowrap"><input type="checkbox" id="quiz-timed" '+(quizState.timed?'checked':'')+' onchange="quizState.timed=this.checked;startQuiz()"> 限时(2分钟/题)</label>';
   // 在 quiz-config card 的 </div> 前添加进度
   const answeredCount=Object.keys(quizState.answered).length;
   const correctCount=Object.values(quizState.answered).filter(v=>v===true).length;
@@ -1275,6 +1322,8 @@ function startQuiz(){
   quizState.started=false;
   quizState.done=false;
   quizState._shuffled=null;
+  quizState.questionStart=Date.now();
+  quizState.times={};
   if(quizState.mode==='exam')quizState.seconds=QB.length*60;
   // 清除保存的进度
   const db=getDB();delete db.quizState;saveDB(db);
@@ -1324,6 +1373,11 @@ function renderQuizQuestion(){
   const diffColor={1:'tag-green',2:'tag-yellow',3:'tag-red','?':'tag-purple'};
   html+='<span class="tag '+(diffColor[diff]||'tag-purple')+'" title="难度等级">难度:'+(diffLabel[diff]||'?')+'</span>';
   html+=' 第'+(quizState.idx+1)+'/'+qs.length+'题</div>';
+  if(quizState.timed&&!answered){
+    const elapsed=Math.round((Date.now()-quizState.questionStart)/1000);
+    const over120=elapsed>120;
+    html+='<div style="font-size:.78rem;margin-bottom:8px;padding:4px 8px;border-radius:4px;'+(over120?'background:#fef2f2;color:var(--danger);font-weight:600':'color:var(--text-s)')+'" id="quiz-timer-display">已用时间：'+elapsed+'秒'+(over120?' \u26a0 \u5df2\u8d85\u8fc7\u5efa\u8bae\u7b54\u9898\u65f6\u95f4':'')+'</div>';
+  }
   html+='<p style="font-size:.9rem;margin-bottom:10px">'+q.q+'</p>';
   html+='<div class="quiz-options">';
   q.opts.forEach((opt,oi)=>{
@@ -1397,6 +1451,7 @@ function confirmAnswer(){
   const q=qs[quizState.idx];
   const oi=quizState.answers[quizState.idx];
   if(oi===undefined)return;
+  if(quizState.timed){quizState.times[quizState.idx]=Math.round((Date.now()-quizState.questionStart)/1000);}
   quizState.answered[quizState.idx]=oi===q.ans;
   const db=getDB();
   if(!db.quizAnswered)db.quizAnswered={};
@@ -1421,7 +1476,8 @@ function saveQuizProgress(){
     idx:quizState.idx,
     answers:quizState.answers,
     answered:quizState.answered,
-    random:quizState.random||false
+    random:quizState.random||false,
+    timed:quizState.timed||false
   };
   saveDB(db);
 }
@@ -1837,6 +1893,19 @@ function renderWrong(){
   keys.forEach(k=>{if(!cats.includes(wb[k].cat))cats.push(wb[k].cat);});
 
   let html='<div class="card"><div class="card-title">错题本 ('+keys.length+'题)</div>';
+  // 薄弱点分析：统计每个分类的错题数量，显示TOP5
+  if(keys.length>0){
+    const catCount={};
+    keys.forEach(k=>{const c=wb[k].cat||'未分类';catCount[c]=(catCount[c]||0)+1;});
+    const topCats=Object.entries(catCount).sort((a,b)=>b[1]-a[1]).slice(0,5);
+    const maxCount=topCats.length?topCats[0][1]:1;
+    html+='<div style="margin:10px 0;padding:10px;background:#fef3c7;border-radius:8px"><div style="font-size:.82rem;font-weight:600;color:#92400e;margin-bottom:8px">\u8584\u5f31\u77e5\u8bc6\u70b9TOP5</div>';
+    topCats.forEach(([cat,count])=>{
+      const pct=Math.round(count/maxCount*100);
+      html+='<div style="display:flex;align-items:center;gap:6px;margin:4px 0"><span style="width:60px;font-size:.73rem;cursor:pointer" onclick="nav(\'knowledge\');setTimeout(()=>{$(\'kb-cat-filter\').value=\''+cat+'\';filterKB()},100)">'+cat+'</span><div style="flex:1;height:16px;background:var(--border);border-radius:4px;overflow:hidden"><div style="width:'+pct+'%;height:100%;background:var(--danger)"></div></div><span style="font-size:.73rem;color:var(--text-s)">'+count+'\u9898</span></div>';
+    });
+    html+='</div>';
+  }
   html+='<div class="quiz-config">';
   html+='<select id="wrong-filter" onchange="filterWrong()">';
   cats.forEach(c=>{html+='<option value="'+c+'">'+(c==='all'?'全部分类':c)+'</option>';});
@@ -2400,6 +2469,126 @@ function renderAnalysis(){
   html+='</div>';
 
   el.innerHTML=html;
+}
+
+// ===== FORMULA PAGE =====
+const FORMULAS=[
+  {cat:'成本管理',name:'CV（成本偏差）',formula:'CV = EV - AC',desc:'CV<0 成本超支，CV>0 成本节约',ex:'EV=100, AC=120, CV=-20 超支20万'},
+  {cat:'成本管理',name:'SV（进度偏差）',formula:'SV = EV - PV',desc:'SV<0 进度落后，SV>0 进度提前',ex:'EV=100, PV=120, SV=-20 落后'},
+  {cat:'成本管理',name:'CPI（成本绩效指数）',formula:'CPI = EV / AC',desc:'CPI<1 成本超支，CPI>1 成本节约',ex:'EV=100, AC=120, CPI=0.83 超支'},
+  {cat:'成本管理',name:'SPI（进度绩效指数）',formula:'SPI = EV / PV',desc:'SPI<1 进度落后，SPI>1 进度提前',ex:'EV=100, PV=120, SPI=0.83 落后'},
+  {cat:'成本管理',name:'EAC（完工估算）',formula:'EAC = BAC / CPI（典型偏差）\nEAC = AC + (BAC-EV)（非典型偏差）\nEAC = AC + ETC（自下而上）',desc:'典型偏差用BAC/CPI，非典型偏差用AC+剩余',ex:'BAC=100, CPI=0.8, EAC=100/0.8=125万'},
+  {cat:'成本管理',name:'ETC（完工尚需估算）',formula:'ETC = EAC - AC\nETC = (BAC-EV)/CPI（典型）\nETC = BAC-EV（非典型）',desc:'典型偏差按CPI调整剩余工作',ex:''},
+  {cat:'成本管理',name:'VAC（完工偏差）',formula:'VAC = BAC - EAC',desc:'VAC<0 将超预算',ex:''},
+  {cat:'成本管理',name:'TCPI（完工尚需绩效指数）',formula:'TCPI = (BAC-EV) / (BAC-AC)',desc:'TCPI>1 难以完成目标，TCPI<1 容易',ex:'BAC=100, EV=40, AC=50, TCPI=(100-40)/(100-50)=1.2'},
+  {cat:'成本管理',name:'折旧法-直线法',formula:'年折旧额 = (原值-残值) / 使用年限',desc:'每年折旧额相同',ex:'原值100万,残值10万,使用5年,年折旧=18万'},
+  {cat:'成本管理',name:'折旧法-双倍余额递减法',formula:'年折旧额 = 账面净值 × (2/使用年限)',desc:'前期折旧多，后期少，最后两年改直线法',ex:'原值100万,5年,第1年折旧=100×2/5=40万'},
+  {cat:'成本管理',name:'折旧法-年数总和法',formula:'年折旧额 = (原值-残值) × 剩余年数/年数总和',desc:'年数总和=n(n+1)/2',ex:'5年:年数总和=15,第1年折旧=90×5/15=30万'},
+  {cat:'时间管理',name:'PERT（三点估算）',formula:'期望 t = (O + 4M + P) / 6\n标准差 σ = (P - O) / 6\n方差 σ² = ((P-O)/6)²',desc:'O最乐观, M最可能, P最悲观',ex:'O=2天, M=4天, P=6天, t=(2+16+6)/6=4天'},
+  {cat:'时间管理',name:'关键路径',formula:'总浮动 TF = LS - ES = LF - EF\nTF=0 在关键路径上',desc:'关键路径=项目最短工期',ex:''},
+  {cat:'时间管理',name:'自由浮动',formula:'FF = ES(后继) - EF(当前)',desc:'不影响后续活动的可延迟时间',ex:''},
+  {cat:'时间管理',name:'完工概率（正态分布）',formula:'P(T≤t) 查标准正态表\nZ = (t - 期望) / 标准差',desc:'Z>0 概率>50%, Z越大越确定',ex:'期望=40天, σ=2天, 求42天内完成: Z=(42-40)/2=1, P=84%'},
+  {cat:'沟通管理',name:'沟通渠道数',formula:'N = n(n-1) / 2',desc:'n为干系人数，每增加1人增加n条渠道',ex:'6人团队，渠道=6×5/2=15条'},
+  {cat:'风险管理',name:'EMV（期望货币值）',formula:'EMV = Σ(概率 × 影响金额)',desc:'正值为收益，负值为损失',ex:'成功概率60%收益100万，失败40%损失30万，EMV=60-12=48万'},
+  {cat:'风险管理',name:'决策树',formula:'EMV = Σ各分支EMV\n剪枝：取EMV最大的分支',desc:'从右到左计算，决策点取最大值',ex:''},
+  {cat:'风险管理',name:'风险优先级',formula:'优先级 = 概率 × 影响\n或用风险矩阵',desc:'概率×影响排序，高优先级优先应对',ex:'概率0.3×影响8万=2.4万'},
+  {cat:'质量管理',name:'CPK（过程能力指数）',formula:'Cpk = min( (μ-LSL)/3σ, (USL-μ)/3σ )',desc:'Cpk≥1.33 过程能力充足',ex:'均值=10, USL=12, LSL=8, σ=0.3, Cpk=min(6.67/0.9, 6.67/0.9)=6.67（理想）'},
+  {cat:'质量管理',name:'控制图规则',formula:'7点同侧 / 7点同趋势 = 异常',desc:'区分随机变异和系统变异',ex:''},
+  {cat:'采购管理',name:'TCO（总拥有成本）',formula:'TCO = 采购成本 + 运营成本 + 维护成本 + 废弃成本',desc:'决策考虑全生命周期',ex:''},
+  {cat:'采购管理',name:'合同类型-固定总价',formula:'价格固定，买方风险低，卖方风险高',desc:'范围明确时使用',ex:''},
+  {cat:'采购管理',name:'合同类型-成本补偿',formula:'实际成本+酬金\nCPIF: 实际成本+固定酬金\nCPFF: 实际成本+固定百分比酬金',desc:'范围不明确时使用，买方风险高',ex:''},
+  {cat:'采购管理',name:'合同类型-T&M',formula:'单价×实际用量',desc:'适用小型/短期项目',ex:''},
+  {cat:'整体管理',name:'ROI（投资回报率）',formula:'ROI = (年收益 - 年成本) / 投资总额',desc:'ROI>0 项目值得投资',ex:'年收益50万-年成本30万=20万，投资100万，ROI=20%'},
+  {cat:'整体管理',name:'NPV（净现值）',formula:'NPV = Σ[净现金流 / (1+r)^t]',desc:'NPV>0 项目可行，越大越好',ex:''},
+  {cat:'整体管理',name:'资源平滑',formula:'不改变关键路径，仅利用浮动时间\n让资源需求均衡',desc:'工期不变，资源更均衡',ex:''},
+  {cat:'整体管理',name:'资源平衡',formula:'资源受限时可能延长关键路径\n工期可能变更',desc:'当资源平滑无法满足时使用',ex:''},
+  {cat:'整体管理',name:'项目章程包含',formula:'项目目的/理由/高层需求/里程碑/预算概要\n干系人清单/审批要求/项目经理任命',desc:'项目启动的正式授权文件',ex:''},
+];
+
+function renderFormulaPage(){
+  let html='<input class="search-box" id="formula-search" placeholder="搜索公式名称、公式内容..." oninput="filterFormulas()" style="margin-bottom:10px">';
+  html+='<div id="formula-list"></div>';
+  $('page-formula').innerHTML=html;
+  filterFormulas();
+}
+
+function filterFormulas(){
+  const term=($('formula-search')?.value||'').toLowerCase();
+  const grouped={};
+  FORMULAS.forEach(f=>{
+    if(term&&!f.name.toLowerCase().includes(term)&&!f.formula.toLowerCase().includes(term)&&!f.cat.includes(term)&&!f.desc.includes(term))return;
+    if(!grouped[f.cat])grouped[f.cat]=[];
+    grouped[f.cat].push(f);
+  });
+  let html='';
+  Object.entries(grouped).forEach(([cat,list])=>{
+    html+='<div class="card"><div class="card-title">'+cat+' ('+list.length+'个)</div>';
+    list.forEach(f=>{
+      html+='<div style="padding:10px;border:1px solid var(--border);border-radius:8px;margin:8px 0">';
+      html+='<div style="font-weight:600;font-size:.88rem;color:var(--primary-dark);margin-bottom:6px">'+f.name+'</div>';
+      html+='<div style="font-family:monospace;font-size:.84rem;background:#f1f5f9;padding:10px;border-radius:6px;margin:6px 0;white-space:pre-wrap">'+f.formula+'</div>';
+      html+='<div style="font-size:.78rem;color:var(--text-s);margin:4px 0">'+f.desc+'</div>';
+      if(f.ex)html+='<div style="font-size:.75rem;color:var(--primary);background:#eff6ff;padding:6px 8px;border-radius:4px;margin-top:4px">例：'+f.ex+'</div>';
+      html+='</div>';
+    });
+    html+='</div>';
+  });
+  if(!html)html='<div class="card" style="text-align:center"><p style="color:var(--text-s)">未找到匹配的公式</p></div>';
+  $('formula-list').innerHTML=html;
+}
+
+// ===== DATA EXPORT/IMPORT =====
+function exportProgress(){
+  const db=getDB();
+  const data={
+    version:1,
+    exportDate:new Date().toISOString().slice(0,10),
+    learnedTopics:db.learnedTopics||[],
+    wrongBook:db.wrongBook||{},
+    checkIns:db.checkIns||[],
+    checkInStreak:db.checkInStreak||0,
+    lastCheckIn:db.lastCheckIn||'',
+    quizAnswered:db.quizAnswered||{},
+    quizState:db.quizState||{}
+  };
+  const json=JSON.stringify(data,null,2);
+  const blob=new Blob([json],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='si-pm-progress-'+new Date().toISOString().slice(0,10)+'.json';
+  a.click();
+  URL.revokeObjectURL(a.href);
+  toast('进度已导出');
+}
+
+function importProgress(){
+  const input=document.createElement('input');
+  input.type='file';
+  input.accept='.json';
+  input.onchange=()=>{
+    const file=input.files[0];
+    if(!file){toast('未选择文件');return;}
+    const reader=new FileReader();
+    reader.onload=()=>{
+      try{
+        const data=JSON.parse(reader.result);
+        if(!data.version||!data.learnedTopics){toast('文件格式不正确');return;}
+        const db=getDB();
+        db.learnedTopics=data.learnedTopics||[];
+        db.wrongBook=data.wrongBook||{};
+        db.checkIns=data.checkIns||[];
+        db.checkInStreak=data.checkInStreak||0;
+        db.lastCheckIn=data.lastCheckIn||'';
+        db.quizAnswered=data.quizAnswered||{};
+        if(data.quizState)db.quizState=data.quizState;
+        saveDB(db);
+        toast('导入成功，页面将刷新');
+        setTimeout(()=>location.reload(),1000);
+      }catch(e){toast('文件解析失败：'+e.message);}
+    };
+    reader.readAsText(file);
+  };
+  input.click();
 }
 
 // ===== INIT =====
